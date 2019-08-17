@@ -2,12 +2,12 @@ mathplot.gui.screens = mathplot.gui.screens or {}
 
 
 local function open_originmenu(name_idx, playername)
-    local names, locations = mathplot.get_origin_locations()
-    if names[name_idx] ~= nil then
-        local locationData = locations[names[name_idx]]
-        if locationData ~= nil then
+    local _, positions = mathplot.get_origin_location_lists()
+    if name_idx ~= nil then
+        local pos = positions[name_idx]
+        if pos ~= nil then
             local newContext = {
-                node_pos = locationData.pos
+                node_pos = pos
             }
             mathplot.gui.invoke_screen("originmainmenu", playername, newContext)
         end
@@ -17,16 +17,13 @@ end
 local function teleport(name_idx, playername)
     local privs = minetest.get_player_privs(playername)
     if privs and privs.teleport then
-        local names, locations = mathplot.get_origin_locations()
+        local _, positions = mathplot.get_origin_location_lists()
         if name_idx ~= nil then
-            local name = names[name_idx]
-            if name ~= nil then
-                local locationData = locations[name]
-                minetest.log("mathplot: player " .. playername .. " teleporting to " .. minetest.pos_to_string(locationData.pos))
-                local player = minetest.get_player_by_name(playername)
-                if player then
-                    player:set_pos(locationData.pos)
-                end
+            local pos = positions[name_idx]
+            minetest.log("mathplot: player " .. playername .. " teleporting to " .. minetest.pos_to_string(pos))
+            local player = minetest.get_player_by_name(playername)
+            if player then
+                player:set_pos(pos)
             end
         end
     end
@@ -38,9 +35,9 @@ mathplot.gui.screens["mainmenu"] = {
     end,
     get_formspec = function(playername, identifier, context)
         local canTeleport = minetest.get_player_privs(playername).teleport
-        local names, locations = mathplot.get_origin_locations()
+        local names, positions = mathplot.get_origin_location_lists()
         for i = 1, #names do
-            names[i] = string.format("%s at %s", names[i], minetest.pos_to_string(locations[names[i]].pos))
+            names[i] = string.format("%s at %s", names[i], minetest.pos_to_string(positions[i]))
         end
         local namesStr = mathplot.util.escape_textlist(names)
         local formspec = "size[6,6.5]"

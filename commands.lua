@@ -7,21 +7,15 @@ minetest.register_privilege("mathplot", {
 
 
 local function do_mathplot_menu(playername, param)
-    local names, locations = mathplot.get_origin_locations()
-    if #names > 0 then
-        local context = {}
-        mathplot.gui.invoke_screen("mainmenu", playername, context)
-    else
-        return false, "No origin nodes recorded."
-    end
-    return true, nil
+    local context = {}
+    mathplot.gui.invoke_screen("mainmenu", playername, context)
 end
 
 
---local function do_mathplot_clearlist(playername, param)
---    mathplot.clear_origin_locations()
---    return true, "Origin locations list cleared."
---end
+local function do_mathplot_clearlist(playername, param)
+    mathplot.clear_origin_locations()
+    return true, "Origin locations list cleared."
+end
 
 
 local function do_mathplot_timeout(playername, param)
@@ -75,7 +69,7 @@ end
 
 local subcommand_map = {
     menu = do_mathplot_menu,
-    --clearlist = do_mathplot_clearlist,
+    clearlist = do_mathplot_clearlist,
     timeout = do_mathplot_timeout,
     max_coord = do_mathplot_max_coord
 }

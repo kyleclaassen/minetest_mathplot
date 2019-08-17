@@ -8,7 +8,7 @@ end
 
 mathplot.store_origin_location = function(name, pos)
     local locations = minetest.deserialize(mod_storage:get_string("origin_locations")) or {}
-    locations[name] = {
+    locations[minetest.pos_to_string(pos)] = {
         name = name,
         pos = pos
     }
@@ -17,9 +17,9 @@ end
 
 mathplot.remove_origin_location = function(pos)
     local locations = minetest.deserialize(mod_storage:get_string("origin_locations")) or {}
-    for name, loc in pairs(locations) do
-        if vector.equals(loc.pos, pos) then
-            locations[name] = nil
+    for locpos, _ in pairs(locations) do
+        if vector.equals(locpos, pos) then
+            locations[pos] = nil
         end
     end
     mod_storage:set_string("origin_locations", minetest.serialize(locations))
@@ -28,43 +28,55 @@ end
 mathplot.get_origin_locations = function()
     local s = mod_storage:get_string("origin_locations")
     local locations = minetest.deserialize(s) or {}
+    return locations
+end
+
+mathplot.get_origin_location_lists = function()
+    local locations = mathplot.get_origin_locations()
 
     local names = {}
-    for name, _ in pairs(locations) do
-        names[#names+1] = name
+    for _, locData in pairs(locations) do
+        names[#names+1] = locData.name
     end
-    table.sort(names)
-    return names, locations
+    --Case-insensitive sort
+    table.sort(names, function(a,b) return string.lower(a) < string.lower(b) end)
+
+    local posList = {}
+    for _, n in ipairs(names) do
+        for posStr, locData in pairs(locations) do
+            if locData.name == n then
+                posList[#posList+1] = locData.pos
+            end
+        end
+    end
+
+    return names, posList
 end
 
 
-mathplot.get_origin_location_by_name = function(name)
-    local _, locationsByName = mathplot.get_origin_locations()
-    for locName, locData in pairs(locationsByName) do
-        if locName == name then
-            return locData
+mathplot.get_origin_locations_by_name = function(name)
+    local locationsByPos = mathplot.get_origin_locations()
+    local l = {}
+    for _, locData in pairs(locationsByPos) do
+        if locData.name == name then
+            l[#l+1] = locData
         end
     end
-    return nil
+    return l
 end
 
 mathplot.get_origin_location_by_pos = function(pos)
-    local _, locationsByName = mathplot.get_origin_locations()
-    for locName, locData in pairs(locationsByName) do
-        if vector.equals(locData.pos, pos) then
-            return locData
-        end
-    end
-    return nil
+    local locationsByPos = mathplot.get_origin_locations()
+    return locationsByPos[minetest.pos_to_string(pos)]
 end
 
 mathplot.remove_stale_locations = function()
-    local _, locations = mathplot.get_origin_locations()
-    for _, locationData in pairs(locations) do
-        local node = mathplot.util.get_far_node(locationData.pos)
+    local locations = mathplot.get_origin_locations()
+    for _, locData in pairs(locations) do
+        local node = mathplot.util.get_far_node(locData.pos)
         if node and node.name ~= "mathplot:origin" then
-            minetest.log("mathplot: removing stale origin node at " .. minetest.pos_to_string(locationData.pos))
-            mathplot.remove_origin_location(locationData.pos)
+            minetest.log("mathplot: removing stale origin node at " .. minetest.pos_to_string(locData.pos))
+            mathplot.remove_origin_location(locData.pos)
         end
     end
 end
