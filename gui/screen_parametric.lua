@@ -160,11 +160,18 @@ local function concat_containers(...)
     return y, formspec
 end
 
-local default_params = {
-    parametric_curve = mathplot.plotdefaults.plot_parametric_curve_params(),
-    parametric_surface = mathplot.plotdefaults.plot_parametric_surface_params(),
-    parametric_solid = mathplot.plotdefaults.plot_parametric_solid_params()
-}
+
+local function default_params(identifier)
+    if identifier == "parametric_curve" then
+        return mathplot.plotdefaults.plot_parametric_curve_params()
+    elseif identifier == "parametric_surface" then
+        return mathplot.plotdefaults.plot_parametric_surface_params()
+    elseif identifier == "parametric_solid" then
+        return mathplot.plotdefaults.plot_parametric_solid_params()
+    end
+    minetest.log("Error: mathplot: invalid parametric identifier")
+    return nil
+end
 
 
 local parametric_screen = {
@@ -172,7 +179,7 @@ local parametric_screen = {
         --If context.action_params is already in context, then show those values.
         --(Likely coming back from a validation error.)
         if not context.action_params then
-            local defaults = default_params[identifier]
+            local defaults = default_params(identifier)
             local meta = minetest.get_meta(context.node_pos)
             local s = meta:get_string(identifier .. "_params")
             context.action_params = mathplot.util.merge_tables(
@@ -229,7 +236,7 @@ local parametric_screen = {
         if fields.btn_plot or fields.key_enter then
             local nodename = mathplot.gui.get_brushes(playername, { "brush" })["brush"]
             local newfields = mathplot.util.merge_tables(
-                default_params[identifier],
+                default_params(identifier),
                 fields,
                 { origin_pos = context.node_pos, nodename = nodename }
             )
@@ -246,7 +253,7 @@ local parametric_screen = {
             local screenIdentifier = fields.btn_to_curve and "parametric_curve" or fields.btn_to_surface and "parametric_surface" or fields.btn_to_solid and "parametric_solid" or nil
             local nodename = mathplot.gui.get_brushes(playername, { "brush" })["brush"]
             local newfields = mathplot.util.merge_tables(
-                default_params[screenIdentifier],
+                default_params(screenIdentifier),
                 fields,
                 { origin_pos = context.node_pos, nodename = nodename }
             )

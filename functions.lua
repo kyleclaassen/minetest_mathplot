@@ -68,7 +68,7 @@ local function make_safe_function(expressionstr, varnames)
     if varnames ~= nil then
         argstr = table.concat(varnames, ",")
     end
-    local sandboxstr = string.format("return function(%s) return tonumber(%s) end", argstr, expressionstr)
+    local sandboxstr = string.format("return function(%s) return %s end", argstr, expressionstr)
     local ftnwrapper, errormsg = create_sandbox(sandboxstr)
     if errormsg == nil then
         local ftn = ftnwrapper()

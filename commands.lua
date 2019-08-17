@@ -75,7 +75,7 @@ end
 
 local subcommand_map = {
     menu = do_mathplot_menu,
-    clearlist = do_mathplot_clearlist,
+    --clearlist = do_mathplot_clearlist,
     timeout = do_mathplot_timeout,
     max_coord = do_mathplot_max_coord
 }

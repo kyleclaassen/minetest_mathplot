@@ -144,6 +144,7 @@ minetest.register_on_player_receive_fields(
             if done == nil or done == true then
                 if context.action_callback then
                     context.action_callback()
+                    --Clear context
                 end
             elseif done == false then
                 --not done... reopen the form!
