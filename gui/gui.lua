@@ -12,7 +12,7 @@ local trashinv = minetest.create_detached_inventory(
         on_put = function(inv, listname)
             inv:set_list(listname, {})
         end
-})
+    })
 trashinv:set_size("main", 1)
 
 

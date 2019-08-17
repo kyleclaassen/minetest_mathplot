@@ -105,31 +105,31 @@ mathplot.gui.screens["implicit_plot"] = {
         mathplot.gui.set_brushes(playername, {brush = p.nodename})
 
         local formspec = "size[12,10.5]"
-            .. "label[0,0;Implicit Plot]"
-            .. "container[0,1]"
-            .. string.format("label[0,0;+X Direction:]field[2,0;2,1;e1;;%s]", p.e1)
-            .. string.format("label[4,0;+Y Direction:]field[6,0;2,1;e2;;%s]", p.e2)
-            .. string.format("label[8,0;+Z Direction:]field[10,0;2,1;e3;;%s]", p.e3)
-            .. string.format("label[0,1;X Min:]field[2,1;2,1;xmin;;%s]", p.xmin)
-            .. string.format("label[4,1;X Max:]field[6,1;2,1;xmax;;%s]", p.xmax)
-            .. string.format("label[8,1;X Step:]field[10,1;2,1;xstep;;%s]", p.xstep)
-            .. string.format("label[0,2;Y Min:]field[2,2;2,1;ymin;;%s]", p.ymin)
-            .. string.format("label[4,2;Y Max:]field[6,2;2,1;ymax;;%s]", p.ymax)
-            .. string.format("label[8,2;Y Step:]field[10,2;2,1;ystep;;%s]", p.ystep)
-            .. string.format("label[0,3;Z Min:]field[2,3;2,1;zmin;;%s]", p.zmin)
-            .. string.format("label[4,3;Z Max:]field[6,3;2,1--1;zmax;;%s]", p.zmax)
-            .. string.format("label[8,3;Z Step:]field[10,3;2,1;zstep;;%s]", p.zstep)
-            .. string.format("label[0,4;Condition:]field[2,4;10,1;ftn;;%s]", p.ftn)
-            .. "container_end[]"
-            .. "container[0,6]"
-            .. "list[current_player;main;0,0;8,4;]"
-            .. "label[8.25,0.25;Plot node:]"
-            .. "list[detached:mathplot:inv_brush_" .. playername .. ";brush;9.75,0;1,1;]"
-            .. "image[9.81,2.1;0.8,0.8;creative_trash_icon.png]"
-            .. "list[detached:mathplot:inv_trash;main;9.75,2;1,1;]"
-            .. "container_end[]"
-            .. "button_exit[0,10;2,1;btn_plot;Plot]"
-            .. "button_exit[2,10;2,1;btn_cancel;Cancel]"
+        .. "label[0,0;Implicit Plot]"
+        .. "container[0,1]"
+        .. string.format("label[0,0;+X Direction:]field[2,0;2,1;e1;;%s]", p.e1)
+        .. string.format("label[4,0;+Y Direction:]field[6,0;2,1;e2;;%s]", p.e2)
+        .. string.format("label[8,0;+Z Direction:]field[10,0;2,1;e3;;%s]", p.e3)
+        .. string.format("label[0,1;X Min:]field[2,1;2,1;xmin;;%s]", p.xmin)
+        .. string.format("label[4,1;X Max:]field[6,1;2,1;xmax;;%s]", p.xmax)
+        .. string.format("label[8,1;X Step:]field[10,1;2,1;xstep;;%s]", p.xstep)
+        .. string.format("label[0,2;Y Min:]field[2,2;2,1;ymin;;%s]", p.ymin)
+        .. string.format("label[4,2;Y Max:]field[6,2;2,1;ymax;;%s]", p.ymax)
+        .. string.format("label[8,2;Y Step:]field[10,2;2,1;ystep;;%s]", p.ystep)
+        .. string.format("label[0,3;Z Min:]field[2,3;2,1;zmin;;%s]", p.zmin)
+        .. string.format("label[4,3;Z Max:]field[6,3;2,1--1;zmax;;%s]", p.zmax)
+        .. string.format("label[8,3;Z Step:]field[10,3;2,1;zstep;;%s]", p.zstep)
+        .. string.format("label[0,4;Condition:]field[2,4;10,1;ftn;;%s]", p.ftn)
+        .. "container_end[]"
+        .. "container[0,6]"
+        .. "list[current_player;main;0,0;8,4;]"
+        .. "label[8.25,0.25;Plot node:]"
+        .. "list[detached:mathplot:inv_brush_" .. playername .. ";brush;9.75,0;1,1;]"
+        .. "image[9.81,2.1;0.8,0.8;creative_trash_icon.png]"
+        .. "list[detached:mathplot:inv_trash;main;9.75,2;1,1;]"
+        .. "container_end[]"
+        .. "button_exit[0,10;2,1;btn_plot;Plot]"
+        .. "button_exit[2,10;2,1;btn_cancel;Cancel]"
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)

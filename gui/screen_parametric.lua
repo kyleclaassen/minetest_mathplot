@@ -34,7 +34,7 @@ local function validate_parametric(playername, identifier, fields, context)
     if syntaxerror ~= nil then
         e[#e+1] = "qqSyntax error in ustep: " .. syntaxerror
     end
-    
+
     syntaxerror = mathplot.check_function_syntax(p.vmin, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
         e[#e+1] = "qqSyntax error in vmin: " .. syntaxerror

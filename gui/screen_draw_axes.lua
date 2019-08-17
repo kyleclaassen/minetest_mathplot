@@ -89,30 +89,30 @@ local function draw_axes_get_formspec(playername, identifier, context)
         { xaxisbrush = p.xaxisbrush, yaxisbrush = p.yaxisbrush, zaxisbrush = p.zaxisbrush })
 
     local formspec = "size[9,8.5;]"
-        .. "label[0,0;Draw Axes]"
+    .. "label[0,0;Draw Axes]"
     --Axis window ranges and direction vectors
-        .. "container[0,1]"
-        .. string.format("label[0,0;X Min:] field[1.4,0;1.25,1;xmin;;%s]", p.xmin)
-        .. string.format("label[2.4,0;X Max:] field[3.8,0;1.25,1;xmax;;%s]", p.xmax)
-        .. string.format("label[4.9,0;+X Direction:] field[6.9,0;1.35,1;e1;;%s]", p.e1)
-        .. "list[detached:mathplot:inv_brush_" .. playername .. ";xaxisbrush;8,-0.35;1,1;]"
-        .. string.format("label[0,1;Y Min:] field[1.4,1;1.25,1;ymin;;%s]", p.ymin)
-        .. string.format("label[2.4,1;Y Max:] field[3.8,1;1.25,1;ymax;;%s]", p.ymax)
-        .. string.format("label[4.9,1;+Y Direction:] field[6.9,1;1.35,1;e2;;%s]", p.e2)
-        .. "list[detached:mathplot:inv_brush_" .. playername .. ";yaxisbrush;8,0.65;1,1;]"
-        .. string.format("label[0,2;Z Min:] field[1.4,2;1.25,1;zmin;;%s]", p.zmin)
-        .. string.format("label[2.4,2;Z Max:] field[3.8,2;1.25,1;zmax;;%s]", p.zmax)
-        .. string.format("label[4.9,2;+Z Direction:] field[6.9,2;1.35,1;e3;;%s]", p.e3)
-        .. "list[detached:mathplot:inv_brush_" .. playername .. ";zaxisbrush;8,1.65;1,1;]"
-        .. "container_end[]"
+    .. "container[0,1]"
+    .. string.format("label[0,0;X Min:] field[1.4,0;1.25,1;xmin;;%s]", p.xmin)
+    .. string.format("label[2.4,0;X Max:] field[3.8,0;1.25,1;xmax;;%s]", p.xmax)
+    .. string.format("label[4.9,0;+X Direction:] field[6.9,0;1.35,1;e1;;%s]", p.e1)
+    .. "list[detached:mathplot:inv_brush_" .. playername .. ";xaxisbrush;8,-0.35;1,1;]"
+    .. string.format("label[0,1;Y Min:] field[1.4,1;1.25,1;ymin;;%s]", p.ymin)
+    .. string.format("label[2.4,1;Y Max:] field[3.8,1;1.25,1;ymax;;%s]", p.ymax)
+    .. string.format("label[4.9,1;+Y Direction:] field[6.9,1;1.35,1;e2;;%s]", p.e2)
+    .. "list[detached:mathplot:inv_brush_" .. playername .. ";yaxisbrush;8,0.65;1,1;]"
+    .. string.format("label[0,2;Z Min:] field[1.4,2;1.25,1;zmin;;%s]", p.zmin)
+    .. string.format("label[2.4,2;Z Max:] field[3.8,2;1.25,1;zmax;;%s]", p.zmax)
+    .. string.format("label[4.9,2;+Z Direction:] field[6.9,2;1.35,1;e3;;%s]", p.e3)
+    .. "list[detached:mathplot:inv_brush_" .. playername .. ";zaxisbrush;8,1.65;1,1;]"
+    .. "container_end[]"
     --Player inventory and trash
-        .. "container[0,4]"
-        .. "list[current_player;main;0,0;8,4;]"
-        .. "image[8.06,0.1;0.8,0.8;creative_trash_icon.png]"
-        .. "list[detached:mathplot:inv_trash;main;8,0;1,1;]"
-        .. "container_end[]"
-        .. "button_exit[0,8;2,1;btn_draw;Draw]"
-        .. "button_exit[2,8;2,1;btn_cancel;Cancel]"
+    .. "container[0,4]"
+    .. "list[current_player;main;0,0;8,4;]"
+    .. "image[8.06,0.1;0.8,0.8;creative_trash_icon.png]"
+    .. "list[detached:mathplot:inv_trash;main;8,0;1,1;]"
+    .. "container_end[]"
+    .. "button_exit[0,8;2,1;btn_draw;Draw]"
+    .. "button_exit[2,8;2,1;btn_cancel;Cancel]"
     return formspec
 end
 
