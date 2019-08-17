@@ -8,7 +8,8 @@ end
 
 mathplot.store_origin_location = function(name, pos)
     local locations = minetest.deserialize(mod_storage:get_string("origin_locations")) or {}
-    locations[minetest.pos_to_string(pos)] = {
+    local posStr = minetest.pos_to_string(pos)
+    locations[posStr] = {
         name = name,
         pos = pos
     }
@@ -17,9 +18,9 @@ end
 
 mathplot.remove_origin_location = function(pos)
     local locations = minetest.deserialize(mod_storage:get_string("origin_locations")) or {}
-    for locpos, _ in pairs(locations) do
-        if vector.equals(locpos, pos) then
-            locations[pos] = nil
+    for posStr, locData in pairs(locations) do
+        if vector.equals(locData.pos, pos) then
+            locations[posStr] = nil
         end
     end
     mod_storage:set_string("origin_locations", minetest.serialize(locations))
