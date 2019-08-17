@@ -18,8 +18,7 @@ trashinv:set_size("main", 1)
 
 local make_brush_inv = function(playername)
     local brushinv = minetest.create_detached_inventory(
-        "mathplot:inv_brush_" .. playername,
-        {
+        "mathplot:inv_brush_" .. playername, {
             allow_put = function(inv, listname, index, stack, player)
                 local newStack = ItemStack({name=stack:get_name(), count=1, wear=0, metadata=""})
                 inv:set_stack(listname, index, newStack)
@@ -144,7 +143,6 @@ minetest.register_on_player_receive_fields(
             if done == nil or done == true then
                 if context.action_callback then
                     context.action_callback()
-                    --Clear context
                 end
             elseif done == false then
                 --not done... reopen the form!

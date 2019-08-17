@@ -14,7 +14,7 @@ Mathplot v. 0.5
 
 Author: Kyle Claassen
 
-TODO: VCS URL
+https://github.com/kyleclaassen/minetest_mathplot/
 TODO: License info
 ]]
 

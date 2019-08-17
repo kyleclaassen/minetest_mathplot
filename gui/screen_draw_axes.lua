@@ -130,8 +130,7 @@ local function draw_axes_on_receive_fields(playername, identifier, fields, conte
         )
 
         mathplot.gui.validate_screen_form(
-            playername, identifier, newfields, context,
-            {
+            playername, identifier, newfields, context, {
                 validator_function = parse_and_validate,
                 success_callback = function(playername, identifier, validated_params, context)
                     local nodemeta = minetest.get_meta(context.node_pos)
