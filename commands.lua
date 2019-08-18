@@ -67,12 +67,35 @@ local function do_mathplot_max_coord(playername, param)
 end
 
 
+local function do_mathplot_open(playername, param)
+    param = string.trim(param)
+
+    local l = nil
+    local pos = minetest.string_to_pos(param)
+    if pos ~= nil then
+        l = mathplot.get_origin_location_by_pos(pos)
+    else
+        locs = mathplot.get_origin_locations_by_name(param)
+        if #locs > 0 then
+            l = locs[1]
+        end
+    end
+
+    if l ~= nil then
+        local context = { node_pos = l.pos }
+        mathplot.gui.invoke_screen("originmainmenu", playername, context)
+        return true, nil
+    end
+    return false, string.format("Unknown origin node '%s'.", param)
+end
+
 
 local subcommand_map = {
     menu = do_mathplot_menu,
     clearlist = do_mathplot_clearlist,
     timeout = do_mathplot_timeout,
-    max_coord = do_mathplot_max_coord
+    max_coord = do_mathplot_max_coord,
+    open = do_mathplot_open
 }
 
 local function do_mathplot(playername, param)
