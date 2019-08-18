@@ -19,7 +19,7 @@ mathplot.gui.screens["set_nickname"] = {
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)
-        if fields.txt_nickname then
+        if fields.btn_OK or fields.key_enter then
             local newName = string.trim(fields.txt_nickname)
             mathplot.store_origin_location(newName, context.node_pos)
         end
