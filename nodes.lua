@@ -19,6 +19,8 @@ minetest.register_node("mathplot:origin", {
             local wieldedItemName = digger:get_wielded_item():get_name()
             if wieldedItemName == "mathplot:destroyer" then
                 minetest.node_dig(pos, node, digger)
+            else
+                minetest.chat_send_player(digger:get_player_name(), "Use the \"mathplot:destroyer\" tool to dig this node.")
             end
         end,
         on_punch = function(pos, node, puncher, pointed_thing)
