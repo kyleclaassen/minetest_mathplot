@@ -67,6 +67,6 @@ end
 
 
 mathplot.is_drawable_node = function(nodename)
-    return minetest.registered_nodes[nodename] ~= nil
+    return minetest.registered_nodes[nodename] and nodename ~= "mathplot:origin"
 end
 
