@@ -27,5 +27,6 @@ dofile(mathplot.MODPATH .. "/gui/screen_implicit_plot.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_parametric.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_about.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_setname.lua")
+dofile(mathplot.MODPATH .. "/gui/screen_serialize.lua")
 
 dofile(mathplot.MODPATH .. "/commands.lua")

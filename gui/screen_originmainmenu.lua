@@ -25,6 +25,7 @@ mathplot.gui.screens["originmainmenu"] = {
         .. "button_exit[0,3;3,1;btn_mainmenu;Other Nodes]"
         .. "button_exit[3,3;3,1;btn_about;About]"
         .. "button_exit[6,3;3,1;btn_examples;Examples]"
+        .. "button_exit[0,4;3,1;btn_serialize;Serialize/Deserialize]"
         .. "button_exit[6,4;3,1;btn_exit;Exit]"
         return formspec
     end,

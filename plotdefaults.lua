@@ -2,6 +2,7 @@ mathplot = mathplot or {}
 mathplot.plotdefaults = {}
 
 local _axis_params = {
+    schema_version = 1,
     xmin = 0,
     xmax = 1,
     ymin = 0,
@@ -20,7 +21,7 @@ mathplot.plotdefaults.axis_params = function()
 end
 
 local _plot_implicit_params = {
-    plot_type = "implicit",
+    schema_version = 1,
     varnames = { "x", "y", "z" },
     origin_pos = "",
     ftn = "",
@@ -44,7 +45,7 @@ end
 
 
 local _plot_parametric_curve_params = {
-    plot_type = "parametric_curve",
+    schema_version = 1,
     connect = true,  --connect the dots with line segments
     varnames = { "u", "_____v", "_____w" },  --u and w are "unused"
     origin_pos = "",
@@ -71,7 +72,7 @@ end
 
 
 local _plot_parametric_surface_params = {
-    plot_type = "parametric_surface",
+    schema_version = 1,
     connect = false,
     varnames = { "u", "v", "_____w" },  --w is "unused"
     origin_pos = "",
@@ -98,7 +99,7 @@ end
 
 
 local _plot_parametric_solid_params = {
-    plot_type = "parametric_solid",
+    schema_version = 1,
     connect = false,
     varnames = { "u", "v", "w" },
     origin_pos = "",
