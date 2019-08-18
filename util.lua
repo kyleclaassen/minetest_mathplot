@@ -64,3 +64,9 @@ end
 mathplot.util.max_abs_coord = function(p)
     return math.max(math.abs(p.x), math.abs(p.y), math.abs(p.z))
 end
+
+
+mathplot.is_drawable_node = function(nodename)
+    return minetest.registered_nodes[nodename] ~= nil
+end
+

@@ -4,8 +4,6 @@ local function validate_parametric(playername, identifier, fields, context)
     local e = {}  --list of error messages
     local p = table.copy(fields)
 
-    minetest.log("In validate_parametric()... fields=" .. dump(p))
-
     if minetest.string_to_pos(p.e1) == nil then
         e[#e+1] = "Invalid +X Direction"
     end
@@ -72,6 +70,10 @@ local function validate_parametric(playername, identifier, fields, context)
     syntaxerror = mathplot.check_function_syntax(p.ftn_z, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
         e[#e+1] = "Syntax error in Z(" .. varnamesStr .. "): " .. syntaxerror
+    end
+
+    if not mathplot.is_drawable_node(fields.nodename) then
+        e[#e+1] = string.format("'%s' is not a drawable node.", fields.nodename or "")
     end
 
     if #e == 0 then

@@ -241,7 +241,10 @@ mathplot.plot_parametric = function(params)
     --params: origin_pos, ftn_x, ftn_y, ftn_z, umin, umax, ustep, vmin, vmax, vstep, nodename, e1, e2, e3, connect, varnames
     --Note: e1, e2, e3 can be vectors in string form, e.g. "(1,2,3)"
 
-    minetest.log("In plot_parametric(): " .. dump(params))
+    if not mathplot.is_drawable_node(params.nodename) then
+        return false, string.format("'%s' is not a drawable node.", params.nodename or "")
+    end
+
     local varnamesStr = mathplot.parametric_argstr_display(params.varnames)
     local X, loaderror = make_safe_function(params.ftn_x, params.varnames)
     if loaderror ~= nil then
@@ -479,6 +482,10 @@ end
 
 mathplot.plot_implicit = function(params)
     --params: origin_pos, ftn, xmin, xmax, xstep, ymin, ymax, ystep, zmin, zmax, zstep, nodename, e1, e2, e3
+
+    if not mathplot.is_drawable_node(params.nodename) then
+        return false, string.format("'%s' is not a drawable node.", params.nodename or "")
+    end
 
     local F, loaderror = make_safe_function(params.ftn, params.varnames)
     if loaderror ~= nil then

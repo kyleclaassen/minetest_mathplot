@@ -77,6 +77,10 @@ local function parse_and_validate(playername, identifier, fields, context)
         e[#e+1] = "Syntax error in condition: " .. syntaxerror
     end
 
+    if not mathplot.is_drawable_node(fields.nodename) then
+        e[#e+1] = string.format("'%s' is not a drawable node.", fields.nodename or "")
+    end
+
     if #e == 0 then
         return p, e
     end

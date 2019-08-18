@@ -50,14 +50,14 @@ local function parse_and_validate(playername, identifier, fields, context)
         e[#e+1] = "Z Min must be <= Z Max."
     end
 
-    if p.xaxisbrush == nil then
-        e[#e+1] = "X Axis brush should not be nil."
+    if not mathplot.is_drawable_node(p.xaxisbrush) then
+        e[#e+1] = string.format("X Axis brush '%s' is not a drawable node.", p.xaxisbrush or "")
     end
-    if p.yaxisbrush == nil then
-        e[#e+1] = "Y Axis brush should not be nil."
+    if not mathplot.is_drawable_node(p.yaxisbrush) then
+        e[#e+1] = string.format("Y Axis brush '%s' is not a drawable node.", p.yaxisbrush or "")
     end
-    if p.zaxisbrush == nil then
-        e[#e+1] = "Z Axis brush should not be nil."
+    if not mathplot.is_drawable_node(p.zaxisbrush) then
+        e[#e+1] = string.format("Z Axis brush '%s' is not a drawable node.", p.zaxisbrush or "")
     end
 
     if #e == 0 then
