@@ -1,6 +1,8 @@
 mathplot = {}
 mathplot.MODPATH = minetest.get_modpath("mathplot")
 
+mathplot.VERSION = "0.5"
+
 --Read settings from settingtypes.txt
 mathplot.settings = {}
 --Plot timeout (in microseconds). Stored as seconds in minetest settings.
