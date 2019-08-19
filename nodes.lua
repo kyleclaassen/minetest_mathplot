@@ -42,8 +42,55 @@ minetest.register_node("mathplot:origin", {
         end
     })
 
+
 minetest.register_tool("mathplot:destroyer", {
         description = "MathPlot Origin Node Destroyer",
         groups = {},
         inventory_image = "mathplot_tool_destroyer_128x128.png"
     })
+
+
+--#############################################
+--############## Colorful Nodes ###############
+--#############################################
+
+
+local alpha = "8F"
+
+--mimic the wool colors.
+local colors = {
+    black = "000000",
+    blue = "0000ff",
+    brown = "492300",
+    cyan = "00FFFF",
+    dark_green = "2a7a00",
+    dark_grey = "323232",
+    green = "00FF00",
+    grey = "8b8b8b",
+    magenta = "e0048b",
+    orange = "ff6600",
+    pink = "ff6d6d",
+    red = "ff0000",
+    violet = "8a00ff",
+    white = "ffffff",
+    yellow = "ffff00"
+}
+
+for colorName, colorVal in pairs(colors) do
+    minetest.register_node("mathplot:translucent_" .. colorName, {
+            description = "mathplot " .. colorName .. " translucent glow block",
+            groups = {cracky = 1},
+            paramtype = "light",
+            light_source = 11,
+            use_texture_alpha = true,
+            tiles = { "mathplot_translucent_mesh.png^[colorize:#" .. colorVal .. alpha }
+        })
+
+    minetest.register_node("mathplot:glow_wool_" .. colorName, {
+            description = "mathplot " .. colorName .. " glow wool ",
+            groups = {cracky = 1},
+            paramtype = "light",
+            light_source = 11,
+            tiles = { "wool_" .. colorName .. ".png" }
+        })
+end
