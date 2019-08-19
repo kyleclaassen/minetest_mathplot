@@ -88,9 +88,11 @@ for colorName, colorVal in pairs(colors) do
 
     minetest.register_node("mathplot:glow_wool_" .. colorName, {
             description = "mathplot " .. colorName .. " glow wool ",
-            groups = {cracky = 1},
             paramtype = "light",
             light_source = 11,
-            tiles = { "wool_" .. colorName .. ".png" }
+            tiles = { "wool_" .. colorName .. ".png" },
+            is_ground_content = false,
+            groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 3, flammable = 3, wool = 1},
+            sounds = default.node_sound_defaults()
         })
 end
