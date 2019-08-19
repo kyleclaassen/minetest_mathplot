@@ -67,7 +67,7 @@ local function do_mathplot_max_coord(playername, param)
 end
 
 
-local function do_mathplot_open(playername, param)
+local function do_mathplot_open(playername, param, action)
     param = string.trim(param)
 
     local l = nil
@@ -82,9 +82,23 @@ local function do_mathplot_open(playername, param)
     end
 
     if l ~= nil then
-        local context = { node_pos = l.pos }
-        mathplot.gui.invoke_screen("originmainmenu", playername, context)
-        return true, nil
+        if action == "open" then
+            local context = { node_pos = l.pos }
+            mathplot.gui.invoke_screen("originmainmenu", playername, context)
+            return true, nil
+        elseif action == "teleport" then
+            local canTeleport = minetest.get_player_privs(playername).teleport
+            if canTeleport then
+                minetest.log("mathplot: player " .. playername .. " teleporting to " .. minetest.pos_to_string(l.pos))
+                local player = minetest.get_player_by_name(playername)
+                if player then
+                    player:set_pos(l.pos)
+                end
+                return true, nil
+            end
+            return false, "mathplot: requires 'teleport' privilege."
+        end
+        return false, "Unknown action: " .. action
     end
     return false, string.format("Unknown origin node '%s'.", param)
 end
@@ -95,7 +109,12 @@ local subcommand_map = {
     clearlist = do_mathplot_clearlist,
     timeout = do_mathplot_timeout,
     max_coord = do_mathplot_max_coord,
-    open = do_mathplot_open
+    open = function(playername, param)
+        return do_mathplot_open(playername, param, "open")
+    end,
+    teleport = function(playername, param)
+        return do_mathplot_open(playername, param, "teleport")
+    end
 }
 
 local function do_mathplot(playername, param)
