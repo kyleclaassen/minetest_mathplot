@@ -75,7 +75,7 @@ local function do_mathplot_open(playername, param)
     if pos ~= nil then
         l = mathplot.get_origin_location_by_pos(pos)
     else
-        locs = mathplot.get_origin_locations_by_name(param)
+        local locs = mathplot.get_origin_locations_by_name(param)
         if #locs > 0 then
             l = locs[1]
         end
