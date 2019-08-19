@@ -86,13 +86,9 @@ for colorName, colorVal in pairs(colors) do
             tiles = { "mathplot_translucent_mesh.png^[colorize:#" .. colorVal .. alpha }
         })
 
-    minetest.register_node("mathplot:glow_wool_" .. colorName, {
-            description = "mathplot " .. colorName .. " glow wool ",
-            paramtype = "light",
-            light_source = 11,
-            tiles = { "wool_" .. colorName .. ".png" },
-            is_ground_content = false,
-            groups = {snappy = 2, choppy = 2, oddly_breakable_by_hand = 3, flammable = 3, wool = 1},
-            sounds = default.node_sound_defaults()
-        })
+    --Make "glow wool" by tweaking standard wool nodes
+    local woolNode = table.copy(minetest.registered_nodes["wool:" .. colorName])
+    woolNode.paramtype = "light"
+    woolNode.light_source = 11
+    minetest.register_node("mathplot:glow_wool_" .. colorName, woolNode)
 end
