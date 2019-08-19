@@ -220,3 +220,49 @@ mathplot.examples.klein_bottle = function(playername, node_pos)
     }
     mathplot.gui.invoke_screen("parametric_surface", playername, context)
 end
+
+mathplot.examples.solid_of_revolution = function(playername, node_pos)
+    local p = mathplot.plotdefaults.plot_parametric_solid_params()
+    p.origin_pos = node_pos
+    p.ftn_x = "w*cos(v)"
+    p.ftn_y = "w*sin(v)"
+    p.ftn_z = "5 + u"
+    p.umin = "0"
+    p.umax = "50"
+    p.ustep = "0.5"
+    p.vmin = "0"
+    p.vmax = "2*pi"
+    p.vstep = "0.025"
+    p.wmin = "3*u/10"
+    p.wmax = "5 + (u/10)^2"
+    p.wstep = "0.5"
+    p.nodename = "wool:white"
+    local context = {
+        node_pos = node_pos,
+        action_params = p
+    }
+    mathplot.gui.invoke_screen("parametric_solid", playername, context)
+end
+
+mathplot.examples.thick_twovar_ftn_graph = function(playername, node_pos)
+    local p = mathplot.plotdefaults.plot_parametric_solid_params()
+    p.origin_pos = node_pos
+    p.ftn_x = "u"
+    p.ftn_y = "v"
+    p.ftn_z = "15 + 5*(cos(u/4)  + cos(v/4)) + w"
+    p.umin = "-2*pi*4"
+    p.umax = "2*pi*4"
+    p.ustep = "0.25"
+    p.vmin = "-2*pi*4"
+    p.vmax = "2*pi*4"
+    p.vstep = "0.25"
+    p.wmin = "0"
+    p.wmax = "15"
+    p.wstep = "1"
+    p.nodename = "wool:cyan"
+    local context = {
+        node_pos = node_pos,
+        action_params = p
+    }
+    mathplot.gui.invoke_screen("parametric_solid", playername, context)
+end
