@@ -90,12 +90,12 @@ end
 
 mathplot.gui.screens["implicit_plot"] = {
     initialize = function(playername, identifier, context)
-        --If context.action_params is already in context, then show those values.
+        --If context.screen_params is already in context, then show those values.
         --(Likely coming back from a validation error.)
-        if not context.action_params then
+        if not context.screen_params then
             local meta = minetest.get_meta(context.node_pos)
             local s = meta:get_string("implicit_plot_params")
-            context.action_params = mathplot.util.merge_tables(
+            context.screen_params = mathplot.util.merge_tables(
                 mathplot.plotdefaults.plot_implicit_params(),
                 minetest.deserialize(s) or {}
             )
@@ -103,7 +103,7 @@ mathplot.gui.screens["implicit_plot"] = {
         return context
     end,
     get_formspec = function(playername, identifier, context)
-        local p = context.action_params
+        local p = context.screen_params
         local nodepos = context.node_pos
 
         mathplot.gui.set_brushes(playername, {brush = p.nodename})

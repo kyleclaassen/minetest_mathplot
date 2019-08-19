@@ -69,10 +69,10 @@ end
 
 
 local function draw_axes_initialize(playername, identifier, context)
-    if not context.action_params then
+    if not context.screen_params then
         local meta = minetest.get_meta(context.node_pos)
         local s = meta:get_string("axis_params")
-        context.action_params = mathplot.util.merge_tables(
+        context.screen_params = mathplot.util.merge_tables(
             mathplot.plotdefaults.axis_params(),
             minetest.deserialize(s) or {}
         )
@@ -81,7 +81,7 @@ local function draw_axes_initialize(playername, identifier, context)
 end
 
 local function draw_axes_get_formspec(playername, identifier, context)
-    local p = context.action_params
+    local p = context.screen_params
     local nodepos = context.node_pos
 
     mathplot.gui.set_brushes(

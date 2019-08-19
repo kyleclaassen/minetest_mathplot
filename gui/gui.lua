@@ -85,9 +85,9 @@ end
 
 mathplot.gui.validate_screen_form = function(playername, identifier, fields, context, functions)
     local fields, errormsgs = functions.validator_function(playername, identifier, fields, context)
-    --Set action params to current (potentially erroneous) values so they'll
+    --Set screen params to current (potentially erroneous) values so they'll
     --show up again after an error screen.
-    context.action_params = fields
+    context.screen_params = fields
 
     if #errormsgs == 0 then
         local ok = true

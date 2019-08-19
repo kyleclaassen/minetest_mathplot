@@ -14,7 +14,7 @@ mathplot.examples.hemisphere = function(playername, node_pos)
     p.nodename = "wool:magenta"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("implicit_plot", playername, context)
 end
@@ -32,7 +32,7 @@ mathplot.examples.solid_hemisphere = function(playername, node_pos)
     p.nodename = "wool:blue"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("implicit_plot", playername, context)
 end
@@ -50,7 +50,7 @@ mathplot.examples.cylinder_with_tunnel = function(playername, node_pos)
     p.nodename = "default:stonebrick"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("implicit_plot", playername, context)
 end
@@ -68,7 +68,7 @@ mathplot.examples.implicit_cone = function(playername, node_pos)
     p.nodename = "wool:green"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("implicit_plot", playername, context)
 end
@@ -85,7 +85,7 @@ mathplot.examples.onevar_ftn_graph = function(playername, node_pos)
     p.nodename = "wool:green"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_curve", playername, context)
 end
@@ -102,7 +102,7 @@ mathplot.examples.helix = function(playername, node_pos)
     p.nodename = "wool:red"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_curve", playername, context)
 end
@@ -119,7 +119,7 @@ mathplot.examples.circular_wave = function(playername, node_pos)
     p.nodename = "wool:violet"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_curve", playername, context)
 end
@@ -136,7 +136,7 @@ mathplot.examples.trefoil_knot = function(playername, node_pos)
     p.nodename = "wool:orange"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_curve", playername, context)
 end
@@ -156,7 +156,7 @@ mathplot.examples.twovar_ftn_graph = function(playername, node_pos)
     p.nodename = "wool:pink"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_surface", playername, context)
 end
@@ -176,7 +176,7 @@ mathplot.examples.parametric_torus = function(playername, node_pos)
     p.nodename = "default:glass"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_surface", playername, context)
 end
@@ -196,7 +196,7 @@ mathplot.examples.surface_of_revolution  = function(playername, node_pos)
     p.nodename = "default:goldblock"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_surface", playername, context)
 end
@@ -216,7 +216,7 @@ mathplot.examples.klein_bottle = function(playername, node_pos)
     p.nodename = "wool:yellow"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_surface", playername, context)
 end
@@ -239,7 +239,7 @@ mathplot.examples.solid_of_revolution = function(playername, node_pos)
     p.nodename = "wool:white"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_solid", playername, context)
 end
@@ -262,7 +262,7 @@ mathplot.examples.thick_twovar_ftn_graph = function(playername, node_pos)
     p.nodename = "wool:cyan"
     local context = {
         node_pos = node_pos,
-        action_params = p
+        screen_params = p
     }
     mathplot.gui.invoke_screen("parametric_solid", playername, context)
 end

@@ -178,13 +178,13 @@ end
 
 local parametric_screen = {
     initialize = function(playername, identifier, context)
-        --If context.action_params is already in context, then show those values.
+        --If context.screen_params is already in context, then show those values.
         --(Likely coming back from a validation error.)
-        if not context.action_params then
+        if not context.screen_params then
             local defaults = default_params(identifier)
             local meta = minetest.get_meta(context.node_pos)
             local s = meta:get_string(identifier .. "_params")
-            context.action_params = mathplot.util.merge_tables(
+            context.screen_params = mathplot.util.merge_tables(
                 defaults,
                 minetest.deserialize(s) or {}
             )
@@ -192,7 +192,7 @@ local parametric_screen = {
         return context
     end,
     get_formspec = function(playername, identifier, context)
-        local p = context.action_params
+        local p = context.screen_params
         local nodepos = context.node_pos
 
         mathplot.gui.set_brushes(playername, {brush = p.nodename})
@@ -259,7 +259,7 @@ local parametric_screen = {
                 fields,
                 { origin_pos = context.node_pos, nodename = nodename }
             )
-            context.action_params = newfields
+            context.screen_params = newfields
             mathplot.gui.invoke_screen(screenIdentifier, playername, context)
         end
     end
