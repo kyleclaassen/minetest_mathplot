@@ -93,4 +93,14 @@ for colorName, c in pairs(colors) do
     woolNode.light_source = c.light
     woolNode.description = "mathplot Glowing " .. woolNode.description
     minetest.register_node("mathplot:glow_wool_" .. colorName, woolNode)
+
+    --Make "glow glass" by tweaking the standard glass node
+    local glassNode = table.copy(minetest.registered_nodes["default:glass"])
+    glassNode.description = "mathplot Glowing " .. colorName .. " Glass"
+    glassNode.paramtype = "light"
+    glassNode.light_source = c.light
+    for i = 1, #glassNode.tiles do
+        glassNode.tiles[i] = glassNode.tiles[i] .. "^[colorize:#" .. c.val
+    end
+    minetest.register_node("mathplot:glow_glass_" .. colorName, glassNode)
 end
