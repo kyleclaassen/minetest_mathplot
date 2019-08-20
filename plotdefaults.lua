@@ -12,9 +12,9 @@ local _axis_params = {
     e1 = "(1,0,0)",
     e2 = "(0,0,1)",
     e3 = "(0,1,0)",
-    xaxisbrush = "wool:red",
-    yaxisbrush = "wool:green",
-    zaxisbrush = "wool:blue"
+    xaxisbrush = "mathplot:glow_wool_red",
+    yaxisbrush = "mathplot:glow_wool_green",
+    zaxisbrush = "mathplot:glow_wool_blue"
 }
 mathplot.plotdefaults.axis_params = function()
     return table.copy(_axis_params)
