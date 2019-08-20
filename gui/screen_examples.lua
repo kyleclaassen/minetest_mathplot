@@ -17,7 +17,7 @@ mathplot.gui.screens["examples"] = {
         .. "label[0,0;Parametric Curve]"
         .. "button_exit[0,0.5;3,1;btn_onevar_ftn_graph;Graph of Function]"
         .. "button_exit[3,0.5;3,1;btn_helix;Helix]"
-        .. "button_exit[6,0.5;3,1;btn_circular_wave;Circular Wave]"
+        .. "button_exit[6,0.5;3,1;btn_coil;Coil]"
         .. "button_exit[9,0.5;3,1;btn_trefoil_knot;Trefoil Knot]"
         .. "container_end[]"
         .. "container[0,5]"

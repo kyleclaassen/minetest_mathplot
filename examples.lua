@@ -107,12 +107,12 @@ mathplot.examples.helix = function(playername, node_pos)
     mathplot.gui.invoke_screen("parametric_curve", playername, context)
 end
 
-mathplot.examples.circular_wave = function(playername, node_pos)
+mathplot.examples.coil = function(playername, node_pos)
     local p = mathplot.plotdefaults.plot_parametric_curve_params()
     p.origin_pos = node_pos
-    p.ftn_x = "25*cos(u)"
-    p.ftn_y = "25*sin(u)"
-    p.ftn_z = "10 + 5*sin(4*u)"
+    p.ftn_x = "30*cos(u) - 10*cos(5*u)*cos(u)"
+    p.ftn_y = "30*sin(u) - 10*cos(5*u)*sin(u)"
+    p.ftn_z = "15 + 10*sin(5*u)"
     p.umin = "0"
     p.umax = "2*pi"
     p.ustep = "0.01"
@@ -204,12 +204,12 @@ end
 mathplot.examples.klein_bottle = function(playername, node_pos)
     local p = mathplot.plotdefaults.plot_parametric_surface_params()
     p.origin_pos = node_pos
-    p.ftn_x = "30*(-2/15*cos(u)*(3*cos(v) - 30*sin(u) + 90*cos(u)^4*sin(u) - 60*cos(u)^6*sin(u) + 5*cos(u)*cos(v)*sin(u)))"
-    p.ftn_y = "30*((2/5 + 2/3*cos(u)*sin(u))*sin(v))"
-    p.ftn_z = "30*(-1/15*sin(u)*(3*cos(v) - 3*cos(u)^2*cos(v) - 48*cos(u)^4*cos(v) + 48*cos(u)^6*cos(v) - 60*sin(u) + 5*cos(u)*cos(v)*sin(u) - 5*cos(u)^3*cos(v)*sin(u) - 80*cos(u)^5*cos(v)*sin(u) + 80*cos(u)^7*cos(v)*sin(u)))"
+    p.ftn_x = "60*(-2/15*cos(u)*(3*cos(v) - 30*sin(u) + 90*cos(u)^4*sin(u) - 60*cos(u)^6*sin(u) + 5*cos(u)*cos(v)*sin(u)))"
+    p.ftn_y = "60*((2/5 + 2/3*cos(u)*sin(u))*sin(v))"
+    p.ftn_z = "60*(-1/15*sin(u)*(3*cos(v) - 3*cos(u)^2*cos(v) - 48*cos(u)^4*cos(v) + 48*cos(u)^6*cos(v) - 60*sin(u) + 5*cos(u)*cos(v)*sin(u) - 5*cos(u)^3*cos(v)*sin(u) - 80*cos(u)^5*cos(v)*sin(u) + 80*cos(u)^7*cos(v)*sin(u)))"
     p.umin = "0"
     p.umax = "pi"
-    p.ustep = "0.005"
+    p.ustep = "0.00225"
     p.vmin = "0"
     p.vmax = "2*pi"
     p.vstep = "0.025"
