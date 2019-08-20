@@ -22,41 +22,41 @@ local function validate_parametric(playername, identifier, fields, context)
     --Load ftn code string to check for syntax error
     local syntaxerror = mathplot.check_function_syntax(p.umin, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in umin: " .. syntaxerror
+        e[#e+1] = "Syntax error in umin: " .. syntaxerror
     end
     syntaxerror = mathplot.check_function_syntax(p.umax, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in umax: " .. syntaxerror
+        e[#e+1] = "Syntax error in umax: " .. syntaxerror
     end
     syntaxerror = mathplot.check_function_syntax(p.ustep, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in ustep: " .. syntaxerror
+        e[#e+1] = "Syntax error in ustep: " .. syntaxerror
     end
 
     syntaxerror = mathplot.check_function_syntax(p.vmin, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in vmin: " .. syntaxerror
+        e[#e+1] = "Syntax error in vmin: " .. syntaxerror
     end
     syntaxerror = mathplot.check_function_syntax(p.vmax, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in vmax: " .. syntaxerror
+        e[#e+1] = "Syntax error in vmax: " .. syntaxerror
     end
     syntaxerror = mathplot.check_function_syntax(p.vstep, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in vstep: " .. syntaxerror
+        e[#e+1] = "Syntax error in vstep: " .. syntaxerror
     end
 
     syntaxerror = mathplot.check_function_syntax(p.wmin, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in wmin: " .. syntaxerror
+        e[#e+1] = "Syntax error in wmin: " .. syntaxerror
     end
     syntaxerror = mathplot.check_function_syntax(p.wmax, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in wmax: " .. syntaxerror
+        e[#e+1] = "Syntax error in wmax: " .. syntaxerror
     end
     syntaxerror = mathplot.check_function_syntax(p.wstep, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "qqSyntax error in wstep: " .. syntaxerror
+        e[#e+1] = "Syntax error in wstep: " .. syntaxerror
     end
 
     syntaxerror = mathplot.check_function_syntax(p.ftn_x, p.varnames, {0, 0, 0})

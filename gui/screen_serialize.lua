@@ -51,13 +51,13 @@ mathplot.gui.screens["serialize"] = {
     end,
     get_formspec = function(playername, identifier, context)
         local json = serialize_origin_node(context.node_pos)
-        local formspec = "size[10.25,5.5]"
+        local formspec = "size[10.25,4.5]"
         .. "label[0,0;Serialized Node:]"
         .. string.format("field[0.25,1;10,1;txt_to_json;;%s]", minetest.formspec_escape(json))
-        .. "label[0,3;Deserialize:]"
-        .. "field[0.25,4;10,1;txt_from_json;;]"
-        .. "button_exit[0,5;2,1;btn_load;Load]"
-        .. "button_exit[2,5;2,1;btn_cancel;Cancel]"
+        .. "label[0,2;Deserialize from JSON:]"
+        .. "field[0.25,3;10,1;txt_from_json;;]"
+        .. "button_exit[0,4;2,1;btn_load;Load]"
+        .. "button_exit[2,4;2,1;btn_cancel;Cancel]"
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)

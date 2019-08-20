@@ -427,7 +427,7 @@ mathplot.plot_parametric = function(params)
         end
     end
 
-    local msg = "plot_parametric total elapsed time: " .. (minetest.get_us_time()-startTime) / 1e6
+    local msg = "plot_parametric total elapsed time: " .. (minetest.get_us_time()-startTime) / 1e6 .. " seconds"
     minetest.log(msg)
     return true, msg
 end
@@ -528,7 +528,7 @@ mathplot.plot_implicit = function(params)
         end
     end
 
-    local msg = "plot_implicit: total elapsed time: " .. (minetest.get_us_time()-startTime) / 1e6
+    local msg = "plot_implicit: total elapsed time: " .. (minetest.get_us_time()-startTime) / 1e6 .. " seconds"
     minetest.log(msg)
     return true, msg
 end

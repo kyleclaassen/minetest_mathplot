@@ -40,7 +40,7 @@ local function do_mathplot_timeout(playername, param)
             if mathplot.settings.plot_timeout == 0 then
                 return true, "Plot timeout disabled."
             else
-                return true, string.format("Plot timeout set to %s seconds.", mathplot.settings.plot_timeout)
+                return true, string.format("Plot timeout set to %s seconds.", seconds)
             end
         end
     end

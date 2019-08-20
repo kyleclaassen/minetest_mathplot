@@ -9,7 +9,7 @@ mathplot.gui.screens["originmainmenu"] = {
         if loc and #loc.name > 0 then
             nickname = loc.name
         end
-        local title = string.format("Mathematical Graph Plotter @ %s",
+        local title = string.format("Mathematical Object Plotter @ %s",
             minetest.pos_to_string(context.node_pos))
         if nickname then
             title = title .. " \"" .. nickname .. "\""
