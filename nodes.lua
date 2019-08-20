@@ -74,7 +74,7 @@ local colors = {
     white = { val = "ffffff", light = 7 },
     yellow = { val = "ffff00", light = 7 }
 }
-local alpha = "8F"
+local alpha = "8f"
 
 for colorName, c in pairs(colors) do
     --Translucent nodes
@@ -84,7 +84,7 @@ for colorName, c in pairs(colors) do
             paramtype = "light",
             light_source = 11,
             use_texture_alpha = true,
-            tiles = { "mathplot_translucent_grid.png^[colorize:#" .. c.val .. alpha }
+            tiles = { "mathplot_translucent_grid_16x16.png^[colorize:#" .. c.val .. alpha }
         })
 
     --Make "glow wool" by tweaking standard wool nodes
