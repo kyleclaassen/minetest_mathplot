@@ -43,7 +43,7 @@ mathplot.examples.cylinder_with_tunnel = function(playername, node_pos)
     p.ftn = "x^2 + y^2 <= 20^2 and x^2 + z^2 >= 10^2"
     p.xmin = -20
     p.xmax = 20
-    p.ymin = -120
+    p.ymin = -20
     p.ymax = 20
     p.zmin = 0
     p.zmax = 20
