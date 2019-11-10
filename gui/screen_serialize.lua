@@ -51,9 +51,13 @@ mathplot.gui.screens["serialize"] = {
     end,
     get_formspec = function(playername, identifier, context)
         local json = serialize_origin_node(context.node_pos)
+        local escaped_json = minetest.formspec_escape(json)
+        if escaped_json == "null" then
+            escaped_json = ""
+        end
         local formspec = "size[10.25,4.5]"
         .. "label[0,0;Serialized Node:]"
-        .. string.format("field[0.25,1;10,1;txt_to_json;;%s]", minetest.formspec_escape(json))
+        .. string.format("field[0.25,1;10,1;txt_to_json;;%s]", escaped_json)
         .. "label[0,2;Deserialize from JSON:]"
         .. "field[0.25,3;10,1;txt_from_json;;]"
         .. "button_exit[0,4;2,1;btn_load;Load]"
@@ -62,11 +66,13 @@ mathplot.gui.screens["serialize"] = {
     end,
     on_receive_fields = function(playername, identifier, fields, context)
         if fields.btn_load or fields.key_enter then
-            local ok, msg = deserialize_origin_node(context.node_pos, fields.txt_from_json)
-            if ok then
-                minetest.log("mathplot: successfully deserialized json to node.")
-            elseif msg then
-                minetest.log("mathplot: failed to deserialize json to node: " .. msg)
+            if fields.txt_from_json and string.len(string.trim(fields.txt_from_json)) > 0 then
+                local ok, msg = deserialize_origin_node(context.node_pos, fields.txt_from_json)
+                if ok then
+                    minetest.log("mathplot: successfully deserialized json to node.")
+                elseif msg then
+                    minetest.log("mathplot: failed to deserialize json to node: " .. msg)
+                end
             end
         end
     end
