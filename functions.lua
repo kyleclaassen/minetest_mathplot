@@ -46,8 +46,11 @@ local function create_sandbox(code)
         tanh = math.tanh,
 
         --additions by KMC
+        Pi = math.pi,  --for Maple copy/paste to work
+        PI = math.pi,
         ln = math.log,  --alias for convenience
         e = 2.7182818284590452354,
+        E = 2.7182818284590452354,
         iif = function(condition, trueval, falseval)
             if condition then return trueval else return falseval end
         end,
