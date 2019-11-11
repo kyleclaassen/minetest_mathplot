@@ -1,7 +1,7 @@
-#Time (in seconds) that a plot operation may run for. Default is 60.
+#Time (in seconds) that a plot operation may run for. Default is 30.
 #Set to zero for no timeout.
 #Can be changed in-game with the "/mathplot timeout <seconds>" command.
-mathplot.plot_timeout (Plot timeout) float 60 0
+mathplot.plot_timeout (Plot timeout) float 30 0
 
 #Maximum coordinate magnitude, to protect against "runaway" growth.
 #Can be changed in-game with the "/mathplot max_coord <number>" command.

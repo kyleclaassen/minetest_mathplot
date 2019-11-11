@@ -6,7 +6,7 @@ mathplot.VERSION = "0.5"
 --Read settings from settingtypes.txt
 mathplot.settings = {}
 --Plot timeout (in microseconds). Stored as seconds in minetest settings.
-mathplot.settings.plot_timeout = tonumber(minetest.settings:get("mathplot.plot_timeout")) or 60
+mathplot.settings.plot_timeout = tonumber(minetest.settings:get("mathplot.plot_timeout")) or 30
 mathplot.settings.plot_timeout = mathplot.settings.plot_timeout * 1e6  --convert to microseconds
 
 --Maximum coordinate (relative to origin) to protect against "runaway growth"

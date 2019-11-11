@@ -1,1 +1,1 @@
-Mathplot provides facilities for constructing mathematical curves/surfaces/solids.
+MathPlot provides tools for constructing mathematical curves/surfaces/solids.
