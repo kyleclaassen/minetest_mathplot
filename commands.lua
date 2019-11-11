@@ -114,6 +114,10 @@ local subcommand_map = {
     end,
     teleport = function(playername, param)
         return do_mathplot_open(playername, param, "teleport")
+    end,
+    setorigin = function(playername, param)
+        local player = minetest.get_player_by_name(playername)
+        minetest.set_node(player:get_pos(), {name=mathplot.ORIGIN_NODE_NAME})
     end
 }
 
