@@ -1,11 +1,13 @@
 mathplot = mathplot or {}
 
-minetest.register_node("mathplot:origin", {
+mathplot.ORIGIN_NODE_NAME = "mathplot:00_origin"
+mathplot.ORIGIN_DESTROYER_NODE_NAME = "mathplot:00_origin_destroyer"
+
+minetest.register_node(mathplot.ORIGIN_NODE_NAME, {
         description = "MathPlot Origin Node",
         groups = {cracky = 1},
         paramtype = "light",
         light_source = 7,
-        --tiles = {"^[colorize:#00FF00"},
         tiles = { "mathplot_origin_node_128x128.png" },
         inventory_image = "mathplot_origin_node_128x128.png",
         on_construct = function(pos)
@@ -17,15 +19,15 @@ minetest.register_node("mathplot:origin", {
         on_blast = function(pos, intensity) end, --prevent explosions from destroying it
         on_dig = function(pos, node, digger)
             local wieldedItemName = digger:get_wielded_item():get_name()
-            if wieldedItemName == "mathplot:destroyer" then
+            if wieldedItemName == mathplot.ORIGIN_DESTROYER_NODE_NAME then
                 minetest.node_dig(pos, node, digger)
             else
-                minetest.chat_send_player(digger:get_player_name(), "Use the \"mathplot:destroyer\" tool to dig this node.")
+                minetest.chat_send_player(digger:get_player_name(), "Use the \"MathPlot Origin Destroyer\" tool to dig this node.")
             end
         end,
         on_punch = function(pos, node, puncher, pointed_thing)
             local wieldedItemName = puncher:get_wielded_item():get_name()
-            if wieldedItemName == "mathplot:destroyer" then
+            if wieldedItemName == mathplot.ORIGIN_DESTROYER_NODE_NAME then
                 --Default "on_punch" behavior
                 minetest.node_punch(pos, node, puncher, pointed_thing)
             else
@@ -41,13 +43,15 @@ minetest.register_node("mathplot:origin", {
             mathplot.remove_origin_location(pos)
         end
     })
+minetest.register_alias("mathplot:origin", mathplot.ORIGIN_NODE_NAME)
 
 
-minetest.register_tool("mathplot:destroyer", {
+minetest.register_tool(mathplot.ORIGIN_DESTROYER_NODE_NAME, {
         description = "MathPlot Origin Node Destroyer",
         groups = {},
         inventory_image = "mathplot_tool_destroyer_128x128.png"
     })
+minetest.register_alias("mathplot:destroyer", mathplot.ORIGIN_DESTROYER_NODE_NAME)
 
 
 --#############################################
@@ -79,7 +83,7 @@ local alpha = "8f"
 for colorName, colorVal in pairs(colors) do
     --Translucent nodes
     minetest.register_node("mathplot:translucent_" .. colorName, {
-            description = "mathplot " .. colorName .. " translucent glow block",
+            description = "MathPlot " .. colorName .. " translucent glow block",
             groups = {cracky = 1},
             paramtype = "light",
             light_source = 11,
@@ -91,7 +95,7 @@ for colorName, colorVal in pairs(colors) do
     local woolNode = table.copy(minetest.registered_nodes["wool:" .. colorName])
     woolNode.paramtype = "light"
     woolNode.light_source = 8
-    woolNode.description = "mathplot Glowing " .. woolNode.description
+    woolNode.description = "MathPlot Glowing " .. woolNode.description
     minetest.register_node("mathplot:glow_wool_" .. colorName, woolNode)
 
     --Make "glow glass" by tweaking the standard obsidian node

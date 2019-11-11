@@ -75,7 +75,7 @@ mathplot.remove_stale_locations = function()
     local locations = mathplot.get_origin_locations()
     for _, locData in pairs(locations) do
         local node = mathplot.util.get_far_node(locData.pos)
-        if node and node.name ~= "mathplot:origin" then
+        if node and node.name ~= mathplot.ORIGIN_NODE_NAME then
             minetest.log("mathplot: removing stale origin node at " .. minetest.pos_to_string(locData.pos))
             mathplot.remove_origin_location(locData.pos)
         end

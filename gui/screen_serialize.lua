@@ -28,7 +28,7 @@ end
 
 local function deserialize_origin_node(pos, json)
     local node = minetest.get_node(pos)
-    if node and node.name == "mathplot:origin" then
+    if node and node.name == mathplot.ORIGIN_NODE_NAME then
         local meta = minetest.get_meta(pos)
         local meta_table = meta:to_table()
         local d = minetest.parse_json(json)
