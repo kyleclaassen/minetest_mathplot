@@ -140,11 +140,12 @@ local function inventory_container(playername, identifier)
         .. string.format("button_exit[10.1,3;2,1;%s;%s]", btn_to_name2, btn_to_label2)
     }
 end
-local function plot_cancel_container()
+local function plot_cancel_container(allowErase)
     return {
         height = 1,
         formspec = "button_exit[0,0;2,1;btn_plot;Plot]"
         .. "button_exit[2,0;2,1;btn_cancel;Cancel]"
+        .. (allowErase and "button_exit[9.1,0;3,1;btn_erase;Erase Previous]" or "")
     }
 end
 
@@ -176,18 +177,28 @@ local function default_params(identifier)
 end
 
 
+local function load_saved_params(context, identifier)
+    local defaults = default_params(identifier)
+    local meta = minetest.get_meta(context.node_pos)
+    local s = meta:get_string(identifier .. "_params")
+    local deserializedParams = minetest.deserialize(s) or {}
+    return mathplot.util.merge_tables(
+        defaults,
+        deserializedParams
+    )
+end
+local function have_saved_params(context, identifier)
+    local meta = minetest.get_meta(context.node_pos)
+    local s = meta:get_string(identifier .. "_params")
+    return s ~= nil and string.trim(s) ~= ""
+end
+
 local parametric_screen = {
     initialize = function(playername, identifier, context)
         --If context.screen_params is already in context, then show those values.
         --(Likely coming back from a validation error.)
         if not context.screen_params then
-            local defaults = default_params(identifier)
-            local meta = minetest.get_meta(context.node_pos)
-            local s = meta:get_string(identifier .. "_params")
-            context.screen_params = mathplot.util.merge_tables(
-                defaults,
-                minetest.deserialize(s) or {}
-            )
+            context.screen_params = load_saved_params(context, identifier)
         end
         return context
     end,
@@ -199,6 +210,7 @@ local parametric_screen = {
 
         local formspec = ""
         local totalHeight = 0
+        local allowErase = have_saved_params(context, identifier)
         if identifier == "parametric_curve" then
             totalHeight, formspec = concat_containers(
                 title_container("Parametric Curve"),
@@ -206,7 +218,7 @@ local parametric_screen = {
                 min_max_step_container("u", p.umin, p.umax, p.ustep),
                 ftn_container({"u"}, p.ftn_x, p.ftn_y, p.ftn_z),
                 inventory_container(playername, identifier),
-                plot_cancel_container()
+                plot_cancel_container(allowErase)
             )
         elseif identifier == "parametric_surface" then
             totalHeight, formspec = concat_containers(
@@ -216,7 +228,7 @@ local parametric_screen = {
                 min_max_step_container("v", p.vmin, p.vmax, p.vstep),
                 ftn_container({"u", "v"}, p.ftn_x, p.ftn_y, p.ftn_z),
                 inventory_container(playername, identifier),
-                plot_cancel_container()
+                plot_cancel_container(allowErase)
             )
         elseif identifier == "parametric_solid" then
             totalHeight, formspec = concat_containers(
@@ -227,7 +239,7 @@ local parametric_screen = {
                 min_max_step_container("w", p.wmin, p.wmax, p.wstep),
                 ftn_container({"u", "v", "w"}, p.ftn_x, p.ftn_y, p.ftn_z),
                 inventory_container(playername, identifier),
-                plot_cancel_container()
+                plot_cancel_container(allowErase)
             )
         end
 
@@ -235,19 +247,30 @@ local parametric_screen = {
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)
-        if fields.btn_plot or fields.key_enter then
-            local nodename = mathplot.gui.get_brushes(playername, { "brush" })["brush"]
-            local newfields = mathplot.util.merge_tables(
-                default_params(identifier),
-                fields,
-                { origin_pos = context.node_pos, nodename = nodename }
-            )
+        if fields.btn_plot or fields.key_enter or fields.btn_erase then
+            local nodename = ""
+            local newfields = nil
+            if fields.btn_erase then
+                newfields = load_saved_params(context, identifier)
+                newfields.nodename = "air"
+                context.is_erase = true
+            else
+                nodename = mathplot.gui.get_brushes(playername, { "brush" })["brush"]
+                newfields = mathplot.util.merge_tables(
+                    default_params(identifier),
+                    fields,
+                    { origin_pos = context.node_pos, nodename = nodename }
+                )
+            end
 
             mathplot.gui.validate_screen_form(playername, identifier, newfields, context, {
                     validator_function = validate_parametric,
                     success_callback = function(playername, identifier, validated_params, context)
-                        local nodemeta = minetest.get_meta(validated_params.origin_pos)
-                        nodemeta:set_string(identifier .. "_params", minetest.serialize(validated_params))
+                        if not context.is_erase then
+                            local nodemeta = minetest.get_meta(validated_params.origin_pos)
+                            nodemeta:set_string(identifier .. "_params", minetest.serialize(validated_params))
+                        end
+
                         return mathplot.plot_parametric(validated_params)
                     end
                 })

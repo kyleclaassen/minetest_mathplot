@@ -88,17 +88,27 @@ local function parse_and_validate(playername, identifier, fields, context)
     return fields, e
 end
 
+
+local function load_saved_params(context)
+    local meta = minetest.get_meta(context.node_pos)
+    local s = meta:get_string("implicit_plot_params")
+    return mathplot.util.merge_tables(
+        mathplot.plotdefaults.plot_implicit_params(),
+        minetest.deserialize(s) or {}
+    )
+end
+local function have_saved_params(context, identifier)
+    local meta = minetest.get_meta(context.node_pos)
+    local s = meta:get_string("implicit_plot_params")
+    return s ~= nil and string.trim(s) ~= ""
+end
+
 mathplot.gui.screens["implicit_plot"] = {
     initialize = function(playername, identifier, context)
         --If context.screen_params is already in context, then show those values.
         --(Likely coming back from a validation error.)
         if not context.screen_params then
-            local meta = minetest.get_meta(context.node_pos)
-            local s = meta:get_string("implicit_plot_params")
-            context.screen_params = mathplot.util.merge_tables(
-                mathplot.plotdefaults.plot_implicit_params(),
-                minetest.deserialize(s) or {}
-            )
+            context.screen_params = load_saved_params(context)
         end
         return context
     end,
@@ -107,6 +117,8 @@ mathplot.gui.screens["implicit_plot"] = {
         local nodepos = context.node_pos
 
         mathplot.gui.set_brushes(playername, {brush = p.nodename})
+
+        local allowErase = have_saved_params(context, identifier)
 
         local formspec = "size[12,10.5]"
         .. "label[0,0;Implicit Plot]"
@@ -129,31 +141,39 @@ mathplot.gui.screens["implicit_plot"] = {
         .. "list[current_player;main;0,0;8,4;]"
         .. "label[8.25,0.25;Plot node:]"
         .. "list[detached:mathplot:inv_brush_" .. playername .. ";brush;9.75,0;1,1;]"
-        --.. "image[9.81,2.1;0.8,0.8;creative_trash_icon.png]"
-        --.. "list[detached:mathplot:inv_trash;main;9.75,2;1,1;]"
         .. "image[10.81,0.1;0.8,0.8;creative_trash_icon.png]"
         .. "list[detached:mathplot:inv_trash;main;10.75,0;1,1;]"
         .. "container_end[]"
         .. "button_exit[0,10;2,1;btn_plot;Plot]"
         .. "button_exit[2,10;2,1;btn_cancel;Cancel]"
+        .. (allowErase and "button_exit[9,10;3,1;btn_erase;Erase Previous]" or "")
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)
-        if fields.btn_plot or fields.key_enter then
-            local nodename = mathplot.gui.get_brushes(playername, { "brush" })["brush"]
-            local newfields = mathplot.util.merge_tables(
-                mathplot.plotdefaults.plot_implicit_params(),
-                fields,
-                { origin_pos = context.node_pos, nodename = nodename }
-            )
+        if fields.btn_plot or fields.key_enter or fields.btn_erase then
+            local nodename = ""
+            local newfields = nil
+            if fields.btn_erase then
+                newfields = load_saved_params(context)
+                newfields.nodename = "air"
+                context.is_erase = true
+            else
+                nodename = mathplot.gui.get_brushes(playername, { "brush" })["brush"]
+                newfields = mathplot.util.merge_tables(
+                    mathplot.plotdefaults.plot_implicit_params(),
+                    fields,
+                    { origin_pos = context.node_pos, nodename = nodename }
+                )
+            end
 
             mathplot.gui.validate_screen_form(playername, identifier, newfields, context,
                 {
                     validator_function = parse_and_validate,
                     success_callback = function(playername, identifier, validated_params, context)
-                        minetest.log("In success_callback()")
-                        local nodemeta = minetest.get_meta(validated_params.origin_pos)
-                        nodemeta:set_string("implicit_plot_params", minetest.serialize(validated_params))
+                        if not context.is_erase then
+                            local nodemeta = minetest.get_meta(validated_params.origin_pos)
+                            nodemeta:set_string("implicit_plot_params", minetest.serialize(validated_params))
+                        end
 
                         return mathplot.plot_implicit(validated_params)
                     end,
