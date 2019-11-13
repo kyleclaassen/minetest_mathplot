@@ -1,7 +1,7 @@
 mathplot.gui.screens = mathplot.gui.screens or {}
 
 local aboutStr = [[
-Mathplot version {{version}}
+MathPlot version {{version}}
 
 https://github.com/kyleclaassen/minetest_mathplot/
 ]]

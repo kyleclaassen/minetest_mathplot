@@ -9,10 +9,6 @@ mathplot.gui.screens["set_nickname"] = {
         local formspec = "size[5.25,2.5]"
         .. "label[0,0;Set Node Nickname]"
         .. string.format("field[0.25,1;4,1;txt_nickname;;%s]", minetest.formspec_escape(nickname))
---        if context.nickname_already_used then
---            formspec = formspec
---            .. "label[0,1.5;" .. minetest.colorize("#FF0000", string.format("Name '%s' already used", context.nickname_already_used)) .. "]"
---        end
         formspec = formspec
         .. "button_exit[0,2;2,1;btn_OK;OK]"
         .. "button_exit[2,2;2,1;btn_cancel;Cancel]"
