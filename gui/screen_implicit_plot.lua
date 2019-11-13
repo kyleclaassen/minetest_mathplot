@@ -120,6 +120,8 @@ mathplot.gui.screens["implicit_plot"] = {
 
         local allowErase = have_saved_params(context, identifier)
 
+        local relationTooltipText = "A function f(x,y,z), e.g. 'x^2 + y^2 + z^2 - 100'. A node will be set at (x,y,z) if f(x,y,z)=0. Can also use inequalities, e.g. 'x^2 + y^2 <= 100'."
+
         local formspec = "size[12,10.5]"
         .. "label[0,0;Implicit Plot]"
         .. "container[0,1]"
@@ -135,7 +137,8 @@ mathplot.gui.screens["implicit_plot"] = {
         .. string.format("label[0,3;Z Min:]field[2,3;2,1;zmin;;%s]", p.zmin)
         .. string.format("label[4,3;Z Max:]field[6,3;2,1--1;zmax;;%s]", p.zmax)
         .. string.format("label[8,3;Z Step:]field[10,3;2,1;zstep;;%s]", p.zstep)
-        .. string.format("label[0,4;Condition:]field[2,4;10,1;ftn;;%s]", p.ftn)
+        .. string.format("label[0,4;Relation:]field[2,4;10,1;ftn;;%s]", p.ftn)
+        .. string.format("tooltip[ftn;%s]", minetest.formspec_escape(relationTooltipText))
         .. "container_end[]"
         .. "container[0,6]"
         .. "list[current_player;main;0,0;8,4;]"
