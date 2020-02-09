@@ -134,7 +134,9 @@ local function inventory_container(playername, identifier, connect)
     --connected by line segments.
     local connectCheckbox = ""
     if identifier == "parametric_curve" then
+        local connectCheckboxTooltipText = "Connect the curve points with line segments."
         connectCheckbox = string.format("checkbox[8.25,2;chk_connect;Connected;%s]", tostring(connect))
+        .. string.format("tooltip[chk_connect;%s]", minetest.formspec_escape(connectCheckboxTooltipText))
     end
 
     return {
