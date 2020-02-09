@@ -98,8 +98,9 @@ for colorName, colorVal in pairs(colors) do
     woolNode.description = "MathPlot Glowing " .. woolNode.description
     minetest.register_node("mathplot:glow_wool_" .. colorName, woolNode)
 
-    --Make "glow glass" by tweaking the standard obsidian node
-    local glassNode = table.copy(minetest.registered_nodes["default:obsidian_glass"])
+    --Make "glow glass" by tweaking the standard glass node
+    --local glassNode = table.copy(minetest.registered_nodes["default:obsidian_glass"])
+	local glassNode = table.copy(minetest.registered_nodes["default:glass"])
     glassNode.description = "mathplot Glowing " .. colorName .. " Glass"
     glassNode.paramtype = "light"
     glassNode.light_source = 10
