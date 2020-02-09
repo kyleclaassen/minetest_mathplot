@@ -114,7 +114,7 @@ local function ftn_container(varnames, ftn_x, ftn_y, ftn_z)
         .. string.format("label[0,2;Z(%s) = ]field[2,2;10,1;ftn_z;;%s]", varstr, ftn_z)
     }
 end
-local function inventory_container(playername, identifier)
+local function inventory_container(playername, identifier, connect)
     local btn_to_name1 = nil
     local btn_to_label1 = nil
     local btn_to_name2 = nil
@@ -129,6 +129,14 @@ local function inventory_container(playername, identifier)
         btn_to_name1, btn_to_label1 = "btn_to_curve", "To Curve"
         btn_to_name2, btn_to_label2 = "btn_to_surface", "To Surface" 
     end
+
+    --For parametric curves, show a checkbox indicating whether the generated points should be
+    --connected by line segments.
+    local connectCheckbox = ""
+    if identifier == "parametric_curve" then
+        connectCheckbox = string.format("checkbox[8.25,2;chk_connect;Connected;%s]", tostring(connect))
+    end
+
     return {
         height = 4,
         formspec = "list[current_player;main;0,0;8,4;]"
@@ -136,6 +144,7 @@ local function inventory_container(playername, identifier)
         .. "list[detached:mathplot:inv_brush_" .. playername .. ";brush;9.75,0;1,1;]"
         .. "image[10.81,0.1;0.8,0.8;creative_trash_icon.png]"
         .. "list[detached:mathplot:inv_trash;main;10.75,0;1,1;]"
+        .. connectCheckbox
         .. string.format("button_exit[8.25,3;2,1;%s;%s]", btn_to_name1, btn_to_label1)
         .. string.format("button_exit[10.1,3;2,1;%s;%s]", btn_to_name2, btn_to_label2)
     }
@@ -217,7 +226,7 @@ local parametric_screen = {
                 direction_container(p.e1, p.e2, p.e3),
                 min_max_step_container("u", p.umin, p.umax, p.ustep),
                 ftn_container({"u"}, p.ftn_x, p.ftn_y, p.ftn_z),
-                inventory_container(playername, identifier),
+                inventory_container(playername, identifier, p.connect),
                 plot_cancel_container(allowErase)
             )
         elseif identifier == "parametric_surface" then
@@ -247,6 +256,11 @@ local parametric_screen = {
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)
+        if fields.chk_connect ~= nil then
+            --Checkbox field chk_connect is not sent on button press, so store it on the context
+            context.screen_params.connect = minetest.is_yes(fields.chk_connect)
+        end
+
         if fields.btn_plot or fields.key_enter or fields.btn_erase then
             local nodename = ""
             local newfields = nil
@@ -259,7 +273,7 @@ local parametric_screen = {
                 newfields = mathplot.util.merge_tables(
                     default_params(identifier),
                     fields,
-                    { origin_pos = context.node_pos, nodename = nodename }
+                    { origin_pos = context.node_pos, nodename = nodename, connect = context.screen_params.connect }
                 )
             end
 
