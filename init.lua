@@ -1,7 +1,7 @@
 mathplot = {}
 mathplot.MODPATH = minetest.get_modpath("mathplot")
 
-mathplot.VERSION = "1.0"
+mathplot.VERSION = "1.1"
 
 --Read settings from settingtypes.txt
 mathplot.settings = {}
