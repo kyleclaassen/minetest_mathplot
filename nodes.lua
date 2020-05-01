@@ -1,10 +1,13 @@
 mathplot = mathplot or {}
 
+-- support for MT game translation.
+local S = mathplot.get_translator
+
 mathplot.ORIGIN_NODE_NAME = "mathplot:00_origin"
 mathplot.ORIGIN_DESTROYER_NODE_NAME = "mathplot:00_origin_destroyer"
 
 minetest.register_node(mathplot.ORIGIN_NODE_NAME, {
-        description = "MathPlot Origin Node",
+        description = S("MathPlot Origin Node"),
         groups = {cracky = 1},
         paramtype = "light",
         light_source = 7,
@@ -12,7 +15,7 @@ minetest.register_node(mathplot.ORIGIN_NODE_NAME, {
         inventory_image = "mathplot_origin_node_128x128.png",
         on_construct = function(pos)
             --add to mod storage
-            local name = "Untitled Node"
+            local name = S("Untitled Node")
             mathplot.store_origin_location(name, pos)
         end,
         is_ground_content = false,
@@ -22,7 +25,7 @@ minetest.register_node(mathplot.ORIGIN_NODE_NAME, {
             if wieldedItemName == mathplot.ORIGIN_DESTROYER_NODE_NAME then
                 minetest.node_dig(pos, node, digger)
             else
-                minetest.chat_send_player(digger:get_player_name(), "Use the \"MathPlot Origin Destroyer\" tool to dig this node.")
+                minetest.chat_send_player(digger:get_player_name(), S("Use the \"MathPlot Origin Destroyer\" tool to dig this node."))
             end
         end,
         on_punch = function(pos, node, puncher, pointed_thing)
@@ -47,7 +50,7 @@ minetest.register_alias("mathplot:origin", mathplot.ORIGIN_NODE_NAME)
 
 
 minetest.register_tool(mathplot.ORIGIN_DESTROYER_NODE_NAME, {
-        description = "MathPlot Origin Node Destroyer",
+        description = S("MathPlot Origin Node Destroyer"),
         groups = {},
         inventory_image = "mathplot_tool_destroyer_128x128.png"
     })
@@ -83,7 +86,7 @@ local alpha = "8f"
 for colorName, colorVal in pairs(colors) do
     --Translucent nodes
     minetest.register_node("mathplot:translucent_" .. colorName, {
-            description = "MathPlot " .. colorName .. " translucent glow block",
+            description = S("MathPlot @1 translucent glow block",S(colorName)),
             groups = {cracky = 1},
             paramtype = "light",
             light_source = 11,
@@ -95,13 +98,13 @@ for colorName, colorVal in pairs(colors) do
     local woolNode = table.copy(minetest.registered_nodes["wool:" .. colorName])
     woolNode.paramtype = "light"
     woolNode.light_source = 8
-    woolNode.description = "MathPlot Glowing " .. woolNode.description
+    woolNode.description = S("MathPlot Glowing @1",woolNode.description)
     minetest.register_node("mathplot:glow_wool_" .. colorName, woolNode)
 
     --Make "glow glass" by tweaking the standard glass node
     --local glassNode = table.copy(minetest.registered_nodes["default:obsidian_glass"])
 	local glassNode = table.copy(minetest.registered_nodes["default:glass"])
-    glassNode.description = "mathplot Glowing " .. colorName .. " Glass"
+    glassNode.description = S("mathplot Glowing @1 Glass",S(colorName))
     glassNode.paramtype = "light"
     glassNode.light_source = 10
     for i = 1, #glassNode.tiles do

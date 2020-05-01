@@ -1,7 +1,7 @@
 mathplot = mathplot or {}
-
+local S = mathplot.get_translator
 minetest.register_privilege("mathplot", {
-        description = "Can use mathplot functions",
+        description = S("Can use mathplot functions"),
         give_to_singleplayer = true
     })
 
@@ -15,7 +15,7 @@ end
 
 local function do_mathplot_clearlist(playername, param)
     mathplot.clear_origin_locations()
-    return true, "Origin locations list cleared."
+    return true, S("Origin locations list cleared.")
 end
 
 
@@ -24,23 +24,23 @@ local function do_mathplot_timeout(playername, param)
     if #param == 0 then
         --Echo the current setting.
         if mathplot.settings.plot_timeout == 0 then
-            return true, "Plot timeout is currently disabled."
+            return true, S("Plot timeout is currently disabled.")
         else
-            return true, string.format("Plot timeout is currently set to %s seconds.", mathplot.settings.plot_timeout / 1e6)
+            return true, S("Plot timeout is currently set to @1 seconds.", mathplot.settings.plot_timeout / 1e6)
         end
     else
         --Change setting if valid parameter provided.
         local seconds = tonumber(param)
         if not seconds then
-            return false, "Invalid timeout specified: " .. param
+            return false, S("Invalid timeout specified: @1",param)
         elseif seconds < 0 then
-            return false, "Timeout must be zero or greater."
+            return false, S("Timeout must be zero or greater.")
         else
             mathplot.settings.plot_timeout = seconds * 1e6
             if mathplot.settings.plot_timeout == 0 then
-                return true, "Plot timeout disabled."
+                return true, S("Plot timeout disabled.")
             else
-                return true, string.format("Plot timeout set to %s seconds.", seconds)
+                return true, S("Plot timeout set to @1 seconds.", seconds)
             end
         end
     end
@@ -51,17 +51,17 @@ local function do_mathplot_max_coord(playername, param)
     param = string.trim(param)
     if #param == 0 then
         --Echo the current setting.
-        return true, string.format("Maximum coordinate magnitude is set to %s.", mathplot.settings.max_coord)
+        return true, S("Maximum coordinate magnitude is set to @1.", mathplot.settings.max_coord)
     else
         --Change setting if valid parameter provided.
         local max_coord = tonumber(param)
         if not max_coord then
-            return false, "Invalid maximum coordinate magnitude specified: " .. param
+            return false, S("Invalid maximum coordinate magnitude specified: @1",param)
         elseif max_coord < 0 then
-            return false, "Maximum coordinate magnitude must be zero or greater."
+            return false, S("Maximum coordinate magnitude must be zero or greater.")
         else
             mathplot.settings.max_coord = max_coord
-            return true, string.format("Maximum coordinate magnitude set to %s.", mathplot.settings.max_coord)
+            return true, S("Maximum coordinate magnitude set to @1.", mathplot.settings.max_coord)
         end
     end
 end
@@ -89,18 +89,18 @@ local function do_mathplot_open(playername, param, action)
         elseif action == "teleport" then
             local canTeleport = minetest.get_player_privs(playername).teleport
             if canTeleport then
-                minetest.log("mathplot: player " .. playername .. " teleporting to " .. minetest.pos_to_string(l.pos))
+                minetest.log(S("mathplot: player @1 teleporting to @2",playername,minetest.pos_to_string(l.pos)))
                 local player = minetest.get_player_by_name(playername)
                 if player then
                     player:set_pos(l.pos)
                 end
                 return true, nil
             end
-            return false, "mathplot: requires 'teleport' privilege."
+            return false, S("mathplot: requires 'teleport' privilege.")
         end
-        return false, "Unknown action: " .. action
+        return false, S("Unknown action: @1",action)
     end
-    return false, string.format("Unknown origin node '%s'.", param)
+    return false, S("Unknown origin node '@1'.", param)
 end
 
 
@@ -135,7 +135,7 @@ local function do_mathplot(playername, param)
     if f then
         return f(playername, arg)
     else
-        return false, "Invalid mathplot subcommand: " .. subcommand
+        return false, S("Invalid mathplot subcommand: @1",subcommand)
     end
 end
 
@@ -143,5 +143,5 @@ end
 minetest.register_chatcommand("mathplot", {
         privs = { mathplot = true },
         func = do_mathplot,
-        description = "Perform mathplot functions"
+        description = S("Perform mathplot functions")
     })
