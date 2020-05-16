@@ -32,7 +32,7 @@ local function do_mathplot_timeout(playername, param)
         --Change setting if valid parameter provided.
         local seconds = tonumber(param)
         if not seconds then
-            return false, S("Invalid timeout specified: @1",param)
+            return false, S("Invalid timeout specified: @1", param)
         elseif seconds < 0 then
             return false, S("Timeout must be zero or greater.")
         else
@@ -56,7 +56,7 @@ local function do_mathplot_max_coord(playername, param)
         --Change setting if valid parameter provided.
         local max_coord = tonumber(param)
         if not max_coord then
-            return false, S("Invalid maximum coordinate magnitude specified: @1",param)
+            return false, S("Invalid maximum coordinate magnitude specified: @1", param)
         elseif max_coord < 0 then
             return false, S("Maximum coordinate magnitude must be zero or greater.")
         else
@@ -89,7 +89,7 @@ local function do_mathplot_open(playername, param, action)
         elseif action == "teleport" then
             local canTeleport = minetest.get_player_privs(playername).teleport
             if canTeleport then
-                minetest.log(S("mathplot: player @1 teleporting to @2",playername,minetest.pos_to_string(l.pos)))
+                minetest.log(S("mathplot: player @1 teleporting to @2", playername, minetest.pos_to_string(l.pos)))
                 local player = minetest.get_player_by_name(playername)
                 if player then
                     player:set_pos(l.pos)
@@ -98,7 +98,7 @@ local function do_mathplot_open(playername, param, action)
             end
             return false, S("mathplot: requires 'teleport' privilege.")
         end
-        return false, S("Unknown action: @1",action)
+        return false, S("Unknown action: @1", action)
     end
     return false, S("Unknown origin node '@1'.", param)
 end
@@ -135,7 +135,7 @@ local function do_mathplot(playername, param)
     if f then
         return f(playername, arg)
     else
-        return false, S("Invalid mathplot subcommand: @1",subcommand)
+        return false, S("Invalid mathplot subcommand: @1", subcommand)
     end
 end
 

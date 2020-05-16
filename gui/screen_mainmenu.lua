@@ -21,7 +21,7 @@ local function teleport(name_idx, playername)
         local _, positions = mathplot.get_origin_location_lists()
         if name_idx ~= nil then
             local pos = positions[name_idx]
-            minetest.log(S("mathplot: player @1 teleporting to @2",playername,minetest.pos_to_string(pos)))
+            minetest.log(S("mathplot: player @1 teleporting to @2", playername, minetest.pos_to_string(pos)))
             local player = minetest.get_player_by_name(playername)
             if player then
                 player:set_pos(pos)
@@ -42,13 +42,13 @@ mathplot.gui.screens["mainmenu"] = {
         end
         local namesStr = mathplot.util.escape_textlist(names)
         local formspec = "size[6,6.5]"
-        .. string.format("label[0,0;%s]",S("Available mathplot origin nodes:"))
+        .. string.format("label[0,0;%s]", S("Available mathplot origin nodes:"))
         .. string.format("textlist[0,0.5;5.75,5.5;originname_idx;%s;;]", namesStr)
-        .. string.format("button_exit[0,6;2,1;btn_open;%s]",S("Open"))
-        .. string.format("button_exit[4,6;2,1;btn_cancel;%s]",S("Cancel"))
+        .. string.format("button_exit[0,6;2,1;btn_open;%s]", S("Open"))
+        .. string.format("button_exit[4,6;2,1;btn_cancel;%s]", S("Cancel"))
         if canTeleport then
             formspec = formspec
-            .. string.format("button_exit[2,6;2,1;btn_teleport;%s]",S("Teleport"))
+            .. string.format("button_exit[2,6;2,1;btn_teleport;%s]", S("Teleport"))
         end
         return formspec
     end,

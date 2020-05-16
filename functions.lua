@@ -89,7 +89,7 @@ end
 
 mathplot.check_function_syntax = function(expression, varnames, testinputs)
     expression = tostring(expression)
-    minetest.log(S("Checking syntax: '@1'",expression))
+    minetest.log(S("Checking syntax: '@1'", expression))
 
     expression = string.trim(tostring(expression))
     if #expression == 0 then
@@ -144,7 +144,7 @@ mathplot.line_3d = function(p1, p2)
                     if t > 0 then i_stop = math.min(i_stop, t) end
                 end
             end
-            minetest.log(S("Recalibrated i_stop from @1 to @2",N,i_stop))
+            minetest.log(S("Recalibrated i_stop from @1 to @2", N, i_stop))
         end
     end
 
@@ -252,19 +252,19 @@ mathplot.plot_parametric = function(params)
     local varnamesStr = mathplot.parametric_argstr_display(params.varnames)
     local X, loaderror = make_safe_function(params.ftn_x, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","X",varnamesStr,loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3","X", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local Y, loaderror  = make_safe_function(params.ftn_y, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","Y",varnamesStr,loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3","Y", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local Z, loaderror = make_safe_function(params.ftn_z, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","Z",varnamesStr,loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3","Z", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
@@ -284,55 +284,55 @@ mathplot.plot_parametric = function(params)
     --##################
     local UMIN, loaderror = make_safe_function(params.umin, {})
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","umin",loaderror)
+        local errormsg = S("Syntax error in @1: @2", "umin", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local UMAX, loaderror = make_safe_function(params.umax, {})
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","umax",loaderror)
+        local errormsg = S("Syntax error in @1: @2", "umax", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local USTEP, loaderror = make_safe_function(params.ustep, {})
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","ustep",loaderror)
+        local errormsg = S("Syntax error in @1: @2", "ustep", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local VMIN, loaderror = make_safe_function(params.vmin, {params.varnames[1]})  --depends on u
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","vmin",loaderror)
+        local errormsg = S("Syntax error in @1: @2", "vmin", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local VMAX, loaderror = make_safe_function(params.vmax, {params.varnames[1]})  --depends on u
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","vmax",loaderror)
+        local errormsg = S("Syntax error in @1: @2", "vmax", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local VSTEP, loaderror = make_safe_function(params.vstep, {params.varnames[1]})  --depends on u
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","vstep",loaderror)
+        local errormsg = S("Syntax error in @1: @2", "vstep", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local WMIN, loaderror = make_safe_function(params.wmin, {params.varnames[1], params.varnames[2]})  --depends on u,v
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","wmin",loaderror)
+        local errormsg = S("Syntax error in @1: @2", "wmin", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local WMAX, loaderror = make_safe_function(params.wmax, {params.varnames[1], params.varnames[2]})  --depends on u,v
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","wmax",loaderror)
+        local errormsg = S("Syntax error in @1: @2", "wmax", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local WSTEP, loaderror = make_safe_function(params.wstep, {params.varnames[1], params.varnames[2]})  --depends on u,v
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","wstep",loaderror)
+        local errormsg = S("Syntax error in @1: @2","wstep", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
@@ -340,58 +340,58 @@ mathplot.plot_parametric = function(params)
 
     local ok, umin = UMIN()
     if ok == nil then
-        return false, S("plot_parametric: syntax error in @1: @2","umin",umin)
+        return false, S("plot_parametric: syntax error in @1: @2", "umin", umin)
     end
     if umin == nil then
-        return false, S("plot_parametric: failed to determine @1.","umin")
+        return false, S("plot_parametric: failed to determine @1.", "umin")
     end
     local ok, umax = UMAX()
     if ok == nil then
-        return false, S("plot_parametric: syntax error in @1: @2","umax",umax)
+        return false, S("plot_parametric: syntax error in @1: @2", "umax", umax)
     end
     if umax == nil then
-        return false, S("plot_parametric: Unable to determine @1.","umax")
+        return false, S("plot_parametric: Unable to determine @1.", "umax")
     end
     local ok, ustep = USTEP()
     if ok == nil then
-        return false, S("plot_parametric: syntax error in @1: @2","ustep",upstep)
+        return false, S("plot_parametric: syntax error in @1: @2", "ustep", upstep)
     end
     if ustep == nil then
-        return false, S("plot_parametric: Unable to determine @1.","ustep")
+        return false, S("plot_parametric: Unable to determine @1.", "ustep")
     end
     for u = umin, umax, ustep do
         local ok, vmin = VMIN(u)
         if ok == nil then
-            return false, S("plot_parametric: syntax error in @1: @2","vmin",vmin)
+            return false, S("plot_parametric: syntax error in @1: @2", "vmin", vmin)
         end
         local ok, vmax = VMAX(u)
         if ok == nil then
-            return false, S("plot_parametric: syntax error in @1: @2","vmax",vmax)
+            return false, S("plot_parametric: syntax error in @1: @2", "vmax", vmax)
         end
         local ok, vstep = VSTEP(u)
         if ok == nil then
-            return false, S("plot_parametric: syntax error in @1: @2","vstep",vstep)
+            return false, S("plot_parametric: syntax error in @1: @2", "vstep", vstep)
         end
         if vmin and vmax and vstep then
             for v = vmin, vmax, vstep do
                 local ok, wmin = WMIN(u, v)
                 if ok == nil then
-                    return false, S("plot_parametric: syntax error in @1: @2","wmin",wmin)
+                    return false, S("plot_parametric: syntax error in @1: @2", "wmin", wmin)
                 end
                 local ok, wmax = WMAX(u, v)
                 if ok == nil then
-                    return false, S("plot_parametric: syntax error in @1: @2","wmax",wmax)
+                    return false, S("plot_parametric: syntax error in @1: @2", "wmax", wmax)
                 end
                 local ok, wstep = WSTEP(u, v)
                 if ok == nil then
-                    return false, S("plot_parametric: syntax error in @1: @2","wstep", wstep)
+                    return false, S("plot_parametric: syntax error in @1: @2", "wstep", wstep)
                 end
                 if wmin and wmax and wstep then
                     for w = wmin, wmax, wstep do
                         local ok, p2 = evaluate_parametric(e1, e2, e3, X, Y, Z, u, v, w)
                         if ok == nil then
                             --Syntax error! Punt!
-                            return false, S("plot_parametric: syntax error: @1",p2)
+                            return false, S("plot_parametric: syntax error: @1", p2)
                         end
 
                         if ok then
@@ -431,7 +431,7 @@ mathplot.plot_parametric = function(params)
         end
     end
 
-    local msg = S("plot_parametric total elapsed time: @1 seconds",(minetest.get_us_time()-startTime) / 1e6)
+    local msg = S("plot_parametric total elapsed time: @1 seconds", (minetest.get_us_time()-startTime) / 1e6)
     minetest.log(msg)
     return true, msg
 end
@@ -446,7 +446,7 @@ local function satisfies_implicit_relation(F, x, y, z, xstep, ystep, zstep)
         local ok, f = F(x, y, z)
         local errormsg = nil
         if not ok then
-            errormsg = S("plot_implicit: error in condition: @1",f)
+            errormsg = S("plot_implicit: error in condition: @1", f)
         end
         return ok, f, errormsg
     end
@@ -493,7 +493,7 @@ mathplot.plot_implicit = function(params)
 
     local F, loaderror = make_safe_function(params.ftn, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("plot_implicit: syntax error in condition: @1",loaderror)
+        local errormsg = S("plot_implicit: syntax error in condition: @1", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
@@ -532,7 +532,7 @@ mathplot.plot_implicit = function(params)
         end
     end
 
-    local msg = S("plot_implicit: total elapsed time: @1 seconds",(minetest.get_us_time()-startTime) / 1e6)
+    local msg = S("plot_implicit: total elapsed time: @1 seconds", (minetest.get_us_time()-startTime) / 1e6)
     minetest.log(msg)
     return true, msg
 end

@@ -7,13 +7,13 @@ local function validate_parametric(playername, identifier, fields, context)
     local p = table.copy(fields)
 
     if minetest.string_to_pos(p.e1) == nil then
-        e[#e+1] = S("Invalid +@1 Direction","X")
+        e[#e+1] = S("Invalid +@1 Direction", "X")
     end
     if minetest.string_to_pos(p.e2) == nil then
-        e[#e+1] = S("Invalid +@1 Direction","Y")
+        e[#e+1] = S("Invalid +@1 Direction", "Y")
     end
     if minetest.string_to_pos(p.e3) == nil then
-        e[#e+1] = S("Invalid +@1 Direction","Z")
+        e[#e+1] = S("Invalid +@1 Direction", "Z")
     end
 
     local varname1 = p.varnames[1]
@@ -24,54 +24,54 @@ local function validate_parametric(playername, identifier, fields, context)
     --Load ftn code string to check for syntax error
     local syntaxerror = mathplot.check_function_syntax(p.umin, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","umin",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "umin", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.umax, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","umax",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "umax", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ustep, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","ustep",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "ustep", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.vmin, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","vmin",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "vmin", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.vmax, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","vmax",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "vmax", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.vstep, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","vstep",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "vstep", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.wmin, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","wmin",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "wmin", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.wmax, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","wmax",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "wmax", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.wstep, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2","wstep",syntaxerror)
+        e[#e+1] = S("Syntax error in @1: @2", "wstep", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.ftn_x, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1(@2): @3","X",varnamesStr,syntaxerror)
+        e[#e+1] = S("Syntax error in @1(@2): @3", "X", varnamesStr, syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ftn_y, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1(@2): @3","Y",varnamesStr,syntaxerror)
+        e[#e+1] = S("Syntax error in @1(@2): @3", "Y", varnamesStr, syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ftn_z, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1(@2): @3","Z",varnamesStr,syntaxerror)
+        e[#e+1] = S("Syntax error in @1(@2): @3", "Z", varnamesStr, syntaxerror)
     end
 
     if not mathplot.is_drawable_node(fields.nodename) then
@@ -94,17 +94,17 @@ end
 local function direction_container(e1, e2, e3)
     return {
         height = 1,
-        formspec = string.format("label[0,0;%s]field[2,0;2,1;e1;;%s]", S("+@1 Direction:","X"),e1)
-        .. string.format("label[4,0;%s]field[6,0;2,1;e2;;%s]", S("+@1 Direction:","Y"),e2)
-        .. string.format("label[8,0;%s]field[10,0;2,1;e3;;%s]", S("+@1 Direction:","Z"),e3)
+        formspec = string.format("label[0,0;%s]field[2,0;2,1;e1;;%s]", S("+@1 Direction:", "X"), e1)
+        .. string.format("label[4,0;%s]field[6,0;2,1;e2;;%s]", S("+@1 Direction:", "Y"), e2)
+        .. string.format("label[8,0;%s]field[10,0;2,1;e3;;%s]", S("+@1 Direction:", "Z"), e3)
     }
 end
 local function min_max_step_container(varname, umin, umax, ustep)
     return {
         height = 1,
-        formspec = string.format("label[0,0;%s %s]field[2,0;2,1;%smin;;%s]", varname, S("@1:",S"Min"), varname, umin)
-        .. string.format("label[4,0;%s %s]field[6,0;2,1;%smax;;%s]", varname, S("@1:",S("Max")),varname, umax)
-        .. string.format("label[8,0;%s %s]field[10,0;2,1;%sstep;;%s]", varname, S("@1:",S("Step")),varname, ustep)
+        formspec = string.format("label[0,0;%s %s]field[2,0;2,1;%smin;;%s]", varname, S("@1:", S"Min"), varname, umin)
+        .. string.format("label[4,0;%s %s]field[6,0;2,1;%smax;;%s]", varname, S("@1:", S("Max")), varname, umax)
+        .. string.format("label[8,0;%s %s]field[10,0;2,1;%sstep;;%s]", varname, S("@1:", S("Step")), varname, ustep)
     }
 end
 local function ftn_container(varnames, ftn_x, ftn_y, ftn_z)
@@ -144,7 +144,7 @@ local function inventory_container(playername, identifier, connect)
     return {
         height = 4,
         formspec = "list[current_player;main;0,0;8,4;]"
-        .. string.format("label[8.25,0.25;%s]",S("@1:",S("Plot node")))
+        .. string.format("label[8.25,0.25;%s]", S("@1:", S("Plot node")))
         .. "list[detached:mathplot:inv_brush_" .. playername .. ";brush;9.75,0;1,1;]"
         .. "image[10.81,0.1;0.8,0.8;creative_trash_icon.png]"
         .. "list[detached:mathplot:inv_trash;main;10.75,0;1,1;]"
@@ -156,9 +156,9 @@ end
 local function plot_cancel_container(allowErase)
     return {
         height = 1,
-        formspec = string.format("button_exit[0,0;2,1;btn_plot;%s]",S("Plot"))
-        .. string.format("button_exit[2,0;2,1;btn_cancel;%s]",S("Cancel"))
-        .. (allowErase and string.format("button_exit[9.1,0;3,1;btn_erase;%s]",S("Erase Previous")) or "")
+        formspec = string.format("button_exit[0,0;2,1;btn_plot;%s]", S("Plot"))
+        .. string.format("button_exit[2,0;2,1;btn_cancel;%s]", S("Cancel"))
+        .. (allowErase and string.format("button_exit[9.1,0;3,1;btn_erase;%s]", S("Erase Previous")) or "")
     }
 end
 

@@ -86,7 +86,7 @@ local alpha = "8f"
 for colorName, colorVal in pairs(colors) do
     --Translucent nodes
     minetest.register_node("mathplot:translucent_" .. colorName, {
-            description = S("MathPlot @1 translucent glow block",S(colorName)),
+            description = S("MathPlot @1 translucent glow block", S(colorName)),
             groups = {cracky = 1},
             paramtype = "light",
             light_source = 11,
@@ -98,13 +98,13 @@ for colorName, colorVal in pairs(colors) do
     local woolNode = table.copy(minetest.registered_nodes["wool:" .. colorName])
     woolNode.paramtype = "light"
     woolNode.light_source = 8
-    woolNode.description = S("MathPlot Glowing @1",woolNode.description)
+    woolNode.description = S("MathPlot Glowing @1", woolNode.description)
     minetest.register_node("mathplot:glow_wool_" .. colorName, woolNode)
 
     --Make "glow glass" by tweaking the standard glass node
     --local glassNode = table.copy(minetest.registered_nodes["default:obsidian_glass"])
 	local glassNode = table.copy(minetest.registered_nodes["default:glass"])
-    glassNode.description = S("mathplot Glowing @1 Glass",S(colorName))
+    glassNode.description = S("mathplot Glowing @1 Glass", S(colorName))
     glassNode.paramtype = "light"
     glassNode.light_source = 10
     for i = 1, #glassNode.tiles do
