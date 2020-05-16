@@ -1,5 +1,7 @@
 mathplot.gui.screens = mathplot.gui.screens or {}
+
 local S = mathplot.get_translator
+
 local relevant_meta_keys = {
     "axis_params",
     "implicit_plot_params",

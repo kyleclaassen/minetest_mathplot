@@ -65,13 +65,13 @@ OK=Ok
 Set Node Nickname=Définir le surnom du block
 Invalid +@1 Direction=Direction +@1 invalide
 @1 must be a number.=@1 doit être un nombre
-@1 Min must be <@= @1 Max=@1 Min doit être <@= @1 Max
+@1 Min must be <@= @2 Max.=@1 Min doit être <@= @2 Max
 X Min=X Min
 X Max=X Max
 Y Min=Y Min
 Y Max=Y Max
 Z Min=Z Min
-Z Max=Z max
+Z Max=Z Max
 @1 Axis brush '@2' is not a drawable node.=La broche « @2 » de l’axe @1 n’est pas un mode dessin.
 +@1 Direction:=Direction +@1 :
 Draw=Tracer

@@ -65,7 +65,7 @@ OK=
 Set Node Nickname=
 Invalid +@1 Direction=
 @1 must be a number.=
-@1 Min must be <@= @1 Max=
+@1 Min must be <@= @2 Max.=
 X Min=
 X Max=
 Y Min=

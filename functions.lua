@@ -1,4 +1,5 @@
 mathplot = mathplot or {}
+
 local S = mathplot.get_translator
 
 local function create_sandbox(code)
@@ -354,7 +355,7 @@ mathplot.plot_parametric = function(params)
     end
     local ok, ustep = USTEP()
     if ok == nil then
-        return false, S("plot_parametric: syntax error in @1: @2", "ustep", upstep)
+        return false, S("plot_parametric: syntax error in @1: @2", "ustep", ustep)
     end
     if ustep == nil then
         return false, S("plot_parametric: Unable to determine @1.", "ustep")

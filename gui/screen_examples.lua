@@ -1,5 +1,7 @@
 mathplot.gui.screens = mathplot.gui.screens or {}
+
 local S = mathplot.get_translator
+
 mathplot.gui.screens["examples"] = {
     initialize = function(playername, identifier, context)
     end,

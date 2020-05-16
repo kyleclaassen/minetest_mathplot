@@ -1,6 +1,7 @@
 mathplot = mathplot or {}
 
 local mod_storage = minetest.get_mod_storage()
+
 local S = mathplot.get_translator
 
 mathplot.clear_origin_locations = function()

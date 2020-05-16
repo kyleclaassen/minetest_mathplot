@@ -102,7 +102,7 @@ end
 local function min_max_step_container(varname, umin, umax, ustep)
     return {
         height = 1,
-        formspec = string.format("label[0,0;%s %s]field[2,0;2,1;%smin;;%s]", varname, S("@1:", S"Min"), varname, umin)
+        formspec = string.format("label[0,0;%s %s]field[2,0;2,1;%smin;;%s]", varname, S("@1:", S("Min")), varname, umin)
         .. string.format("label[4,0;%s %s]field[6,0;2,1;%smax;;%s]", varname, S("@1:", S("Max")), varname, umax)
         .. string.format("label[8,0;%s %s]field[10,0;2,1;%sstep;;%s]", varname, S("@1:", S("Step")), varname, ustep)
     }

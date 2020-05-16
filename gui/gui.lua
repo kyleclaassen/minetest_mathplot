@@ -2,6 +2,7 @@ mathplot = mathplot or {}
 mathplot.gui = {}
 
 local S = mathplot.get_translator
+
 local _formcontext = {}
 
 -- Create the trash field

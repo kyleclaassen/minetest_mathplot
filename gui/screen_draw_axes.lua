@@ -25,7 +25,7 @@ local function parse_and_validate(playername, identifier, fields, context)
         e[#e+1] = S("@1 must be a number.", S("X Max"))
     end
     if p.xmin ~= nil and p.xmax ~= nil and p.xmin > p.xmax then
-        e[#e+1] = S("@1 Min must be <= @1 Max.", "X")
+        e[#e+1] = S("@1 Min must be <= @2 Max.", "X", "X")
     end
 
     p.ymin = tonumber(p.ymin)
@@ -37,7 +37,7 @@ local function parse_and_validate(playername, identifier, fields, context)
         e[#e+1] = S("@1 must be a number.", S("Y Max"))
     end
     if p.ymin ~= nil and p.ymax ~= nil and p.ymin > p.ymax then
-        e[#e+1] = S("@1 Min must be <= @1 Max.", "Y")
+        e[#e+1] = S("@1 Min must be <= @2 Max.", "Y", "Y")
     end
 
     p.zmin = tonumber(p.zmin)
@@ -49,7 +49,7 @@ local function parse_and_validate(playername, identifier, fields, context)
         e[#e+1] = S("@1 must be a number.", S("Z Max"))
     end
     if p.zmin ~= nil and p.zmax ~= nil and p.zmin > p.zmax then
-        e[#e+1] = S("@1 Min must be <= @1 Max.", "Z")
+        e[#e+1] = S("@1 Min must be <= @2 Max.", "Z", "Z")
     end
 
     if not mathplot.is_drawable_node(p.xaxisbrush) then

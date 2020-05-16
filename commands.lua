@@ -1,5 +1,7 @@
 mathplot = mathplot or {}
+
 local S = mathplot.get_translator
+
 minetest.register_privilege("mathplot", {
         description = S("Can use mathplot functions"),
         give_to_singleplayer = true
