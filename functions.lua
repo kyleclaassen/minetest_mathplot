@@ -145,7 +145,6 @@ mathplot.line_3d = function(p1, p2)
                     if t > 0 then i_stop = math.min(i_stop, t) end
                 end
             end
-            minetest.log(S("Recalibrated i_stop from @1 to @2", N, i_stop))
         end
     end
 

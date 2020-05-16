@@ -25,7 +25,6 @@ mathplot: removing stale origin node at @1=
 Binary code prohibited.=
 Checking syntax: '@1'=
 expression cannot be blank.=
-Recalibrated i_stop from @1 to @2=
 Error evaluating at (@1): @2=
 At least one coordinate does not evaluate to a number.=
 '@1' is not a drawable node.=

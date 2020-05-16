@@ -25,7 +25,6 @@ mathplot: removing stale origin node at @1=mathplot : Suppression des blocs d�
 Binary code prohibited.=Code binaire interdit.
 Checking syntax: '@1'=Vérification de la syntaxe : « @1 »
 expression cannot be blank.=La formule ne peut pas être vide
-Recalibrated i_stop from @1 to @2=Recalibrage de i_stop de @1 à @2
 Error evaluating at (@1): @2=Erreur d'évaluation de (@1) : @2
 At least one coordinate does not evaluate to a number.=Au moins une des coordonées n'est pas un nombre.
 '@1' is not a drawable node.=« @1 » n’est pas un mod de dessin.
