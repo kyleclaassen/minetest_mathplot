@@ -1,6 +1,6 @@
 mathplot = {}
 
-mathplot.VERSION = "1.2alpha"
+mathplot.VERSION = "1.2.0alpha"
 
 mathplot.MODPATH = minetest.get_modpath("mathplot")
 
