@@ -1,5 +1,7 @@
 mathplot.gui.screens = mathplot.gui.screens or {}
 
+local S = mathplot.get_translator
+
 local relevant_meta_keys = {
     "axis_params",
     "implicit_plot_params",
@@ -39,10 +41,10 @@ local function deserialize_origin_node(pos, json)
             meta:from_table(meta_table)
             return true, nil
         else
-            return false, "Invalid JSON."
+            return false, S("Invalid JSON.")
         end
     else
-        return false, string.format("Non-mathplot origin node at position %s", minetest.pos_to_string(pos))
+        return false, S("Non-mathplot origin node at position @1", minetest.pos_to_string(pos))
     end
 end
 
@@ -56,12 +58,12 @@ mathplot.gui.screens["serialize"] = {
             escaped_json = ""
         end
         local formspec = "size[10.25,4.5]"
-        .. "label[0,0;Serialized Node:]"
+        .. string.format("label[0,0;%s]",S("@1:", S("Serialized Node")))
         .. string.format("field[0.25,1;10,1;txt_to_json;;%s]", escaped_json)
-        .. "label[0,2;Deserialize from JSON:]"
+        .. string.format("label[0,2;%s]",S("@1:", S("Deserialize from JSON")))
         .. "field[0.25,3;10,1;txt_from_json;;]"
-        .. "button_exit[0,4;2,1;btn_load;Load]"
-        .. "button_exit[2,4;2,1;btn_cancel;Cancel]"
+        .. string.format("button_exit[0,4;2,1;btn_load;%s]", S("Load"))
+        .. string.format("button_exit[2,4;2,1;btn_cancel;%s]", S("Cancel"))
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)
@@ -69,9 +71,9 @@ mathplot.gui.screens["serialize"] = {
             if fields.txt_from_json and string.len(string.trim(fields.txt_from_json)) > 0 then
                 local ok, msg = deserialize_origin_node(context.node_pos, fields.txt_from_json)
                 if ok then
-                    minetest.log("mathplot: successfully deserialized json to node.")
+                    minetest.log(S("mathplot: successfully deserialized json to node."))
                 elseif msg then
-                    minetest.log("mathplot: failed to deserialize json to node: " .. msg)
+                    minetest.log(S("mathplot: failed to deserialize json to node: @1", msg))
                 end
             end
         end

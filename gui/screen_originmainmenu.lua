@@ -1,5 +1,7 @@
 mathplot.gui.screens = mathplot.gui.screens or {}
 
+local S = mathplot.get_translator
+
 mathplot.gui.screens["originmainmenu"] = {
     initialize = function(playername, identifier, context)
     end,
@@ -9,24 +11,23 @@ mathplot.gui.screens["originmainmenu"] = {
         if loc and #loc.name > 0 then
             nickname = loc.name
         end
-        local title = string.format("Mathematical Object Plotter @ %s",
-            minetest.pos_to_string(context.node_pos))
+        local title = S("Mathematical Object Plotter @@ @1", minetest.pos_to_string(context.node_pos))
         if nickname then
-            title = title .. " \"" .. nickname .. "\""
+            title = title .. S(" \"@1\"", nickname)
         end
         local formspec = "size[9,4.5]"
         .. string.format("label[0,0.25;%s]", title)
-        .. "button_exit[0,1;3,1;btn_set_nickname;Set Name]"
-        .. "button_exit[3,1;3,1;btn_draw_axes;Draw Axes]"
-        .. "button_exit[6,1;3,1;btn_implicit_plot;Implicit Plot]"
-        .. "button_exit[0,2;3,1;btn_parametric_curve;Parametric Curve]"
-        .. "button_exit[3,2;3,1;btn_parametric_surface;Parametric Surface]"
-        .. "button_exit[6,2;3,1;btn_parametric_solid;Parametric Solid]"
-        .. "button_exit[0,3;3,1;btn_mainmenu;Other Nodes]"
-        .. "button_exit[3,3;3,1;btn_serialize;Serialize/Deserialize]"
-        .. "button_exit[6,3;3,1;btn_examples;Examples]"
-        .. "button_exit[0,4;3,1;btn_about;About]"
-        .. "button_exit[6,4;3,1;btn_exit;Exit]"
+        .. string.format("button_exit[0,1;3,1;btn_set_nickname;%s]", S("Set Name"))
+        .. string.format("button_exit[3,1;3,1;btn_draw_axes;%s]", S("Draw Axes"))
+        .. string.format("button_exit[6,1;3,1;btn_implicit_plot;%s]", S("Implicit Plot"))
+        .. string.format("button_exit[0,2;3,1;btn_parametric_curve;%s]", S("Parametric Curve"))
+        .. string.format("button_exit[3,2;3,1;btn_parametric_surface;%s]", S("Parametric Surface"))
+        .. string.format("button_exit[6,2;3,1;btn_parametric_solid;%s]", S("Parametric Solid"))
+        .. string.format("button_exit[0,3;3,1;btn_mainmenu;%s]", S("Other Nodes"))
+        .. string.format("button_exit[3,3;3,1;btn_serialize;%s]", S("Serialize/Deserialize"))
+        .. string.format("button_exit[6,3;3,1;btn_examples;%s]", S("Examples"))
+        .. string.format("button_exit[0,4;3,1;btn_about;%s]", S("About"))
+        .. string.format("button_exit[6,4;3,1;btn_exit;%s]", S("Exit"))
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)

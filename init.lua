@@ -1,7 +1,12 @@
 mathplot = {}
+
+mathplot.VERSION = "1.2.0alpha"
+
 mathplot.MODPATH = minetest.get_modpath("mathplot")
 
-mathplot.VERSION = "1.1"
+-- Load support for MT game translation.
+local S = minetest.get_translator("mathplot")
+mathplot.get_translator = S
 
 --Read settings from settingtypes.txt
 mathplot.settings = {}

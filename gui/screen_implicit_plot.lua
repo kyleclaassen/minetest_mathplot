@@ -1,84 +1,86 @@
 mathplot.gui.screens = mathplot.gui.screens or {}
 
+local S = mathplot.get_translator
+
 local function parse_and_validate(playername, identifier, fields, context)
     local e = {}  --list of error messages
     local p = table.copy(fields)
 
     if minetest.string_to_pos(p.e1) == nil then
-        e[#e+1] = "Invalid +X Direction"
+        e[#e+1] = S("Invalid +@1 Direction", "X")
     end
     if minetest.string_to_pos(p.e2) == nil then
-        e[#e+1] = "Invalid +Y Direction"
+        e[#e+1] = S("Invalid +@1 Direction", "Y")
     end
     if minetest.string_to_pos(p.e3) == nil then
-        e[#e+1] = "Invalid +Z Direction"
+        e[#e+1] = S("Invalid +@1 Direction", "Z")
     end
 
     p.xmin = tonumber(p.xmin)
     p.xmax = tonumber(p.xmax)
     p.xstep = tonumber(p.xstep)
     if p.xmin == nil then
-        e[#e+1] = "X Min must be a number."
+        e[#e+1] = S("@1 must be a number.", S("X Min"))
     end
     if p.xmax == nil then
-        e[#e+1] = "X Max must be a number."
+        e[#e+1] = S("@1 must be a number.", S("X Max"))
     end
     if p.xmin ~= nil and p.xmax ~= nil and p.xmin > p.xmax then
-        e[#e+1] = "X Min must be <= X Max."
+        e[#e+1] = S("@1 Min must be <= @2 Max.", "X", "X")
     end
     if p.xstep == nil then
-        e[#e+1] = "X Step must be a number."
+        e[#e+1] = S("@1 Step must be a number.", "X")
     end
     if p.xstep ~= nil and p.xstep <= 0 then
-        e[#e+1] = "X Step must be positive."
+        e[#e+1] = S("@1 Step must be positive.", "X")
     end
 
     p.ymin = tonumber(p.ymin)
     p.ymax = tonumber(p.ymax)
     p.ystep = tonumber(p.ystep)
     if p.ymin == nil then
-        e[#e+1] = "Y Min must be a number."
+        e[#e+1] = S("@1 must be a number.", S("Y Min"))
     end
     if p.ymax == nil then
-        e[#e+1] = "Y Max must be a number."
+        e[#e+1] = S("@1 must be a number.", S("Y Max"))
     end
     if p.ymin ~= nil and p.ymax ~= nil and p.ymin > p.ymax then
-        e[#e+1] = "Y Min must be <= Y Max."
+        e[#e+1] = S("@1 Min must be <= @2 Max.", "Y", "Y")
     end
     if p.ystep == nil then
-        e[#e+1] = "Y Step must be a number."
+        e[#e+1] = S("@1 Step must be a number.", "Y")
     end
     if p.ystep ~= nil and p.ystep <= 0 then
-        e[#e+1] = "Y Step must be positive."
+        e[#e+1] = S("@1 Step must be positive.", "Y")
     end
 
     p.zmin = tonumber(p.zmin)
     p.zmax = tonumber(p.zmax)
     p.zstep = tonumber(p.zstep)
     if p.zmin == nil then
-        e[#e+1] = "Z Min must be a number."
+        e[#e+1] = S("@1 must be a number.", S("Z Min"))
     end
     if p.zmax == nil then
-        e[#e+1] = "Z Max must be a number."
+        e[#e+1] = S("@1 must be a number.", S("Z Max"))
     end
     if p.zmin ~= nil and p.zmax ~= nil and p.zmin > p.zmax then
-        e[#e+1] = "Z Min must be <= Z Max."
+        e[#e+1] = S("@1 Min must be <= @2 Max.", "Z", "Z")
     end
     if p.zstep == nil then
-        e[#e+1] = "Z Step must be a number."
+        e[#e+1] = S("@1 Step must be a number.", "Z")
     end
     if p.zstep ~= nil and p.zstep <= 0 then
-        e[#e+1] = "Z Step must be positive."
+        e[#e+1] = S("@1 Step must be positive.", "Z")
     end
 
     --Load ftn code string to check for syntax error
     local syntaxerror = mathplot.check_function_syntax(p.ftn, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in condition: " .. syntaxerror
+        e[#e+1] = S("Syntax error in condition: @1", syntaxerror)
     end
 
     if not mathplot.is_drawable_node(fields.nodename) then
-        e[#e+1] = string.format("'%s' is not a drawable node.", fields.nodename or "")
+        e[#e+1] = S("'@1' is not a drawable node.", fields.nodename or "")
     end
 
     if #e == 0 then
@@ -120,36 +122,36 @@ mathplot.gui.screens["implicit_plot"] = {
 
         local allowErase = have_saved_params(context, identifier)
 
-        local relationTooltipText = "A function f(x,y,z), e.g. 'x^2 + y^2 + z^2 - 100'. A node will be set at (x,y,z) if f(x,y,z)=0. Can also use inequalities, e.g. 'x^2 + y^2 <= 100'."
+        local relationTooltipText = S("A function f(x,y,z), e.g. 'x^2 + y^2 + z^2 - 100'. A node will be set at (x,y,z) if f(x,y,z)=0. Can also use inequalities, e.g. 'x^2 + y^2 <= 100'.")
 
         local formspec = "size[12,10.5]"
-        .. "label[0,0;Implicit Plot]"
+        .. string.format("label[0,0;%s]", S("Implicit Plot"))
         .. "container[0,1]"
-        .. string.format("label[0,0;+X Direction:]field[2,0;2,1;e1;;%s]", p.e1)
-        .. string.format("label[4,0;+Y Direction:]field[6,0;2,1;e2;;%s]", p.e2)
-        .. string.format("label[8,0;+Z Direction:]field[10,0;2,1;e3;;%s]", p.e3)
-        .. string.format("label[0,1;X Min:]field[2,1;2,1;xmin;;%s]", p.xmin)
-        .. string.format("label[4,1;X Max:]field[6,1;2,1;xmax;;%s]", p.xmax)
-        .. string.format("label[8,1;X Step:]field[10,1;2,1;xstep;;%s]", p.xstep)
-        .. string.format("label[0,2;Y Min:]field[2,2;2,1;ymin;;%s]", p.ymin)
-        .. string.format("label[4,2;Y Max:]field[6,2;2,1;ymax;;%s]", p.ymax)
-        .. string.format("label[8,2;Y Step:]field[10,2;2,1;ystep;;%s]", p.ystep)
-        .. string.format("label[0,3;Z Min:]field[2,3;2,1;zmin;;%s]", p.zmin)
-        .. string.format("label[4,3;Z Max:]field[6,3;2,1--1;zmax;;%s]", p.zmax)
-        .. string.format("label[8,3;Z Step:]field[10,3;2,1;zstep;;%s]", p.zstep)
-        .. string.format("label[0,4;Relation:]field[2,4;10,1;ftn;;%s]", p.ftn)
+        .. string.format("label[0,0;%s]field[2,0;2,1;e1;;%s]", S("@1 Direction:", S("+X")), p.e1)
+        .. string.format("label[4,0;%s]field[6,0;2,1;e2;;%s]", S("@1 Direction:", S("+Y")), p.e2)
+        .. string.format("label[8,0;%s]field[10,0;2,1;e3;;%s]", S("@1 Direction:", S("+Z")), p.e3)
+        .. string.format("label[0,1;%s]field[2,1;2,1;xmin;;%s]", S("@1:", S("X Min")), p.xmin)
+        .. string.format("label[4,1;%s]field[6,1;2,1;xmax;;%s]", S("@1:", S("X Max")), p.xmax)
+        .. string.format("label[8,1;%s]field[10,1;2,1;xstep;;%s]", S("@1:", S("X Step")), p.xstep)
+        .. string.format("label[0,2;%s]field[2,2;2,1;ymin;;%s]",  S("@1:", S("Y Min")), p.ymin)
+        .. string.format("label[4,2;%s]field[6,2;2,1;ymax;;%s]", S("@1:", S("Y Max")), p.ymax)
+        .. string.format("label[8,2;%s]field[10,2;2,1;ystep;;%s]", S("@1:", S("Y Step")), p.ystep)
+        .. string.format("label[0,3;%s]field[2,3;2,1;zmin;;%s]", S("@1:", S("Z Min")), p.zmin)
+        .. string.format("label[4,3;%s]field[6,3;2,1--1;zmax;;%s]", S("@1:",S("Z Max")), p.zmax)
+        .. string.format("label[8,3;%s]field[10,3;2,1;zstep;;%s]", S("@1:",S("Z Step")), p.zstep)
+        .. string.format("label[0,4;%s]field[2,4;10,1;ftn;;%s]", S("@1",S("Relation")), p.ftn)
         .. string.format("tooltip[ftn;%s]", minetest.formspec_escape(relationTooltipText))
         .. "container_end[]"
         .. "container[0,6]"
         .. "list[current_player;main;0,0;8,4;]"
-        .. "label[8.25,0.25;Plot node:]"
+        .. string.format("label[8.25,0.25;%s]", S("@1:", S("Plot node")))
         .. "list[detached:mathplot:inv_brush_" .. playername .. ";brush;9.75,0;1,1;]"
         .. "image[10.81,0.1;0.8,0.8;creative_trash_icon.png]"
         .. "list[detached:mathplot:inv_trash;main;10.75,0;1,1;]"
         .. "container_end[]"
-        .. "button_exit[0,10;2,1;btn_plot;Plot]"
-        .. "button_exit[2,10;2,1;btn_cancel;Cancel]"
-        .. (allowErase and "button_exit[9,10;3,1;btn_erase;Erase Previous]" or "")
+        .. string.format("button_exit[0,10;2,1;btn_plot;%s]", S("Plot"))
+        .. string.format("button_exit[2,10;2,1;btn_cancel;%s]", S("Cancel"))
+        .. (allowErase and string.format("button_exit[9,10;3,1;btn_erase;%s]", S("Erase Previous")) or "")
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)

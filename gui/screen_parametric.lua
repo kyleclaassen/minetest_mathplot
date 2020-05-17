@@ -1,17 +1,19 @@
 mathplot.gui.screens = mathplot.gui.screens or {}
 
+local S = mathplot.get_translator
+
 local function validate_parametric(playername, identifier, fields, context)
     local e = {}  --list of error messages
     local p = table.copy(fields)
 
     if minetest.string_to_pos(p.e1) == nil then
-        e[#e+1] = "Invalid +X Direction"
+        e[#e+1] = S("Invalid +@1 Direction", "X")
     end
     if minetest.string_to_pos(p.e2) == nil then
-        e[#e+1] = "Invalid +Y Direction"
+        e[#e+1] = S("Invalid +@1 Direction", "Y")
     end
     if minetest.string_to_pos(p.e3) == nil then
-        e[#e+1] = "Invalid +Z Direction"
+        e[#e+1] = S("Invalid +@1 Direction", "Z")
     end
 
     local varname1 = p.varnames[1]
@@ -22,58 +24,58 @@ local function validate_parametric(playername, identifier, fields, context)
     --Load ftn code string to check for syntax error
     local syntaxerror = mathplot.check_function_syntax(p.umin, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in umin: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "umin", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.umax, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in umax: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "umax", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ustep, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in ustep: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "ustep", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.vmin, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in vmin: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "vmin", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.vmax, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in vmax: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "vmax", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.vstep, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in vstep: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "vstep", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.wmin, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in wmin: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "wmin", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.wmax, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in wmax: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "wmax", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.wstep, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in wstep: " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1: @2", "wstep", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.ftn_x, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in X(" .. varnamesStr .. "): " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1(@2): @3", "X", varnamesStr, syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ftn_y, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in Y(" .. varnamesStr .. "): " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1(@2): @3", "Y", varnamesStr, syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ftn_z, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = "Syntax error in Z(" .. varnamesStr .. "): " .. syntaxerror
+        e[#e+1] = S("Syntax error in @1(@2): @3", "Z", varnamesStr, syntaxerror)
     end
 
     if not mathplot.is_drawable_node(fields.nodename) then
-        e[#e+1] = string.format("'%s' is not a drawable node.", fields.nodename or "")
+        e[#e+1] = S("'@1' is not a drawable node.", fields.nodename or "")
     end
 
     if #e == 0 then
@@ -92,17 +94,17 @@ end
 local function direction_container(e1, e2, e3)
     return {
         height = 1,
-        formspec = string.format("label[0,0;+X Direction:]field[2,0;2,1;e1;;%s]", e1)
-        .. string.format("label[4,0;+Y Direction:]field[6,0;2,1;e2;;%s]", e2)
-        .. string.format("label[8,0;+Z Direction:]field[10,0;2,1;e3;;%s]", e3)
+        formspec = string.format("label[0,0;%s]field[2,0;2,1;e1;;%s]", S("+@1 Direction:", "X"), e1)
+        .. string.format("label[4,0;%s]field[6,0;2,1;e2;;%s]", S("+@1 Direction:", "Y"), e2)
+        .. string.format("label[8,0;%s]field[10,0;2,1;e3;;%s]", S("+@1 Direction:", "Z"), e3)
     }
 end
 local function min_max_step_container(varname, umin, umax, ustep)
     return {
         height = 1,
-        formspec = string.format("label[0,0;%s Min:]field[2,0;2,1;%smin;;%s]", varname, varname, umin)
-        .. string.format("label[4,0;%s Max:]field[6,0;2,1;%smax;;%s]", varname, varname, umax)
-        .. string.format("label[8,0;%s Step:]field[10,0;2,1;%sstep;;%s]", varname, varname, ustep)
+        formspec = string.format("label[0,0;%s %s]field[2,0;2,1;%smin;;%s]", varname, S("@1:", S("Min")), varname, umin)
+        .. string.format("label[4,0;%s %s]field[6,0;2,1;%smax;;%s]", varname, S("@1:", S("Max")), varname, umax)
+        .. string.format("label[8,0;%s %s]field[10,0;2,1;%sstep;;%s]", varname, S("@1:", S("Step")), varname, ustep)
     }
 end
 local function ftn_container(varnames, ftn_x, ftn_y, ftn_z)
@@ -120,29 +122,29 @@ local function inventory_container(playername, identifier, connect)
     local btn_to_name2 = nil
     local btn_to_label2 = nil
     if identifier == "parametric_curve" then
-        btn_to_name1, btn_to_label1 = "btn_to_surface", "To Surface"
-        btn_to_name2, btn_to_label2 = "btn_to_solid", "To Solid"
+        btn_to_name1, btn_to_label1 = "btn_to_surface", S("To Surface")
+        btn_to_name2, btn_to_label2 = "btn_to_solid", S("To Solid")
     elseif identifier == "parametric_surface" then
-        btn_to_name1, btn_to_label1 = "btn_to_curve", "To Curve"
-        btn_to_name2, btn_to_label2 = "btn_to_solid", "To Solid"
+        btn_to_name1, btn_to_label1 = "btn_to_curve", S("To Curve")
+        btn_to_name2, btn_to_label2 = "btn_to_solid", S("To Solid")
     elseif identifier == "parametric_solid" then
-        btn_to_name1, btn_to_label1 = "btn_to_curve", "To Curve"
-        btn_to_name2, btn_to_label2 = "btn_to_surface", "To Surface" 
+        btn_to_name1, btn_to_label1 = "btn_to_curve", S("To Curve")
+        btn_to_name2, btn_to_label2 = "btn_to_surface", S("To Surface")
     end
 
     --For parametric curves, show a checkbox indicating whether the generated points should be
     --connected by line segments.
     local connectCheckbox = ""
     if identifier == "parametric_curve" then
-        local connectCheckboxTooltipText = "Connect the curve points with line segments."
-        connectCheckbox = string.format("checkbox[8.25,2;chk_connect;Connected;%s]", tostring(connect))
+        local connectCheckboxTooltipText = S("Connect the curve points with line segments.")
+        connectCheckbox = string.format("checkbox[8.25,2;chk_connect;%s;%s]", S("Connected"), tostring(connect))
         .. string.format("tooltip[chk_connect;%s]", minetest.formspec_escape(connectCheckboxTooltipText))
     end
 
     return {
         height = 4,
         formspec = "list[current_player;main;0,0;8,4;]"
-        .. "label[8.25,0.25;Plot node:]"
+        .. string.format("label[8.25,0.25;%s]", S("@1:", S("Plot node")))
         .. "list[detached:mathplot:inv_brush_" .. playername .. ";brush;9.75,0;1,1;]"
         .. "image[10.81,0.1;0.8,0.8;creative_trash_icon.png]"
         .. "list[detached:mathplot:inv_trash;main;10.75,0;1,1;]"
@@ -154,9 +156,9 @@ end
 local function plot_cancel_container(allowErase)
     return {
         height = 1,
-        formspec = "button_exit[0,0;2,1;btn_plot;Plot]"
-        .. "button_exit[2,0;2,1;btn_cancel;Cancel]"
-        .. (allowErase and "button_exit[9.1,0;3,1;btn_erase;Erase Previous]" or "")
+        formspec = string.format("button_exit[0,0;2,1;btn_plot;%s]", S("Plot"))
+        .. string.format("button_exit[2,0;2,1;btn_cancel;%s]", S("Cancel"))
+        .. (allowErase and string.format("button_exit[9.1,0;3,1;btn_erase;%s]", S("Erase Previous")) or "")
     }
 end
 
@@ -183,7 +185,7 @@ local function default_params(identifier)
     elseif identifier == "parametric_solid" then
         return mathplot.plotdefaults.plot_parametric_solid_params()
     end
-    minetest.log("Error: mathplot: invalid parametric identifier")
+    minetest.log(S("Error: mathplot: invalid parametric identifier"))
     return nil
 end
 
@@ -224,7 +226,7 @@ local parametric_screen = {
         local allowErase = have_saved_params(context, identifier)
         if identifier == "parametric_curve" then
             totalHeight, formspec = concat_containers(
-                title_container("Parametric Curve"),
+                title_container(S("Parametric Curve")),
                 direction_container(p.e1, p.e2, p.e3),
                 min_max_step_container("u", p.umin, p.umax, p.ustep),
                 ftn_container({"u"}, p.ftn_x, p.ftn_y, p.ftn_z),
@@ -233,7 +235,7 @@ local parametric_screen = {
             )
         elseif identifier == "parametric_surface" then
             totalHeight, formspec = concat_containers(
-                title_container("Parametric Surface"),
+                title_container(S("Parametric Surface")),
                 direction_container(p.e1, p.e2, p.e3),
                 min_max_step_container("u", p.umin, p.umax, p.ustep),
                 min_max_step_container("v", p.vmin, p.vmax, p.vstep),
@@ -243,7 +245,7 @@ local parametric_screen = {
             )
         elseif identifier == "parametric_solid" then
             totalHeight, formspec = concat_containers(
-                title_container("Parametric Solid"),
+                title_container(S("Parametric Solid")),
                 direction_container(p.e1, p.e2, p.e3),
                 min_max_step_container("u", p.umin, p.umax, p.ustep),
                 min_max_step_container("v", p.vmin, p.vmax, p.vstep),
