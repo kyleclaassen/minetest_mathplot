@@ -10,7 +10,7 @@ mathplot.gui.screens["validation_errors"] = {
         local formspec = "size[5.5,6]"
         .. "label[0,0;Errors:]"
         .. "textarea[0.25,0.5;5.75,5.5;;;" .. errorsStr .. "]"
-        .. string.format("button_exit[0,5.5;2,1;btn_ok;%s]", S("Ok"))
+        .. string.format("button_exit[0,5.5;2,1;btn_ok;%s]", S("OK"))
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)
