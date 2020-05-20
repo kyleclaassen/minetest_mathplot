@@ -7,13 +7,13 @@ local function validate_parametric(playername, identifier, fields, context)
     local p = table.copy(fields)
 
     if minetest.string_to_pos(p.e1) == nil then
-        e[#e+1] = S("Invalid +@1 Direction", "X")
+        e[#e+1] = S("Invalid +@1 Direction.", "X")
     end
     if minetest.string_to_pos(p.e2) == nil then
-        e[#e+1] = S("Invalid +@1 Direction", "Y")
+        e[#e+1] = S("Invalid +@1 Direction.", "Y")
     end
     if minetest.string_to_pos(p.e3) == nil then
-        e[#e+1] = S("Invalid +@1 Direction", "Z")
+        e[#e+1] = S("Invalid +@1 Direction.", "Z")
     end
 
     local varname1 = p.varnames[1]

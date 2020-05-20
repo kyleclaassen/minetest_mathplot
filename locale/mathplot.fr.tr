@@ -62,7 +62,7 @@ About=À Propos
 Exit=Quitter
 OK=Ok
 Set Node Nickname=Définir le surnom du block
-Invalid +@1 Direction=Direction +@1 invalide
+Invalid +@1 Direction.=Direction +@1 invalide.
 @1 must be a number.=@1 doit être un nombre
 @1 Min must be <@= @2 Max.=@1 Min doit être <@= @2 Max
 X Min=X Min
