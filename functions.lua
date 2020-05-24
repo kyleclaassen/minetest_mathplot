@@ -50,7 +50,11 @@ local function create_sandbox(code)
         --additions by KMC
         Pi = math.pi,  --for Maple copy/paste to work
         PI = math.pi,
-        ln = math.log,  --alias for convenience
+        ln = math.log,  --alias for convenience and for Maple copy/paste to work
+        arccos = math.acos, --for Maple copy/paste to work
+        arcsin = math.asin, --for Maple copy/paste to work
+        arctan = math.atan, --for Maple copy/paste to work
+        Heaviside = function(x) return x >= 0 and 1 or 0 end, --for Maple copy/paste to work
         e = 2.7182818284590452354,
         E = 2.7182818284590452354,
         iif = function(condition, trueval, falseval)
