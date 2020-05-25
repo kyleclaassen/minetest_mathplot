@@ -153,19 +153,19 @@ local function draw_axes_on_receive_fields(playername, identifier, fields, conte
                     plotParams.umin = validated_params.xmin
                     plotParams.umax = validated_params.xmax
                     plotParams.nodename = validated_params.xaxisbrush
-                    mathplot.plot_parametric(plotParams)
+                    mathplot.plot_parametric(plotParams, playername)
                     --y-axis
                     plotParams.ftn_x = "0"; plotParams.ftn_y = "u"; plotParams.ftn_z = "0"
                     plotParams.umin = validated_params.ymin
                     plotParams.umax = validated_params.ymax
                     plotParams.nodename = validated_params.yaxisbrush
-                    mathplot.plot_parametric(plotParams)
+                    mathplot.plot_parametric(plotParams, playername)
                     --z-axis
                     plotParams.ftn_x = "0"; plotParams.ftn_y = "0"; plotParams.ftn_z = "u"
                     plotParams.umin = validated_params.zmin
                     plotParams.umax = validated_params.zmax
                     plotParams.nodename = validated_params.zaxisbrush
-                    mathplot.plot_parametric(plotParams)
+                    mathplot.plot_parametric(plotParams, playername)
                     return true, S("Axes drawn.")
                 end
             })

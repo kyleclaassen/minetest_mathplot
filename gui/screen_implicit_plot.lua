@@ -184,7 +184,7 @@ mathplot.gui.screens["implicit_plot"] = {
                             nodemeta:set_string("implicit_plot_params", minetest.serialize(validated_params))
                         end
 
-                        return mathplot.plot_implicit(validated_params)
+                        return mathplot.plot_implicit(validated_params, playername)
                     end,
                     -- failure_callback = function(errormsgs, playername, identifier, fields, context)
                     --     return true, errormsgs

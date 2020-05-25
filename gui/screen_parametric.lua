@@ -290,7 +290,7 @@ local parametric_screen = {
                             nodemeta:set_string(identifier .. "_params", minetest.serialize(validated_params))
                         end
 
-                        return mathplot.plot_parametric(validated_params)
+                        return mathplot.plot_parametric(validated_params, playername)
                     end
                 })
         elseif fields.btn_to_curve or fields.btn_to_surface or fields.btn_to_solid then

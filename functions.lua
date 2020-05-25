@@ -194,10 +194,12 @@ local function to_world_coords(x, y, z, e1, e2, e3)
     return p
 end
 
-local set_node = function(p, origin_pos, node)
-    local p = mathplot.util.round_vector(p)
+local function set_node(p, origin_pos, node, playername)
+    p = mathplot.util.round_vector(p)
     if (p.x ~= 0 or p.y ~= 0 or p.z ~= 0)
-    and mathplot.util.max_abs_coord(p) <= mathplot.settings.max_coord then
+    and mathplot.util.max_abs_coord(p) <= mathplot.settings.max_coord
+    and not minetest.is_protected(p, playername)
+    then
         local q = vector.add(origin_pos, p)
         minetest.set_node(q, node)
     end
@@ -245,7 +247,7 @@ local function evaluate_parametric(e1, e2, e3, ftn_X, ftn_Y, ftn_Z, ...)
 end
 
 
-mathplot.plot_parametric = function(params)
+mathplot.plot_parametric = function(params, playername)
     --params: origin_pos, ftn_x, ftn_y, ftn_z, umin, umax, ustep, vmin, vmax, vstep, nodename, e1, e2, e3, connect, varnames
     --Note: e1, e2, e3 can be vectors in string form, e.g. "(1,2,3)"
 
@@ -400,11 +402,11 @@ mathplot.plot_parametric = function(params)
 
                         if ok then
                             if params.connect and p1 ~= nil then
-                                set_node(p1, params.origin_pos, node)
+                                set_node(p1, params.origin_pos, node, playername)
                                 --connect the nodes with a line
                                 local clip, linepoints = mathplot.line_3d(p1, p2)
                                 for _, p in ipairs(linepoints) do
-                                    set_node(p, params.origin_pos, node)
+                                    set_node(p, params.origin_pos, node, playername)
                                 end
                                 if clip then
                                     p2 = nil
@@ -412,7 +414,7 @@ mathplot.plot_parametric = function(params)
                             else
                                 --set node, but don't draw line since there's
                                 --no previous node to draw line to.
-                                set_node(p2, params.origin_pos, node)
+                                set_node(p2, params.origin_pos, node, playername)
                             end
                             p1 = p2
                         else
@@ -488,7 +490,7 @@ local function satisfies_implicit_relation(F, x, y, z, xstep, ystep, zstep)
     return false, nil
 end
 
-mathplot.plot_implicit = function(params)
+mathplot.plot_implicit = function(params, playername)
     --params: origin_pos, ftn, xmin, xmax, xstep, ymin, ymax, ystep, zmin, zmax, zstep, nodename, e1, e2, e3
 
     if not mathplot.util.is_drawable_node(params.nodename) then
@@ -518,7 +520,7 @@ mathplot.plot_implicit = function(params)
                 local yes, errormsg = satisfies_implicit_relation(F, x, y, z, params.xstep, params.ystep, params.zstep)
                 if yes then
                     local p = to_world_coords(x, y, z, e1, e2, e3)
-                    set_node(p, params.origin_pos, node)
+                    set_node(p, params.origin_pos, node, playername)
                 elseif errormsg ~= nil then
                     minetest.log(errormsg)
                     return false, errormsg
