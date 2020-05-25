@@ -142,30 +142,50 @@ local function draw_axes_on_receive_fields(playername, identifier, fields, conte
                     local nodemeta = minetest.get_meta(context.node_pos)
                     nodemeta:set_string("axis_params", minetest.serialize(validated_params))
 
+                    local errorMsg = ""
+
                     local plotParams = mathplot.plotdefaults.plot_parametric_curve_params()
                     plotParams.origin_pos = context.node_pos
                     plotParams.ustep = 1
                     plotParams.e1 = validated_params.e1
                     plotParams.e2 = validated_params.e2
                     plotParams.e3 = validated_params.e3
+
                     --x-axis
                     plotParams.ftn_x = "u"; plotParams.ftn_y = "0"; plotParams.ftn_z = "0"
                     plotParams.umin = validated_params.xmin
                     plotParams.umax = validated_params.xmax
                     plotParams.nodename = validated_params.xaxisbrush
-                    mathplot.plot_parametric(plotParams, playername)
+                    local ok, err = mathplot.plot_parametric(plotParams, playername)
+                    if not ok then
+                        errorMsg = err
+                    end
+
                     --y-axis
                     plotParams.ftn_x = "0"; plotParams.ftn_y = "u"; plotParams.ftn_z = "0"
                     plotParams.umin = validated_params.ymin
                     plotParams.umax = validated_params.ymax
                     plotParams.nodename = validated_params.yaxisbrush
                     mathplot.plot_parametric(plotParams, playername)
+                    local ok, err = mathplot.plot_parametric(plotParams, playername)
+                    if not ok then
+                        errorMsg = err
+                    end
+
                     --z-axis
                     plotParams.ftn_x = "0"; plotParams.ftn_y = "0"; plotParams.ftn_z = "u"
                     plotParams.umin = validated_params.zmin
                     plotParams.umax = validated_params.zmax
                     plotParams.nodename = validated_params.zaxisbrush
                     mathplot.plot_parametric(plotParams, playername)
+                    local ok, err = mathplot.plot_parametric(plotParams, playername)
+                    if not ok then
+                        errorMsg = err
+                    end
+
+                    if #errorMsg > 0 then
+                        return false, errorMsg
+                    end
                     return true, S("Axes drawn.")
                 end
             })
