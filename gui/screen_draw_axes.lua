@@ -6,6 +6,10 @@ local function parse_and_validate(playername, identifier, fields, context)
     local e = {}
     local p = table.copy(fields)
 
+    if not mathplot.util.has_mathplot_priv(playername) then
+        e[#e+1] = S("Must have the 'mathplot' privilege in order to use this node.")
+    end
+
     if minetest.string_to_pos(p.e1) == nil then
         e[#e+1] = S("Invalid +@1 Direction.", "X")
     end

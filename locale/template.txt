@@ -138,3 +138,4 @@ Perform mathplot functions=
 Author=
 Contributors=
 Implemented internationalization support and provided French translation=
+Must have the 'mathplot' privilege in order to use this node.=

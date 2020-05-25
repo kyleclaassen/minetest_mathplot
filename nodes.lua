@@ -35,10 +35,15 @@ minetest.register_node(mathplot.ORIGIN_NODE_NAME, {
                 minetest.node_punch(pos, node, puncher, pointed_thing)
             else
                 --Show menu
-                local context = {
-                    node_pos = pos
-                }
-                mathplot.gui.invoke_screen("originmainmenu", puncher:get_player_name(), context)
+                local playername = puncher:get_player_name()
+                if mathplot.util.has_mathplot_priv(playername) then
+                    local context = {
+                        node_pos = pos
+                    }
+                    mathplot.gui.invoke_screen("originmainmenu", playername, context)
+                else
+                    minetest.chat_send_player(playername, S("Must have the 'mathplot' privilege in order to use this node."))
+                end
             end
         end,
         after_destruct = function(pos, oldnode)
