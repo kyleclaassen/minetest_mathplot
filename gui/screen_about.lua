@@ -30,10 +30,10 @@ for _, contributor in ipairs(contributors) do
 end
 
 aboutStr = string.format(aboutStr,
-                         versionStr,
-                         authorCaption,
-                         contributorsCaption,
-                         contributorsStr)
+    versionStr,
+    authorCaption,
+    contributorsCaption,
+    contributorsStr)
 
 mathplot.gui.screens["about"] = {
     initialize = function(playername, identifier, context)

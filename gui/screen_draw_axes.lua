@@ -3,7 +3,7 @@ mathplot.gui.screens = mathplot.gui.screens or {}
 local S = mathplot.get_translator
 
 local function parse_and_validate(playername, identifier, fields, context)
-    local e = {}
+    local e = {}  --list of error messages
     local p = table.copy(fields)
 
     if not mathplot.util.has_mathplot_priv(playername) then
@@ -56,13 +56,13 @@ local function parse_and_validate(playername, identifier, fields, context)
         e[#e+1] = S("@1 Min must be <= @2 Max.", "Z", "Z")
     end
 
-    if not mathplot.is_drawable_node(p.xaxisbrush) then
+    if not mathplot.util.is_drawable_node(p.xaxisbrush) then
         e[#e+1] = S("@1 Axis brush '@2' is not a drawable node.", "X", p.xaxisbrush or "")
     end
-    if not mathplot.is_drawable_node(p.yaxisbrush) then
+    if not mathplot.util.is_drawable_node(p.yaxisbrush) then
         e[#e+1] = S("@1 Axis brush '@2' is not a drawable node.", "Y", p.yaxisbrush or "")
     end
-    if not mathplot.is_drawable_node(p.zaxisbrush) then
+    if not mathplot.util.is_drawable_node(p.zaxisbrush) then
         e[#e+1] = S("@1 Axis brush '@2' is not a drawable node.", "Z", p.zaxisbrush or "")
     end
 

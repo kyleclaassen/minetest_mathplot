@@ -249,7 +249,7 @@ mathplot.plot_parametric = function(params)
     --params: origin_pos, ftn_x, ftn_y, ftn_z, umin, umax, ustep, vmin, vmax, vstep, nodename, e1, e2, e3, connect, varnames
     --Note: e1, e2, e3 can be vectors in string form, e.g. "(1,2,3)"
 
-    if not mathplot.is_drawable_node(params.nodename) then
+    if not mathplot.util.is_drawable_node(params.nodename) then
         return false, S("'@1' is not a drawable node.", params.nodename or "")
     end
 
@@ -491,7 +491,7 @@ end
 mathplot.plot_implicit = function(params)
     --params: origin_pos, ftn, xmin, xmax, xstep, ymin, ymax, ystep, zmin, zmax, zstep, nodename, e1, e2, e3
 
-    if not mathplot.is_drawable_node(params.nodename) then
+    if not mathplot.util.is_drawable_node(params.nodename) then
         return false, S("'@1' is not a drawable node.", params.nodename or "")
     end
 

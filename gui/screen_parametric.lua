@@ -20,9 +20,6 @@ local function validate_parametric(playername, identifier, fields, context)
         e[#e+1] = S("Invalid +@1 Direction.", "Z")
     end
 
-    local varname1 = p.varnames[1]
-    local varname2 = p.varnames[2]
-    local varname3 = p.varnames[3]
     local varnamesStr = mathplot.parametric_argstr_display(p.varnames)
 
     --Load ftn code string to check for syntax error
@@ -78,7 +75,7 @@ local function validate_parametric(playername, identifier, fields, context)
         e[#e+1] = S("Syntax error in @1(@2): @3", "Z", varnamesStr, syntaxerror)
     end
 
-    if not mathplot.is_drawable_node(fields.nodename) then
+    if not mathplot.util.is_drawable_node(fields.nodename) then
         e[#e+1] = S("'@1' is not a drawable node.", fields.nodename or "")
     end
 

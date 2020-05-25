@@ -66,7 +66,7 @@ mathplot.util.max_abs_coord = function(p)
 end
 
 
-mathplot.is_drawable_node = function(nodename)
+mathplot.util.is_drawable_node = function(nodename)
     return minetest.registered_nodes[nodename] and nodename ~= mathplot.ORIGIN_NODE_NAME
 end
 
