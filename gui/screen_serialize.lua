@@ -6,7 +6,6 @@ local relevant_meta_keys = {
     "axis_params",
     "implicit_plot_params",
     "parametric_curve_params",
-    "parametric_solid_params",
     "parametric_surface_params",
     "parametric_solid_params"
 }
