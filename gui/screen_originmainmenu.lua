@@ -13,7 +13,7 @@ mathplot.gui.screens["originmainmenu"] = {
         end
         local title = S("Mathematical Object Plotter @@ @1", minetest.pos_to_string(context.node_pos))
         if nickname then
-            title = title .. S(" \"@1\"", nickname)
+            title = title .. " " .. S("\"@1\"", nickname)
         end
         local formspec = "size[9,4.5]"
         .. string.format("label[0,0.25;%s]", title)
