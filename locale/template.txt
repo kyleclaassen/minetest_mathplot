@@ -123,8 +123,6 @@ Relation:=
 # Buttons, checkboxes, tooltips, etc.
 ########################################
 
-####TODO: get rid of "Draw" and just use "Plot" instead?
-Draw=
 Plot=
 Erase Previous=
 Connected=
@@ -203,25 +201,24 @@ MathPlot Origin Node=
 Untitled Node=
 Use the "MathPlot Origin Destroyer" tool to dig this node.=
 MathPlot Origin Node Destroyer=
-MathPlot @1 translucent glow block=
+MathPlot @1 Translucent Glow Block=
 MathPlot Glowing @1=
 MathPlot Glowing @1 Glass=
-########TODO: need to rethink colors in nodes.lua...
-black=
-blue=
-brown=
-cyan=
-dark_green=
-dark_grey=
-green=
-grey=
-magenta=
-orange=
-pink=
-red=
-violet=
-white=
-yellow=
+Black=
+Blue=
+Brown=
+Cyan=
+Dark Green=
+Dark Grey=
+Green=
+Grey=
+Magenta=
+Orange=
+Pink=
+Red=
+Violet=
+White=
+Yellow=
 
 
 ################################################################################
