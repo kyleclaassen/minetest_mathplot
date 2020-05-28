@@ -11,13 +11,13 @@ local function validate_parametric(playername, identifier, fields, context)
     end
 
     if minetest.string_to_pos(p.e1) == nil then
-        e[#e+1] = S("Invalid +@1 Direction.", "X")
+        e[#e+1] = S("Invalid +x Direction.")
     end
     if minetest.string_to_pos(p.e2) == nil then
-        e[#e+1] = S("Invalid +@1 Direction.", "Y")
+        e[#e+1] = S("Invalid +y Direction.")
     end
     if minetest.string_to_pos(p.e3) == nil then
-        e[#e+1] = S("Invalid +@1 Direction.", "Z")
+        e[#e+1] = S("Invalid +z Direction.")
     end
 
     local varnamesStr = mathplot.parametric_argstr_display(p.varnames)
@@ -25,54 +25,54 @@ local function validate_parametric(playername, identifier, fields, context)
     --Load ftn code string to check for syntax error
     local syntaxerror = mathplot.check_function_syntax(p.umin, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "umin", syntaxerror)
+        e[#e+1] = S("Syntax error in u Min: @1", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.umax, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "umax", syntaxerror)
+        e[#e+1] = S("Syntax error in u Max: @1", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ustep, {}, {})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "ustep", syntaxerror)
+        e[#e+1] = S("Syntax error in u Step: @1", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.vmin, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "vmin", syntaxerror)
+        e[#e+1] = S("Syntax error in v Min: @1", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.vmax, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "vmax", syntaxerror)
+        e[#e+1] = S("Syntax error in v Max: @1", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.vstep, {p.varnames[1]}, {0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "vstep", syntaxerror)
+        e[#e+1] = S("Syntax error in v Step: @1", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.wmin, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "wmin", syntaxerror)
+        e[#e+1] = S("Syntax error in w Min: @1", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.wmax, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "wmax", syntaxerror)
+        e[#e+1] = S("Syntax error in w Max: @1", syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.wstep, {p.varnames[1], p.varnames[2]}, {0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1: @2", "wstep", syntaxerror)
+        e[#e+1] = S("Syntax error in w Step: @1", syntaxerror)
     end
 
     syntaxerror = mathplot.check_function_syntax(p.ftn_x, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1(@2): @3", "X", varnamesStr, syntaxerror)
+        e[#e+1] = S("Syntax error in @1(@2): @3", "x", varnamesStr, syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ftn_y, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1(@2): @3", "Y", varnamesStr, syntaxerror)
+        e[#e+1] = S("Syntax error in @1(@2): @3", "y", varnamesStr, syntaxerror)
     end
     syntaxerror = mathplot.check_function_syntax(p.ftn_z, p.varnames, {0, 0, 0})
     if syntaxerror ~= nil then
-        e[#e+1] = S("Syntax error in @1(@2): @3", "Z", varnamesStr, syntaxerror)
+        e[#e+1] = S("Syntax error in @1(@2): @3", "z", varnamesStr, syntaxerror)
     end
 
     if not mathplot.util.is_drawable_node(fields.nodename) then
@@ -95,26 +95,35 @@ end
 local function direction_container(e1, e2, e3)
     return {
         height = 1,
-        formspec = string.format("label[0,0;%s]field[2,0;2,1;e1;;%s]", S("+@1 Direction:", "X"), e1)
-        .. string.format("label[4,0;%s]field[6,0;2,1;e2;;%s]", S("+@1 Direction:", "Y"), e2)
-        .. string.format("label[8,0;%s]field[10,0;2,1;e3;;%s]", S("+@1 Direction:", "Z"), e3)
+        formspec = string.format("label[0,0;%s]field[2,0;2,1;e1;;%s]", S("+x Direction:"), e1)
+        .. string.format("label[4,0;%s]field[6,0;2,1;e2;;%s]", S("+y Direction:"), e2)
+        .. string.format("label[8,0;%s]field[10,0;2,1;e3;;%s]", S("+z Direction:"), e3)
     }
 end
-local function min_max_step_container(varname, umin, umax, ustep)
+local function min_max_step_container(varname, min, max, step, minCaption, maxCaption, stepCaption)
     return {
         height = 1,
-        formspec = string.format("label[0,0;%s %s]field[2,0;2,1;%smin;;%s]", varname, S("@1:", S("Min")), varname, umin)
-        .. string.format("label[4,0;%s %s]field[6,0;2,1;%smax;;%s]", varname, S("@1:", S("Max")), varname, umax)
-        .. string.format("label[8,0;%s %s]field[10,0;2,1;%sstep;;%s]", varname, S("@1:", S("Step")), varname, ustep)
+        formspec = string.format("label[0,0;%s]field[2,0;2,1;%smin;;%s]", minCaption, varname, min)
+        .. string.format("label[4,0;%s]field[6,0;2,1;%smax;;%s]", maxCaption, varname, max)
+        .. string.format("label[8,0;%s]field[10,0;2,1;%sstep;;%s]", stepCaption, varname, step)
     }
+end
+local function min_max_step_container_u(min, max, step)
+    return min_max_step_container("u", min, max, step, S("u Min:"), S("u Max:"), S("u Step:"))
+end
+local function min_max_step_container_v(min, max, step)
+    return min_max_step_container("v", min, max, step, S("v Min:"), S("v Max:"), S("v Step:"))
+end
+local function min_max_step_container_w(min, max, step)
+    return min_max_step_container("w", min, max, step, S("w Min:"), S("w Max:"), S("w Step:"))
 end
 local function ftn_container(varnames, ftn_x, ftn_y, ftn_z)
     local varstr = table.concat(varnames, ",")
     return {
         height = 3,
-        formspec = string.format("label[0,0;X(%s) = ]field[2,0;10,1;ftn_x;;%s]", varstr, ftn_x)
-        .. string.format("label[0,1;Y(%s) = ]field[2,1;10,1;ftn_y;;%s]", varstr, ftn_y)
-        .. string.format("label[0,2;Z(%s) = ]field[2,2;10,1;ftn_z;;%s]", varstr, ftn_z)
+        formspec = string.format("label[0,0;x(%s) = ]field[2,0;10,1;ftn_x;;%s]", varstr, ftn_x)
+        .. string.format("label[0,1;y(%s) = ]field[2,1;10,1;ftn_y;;%s]", varstr, ftn_y)
+        .. string.format("label[0,2;z(%s) = ]field[2,2;10,1;ftn_z;;%s]", varstr, ftn_z)
     }
 end
 local function inventory_container(playername, identifier, connect)
@@ -145,7 +154,7 @@ local function inventory_container(playername, identifier, connect)
     return {
         height = 4,
         formspec = "list[current_player;main;0,0;8,4;]"
-        .. string.format("label[8.25,0.25;%s]", S("@1:", S("Plot node")))
+        .. string.format("label[8.25,0.25;%s]", S("Plot node:"))
         .. "list[detached:mathplot:inv_brush_" .. playername .. ";brush;9.75,0;1,1;]"
         .. "image[10.81,0.1;0.8,0.8;creative_trash_icon.png]"
         .. "list[detached:mathplot:inv_trash;main;10.75,0;1,1;]"
@@ -229,7 +238,7 @@ local parametric_screen = {
             totalHeight, formspec = concat_containers(
                 title_container(S("Parametric Curve")),
                 direction_container(p.e1, p.e2, p.e3),
-                min_max_step_container("u", p.umin, p.umax, p.ustep),
+                min_max_step_container_u(p.umin, p.umax, p.ustep),
                 ftn_container({"u"}, p.ftn_x, p.ftn_y, p.ftn_z),
                 inventory_container(playername, identifier, p.connect),
                 plot_cancel_container(allowErase)
@@ -238,8 +247,8 @@ local parametric_screen = {
             totalHeight, formspec = concat_containers(
                 title_container(S("Parametric Surface")),
                 direction_container(p.e1, p.e2, p.e3),
-                min_max_step_container("u", p.umin, p.umax, p.ustep),
-                min_max_step_container("v", p.vmin, p.vmax, p.vstep),
+                min_max_step_container_u(p.umin, p.umax, p.ustep),
+                min_max_step_container_v(p.vmin, p.vmax, p.vstep),
                 ftn_container({"u", "v"}, p.ftn_x, p.ftn_y, p.ftn_z),
                 inventory_container(playername, identifier),
                 plot_cancel_container(allowErase)
@@ -248,9 +257,9 @@ local parametric_screen = {
             totalHeight, formspec = concat_containers(
                 title_container(S("Parametric Solid")),
                 direction_container(p.e1, p.e2, p.e3),
-                min_max_step_container("u", p.umin, p.umax, p.ustep),
-                min_max_step_container("v", p.vmin, p.vmax, p.vstep),
-                min_max_step_container("w", p.wmin, p.wmax, p.wstep),
+                min_max_step_container_u(p.umin, p.umax, p.ustep),
+                min_max_step_container_v(p.vmin, p.vmax, p.vstep),
+                min_max_step_container_w(p.wmin, p.wmax, p.wstep),
                 ftn_container({"u", "v", "w"}, p.ftn_x, p.ftn_y, p.ftn_z),
                 inventory_container(playername, identifier),
                 plot_cancel_container(allowErase)

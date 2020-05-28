@@ -109,7 +109,7 @@ for colorName, colorVal in pairs(colors) do
     --Make "glow glass" by tweaking the standard glass node
     --local glassNode = table.copy(minetest.registered_nodes["default:obsidian_glass"])
     local glassNode = table.copy(minetest.registered_nodes["default:glass"])
-    glassNode.description = S("mathplot Glowing @1 Glass", S(colorName))
+    glassNode.description = S("MathPlot Glowing @1 Glass", S(colorName))
     glassNode.paramtype = "light"
     glassNode.light_source = 10
     for i = 1, #glassNode.tiles do

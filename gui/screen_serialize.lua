@@ -57,9 +57,9 @@ mathplot.gui.screens["serialize"] = {
             escaped_json = ""
         end
         local formspec = "size[10.25,4.5]"
-        .. string.format("label[0,0;%s]", S("@1:", S("Serialized Node")))
+        .. string.format("label[0,0;%s]", S("Serialized Node:"))
         .. string.format("field[0.25,1;10,1;txt_to_json;;%s]", escaped_json)
-        .. string.format("label[0,2;%s]", S("@1:", S("Deserialize from JSON")))
+        .. string.format("label[0,2;%s]", S("Deserialize from JSON:"))
         .. "field[0.25,3;10,1;txt_from_json;;]"
         .. string.format("button_exit[0,4;2,1;btn_load;%s]", S("Load"))
         .. string.format("button_exit[2,4;2,1;btn_cancel;%s]", S("Cancel"))

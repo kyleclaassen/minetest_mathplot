@@ -11,59 +11,59 @@ local function parse_and_validate(playername, identifier, fields, context)
     end
 
     if minetest.string_to_pos(p.e1) == nil then
-        e[#e+1] = S("Invalid +@1 Direction.", "X")
+        e[#e+1] = S("Invalid +x Direction.")
     end
     if minetest.string_to_pos(p.e2) == nil then
-        e[#e+1] = S("Invalid +@1 Direction.", "Y")
+        e[#e+1] = S("Invalid +y Direction.")
     end
     if minetest.string_to_pos(p.e3) == nil then
-        e[#e+1] = S("Invalid +@1 Direction.", "Z")
+        e[#e+1] = S("Invalid +z Direction.")
     end
 
     p.xmin = tonumber(p.xmin)
     p.xmax = tonumber(p.xmax)
     if p.xmin == nil then
-        e[#e+1] = S("@1 must be a number.", S("X Min"))
+        e[#e+1] = S("x Min must be a number.")
     end
     if p.xmax == nil then
-        e[#e+1] = S("@1 must be a number.", S("X Max"))
+        e[#e+1] = S("x Max must be a number.")
     end
     if p.xmin ~= nil and p.xmax ~= nil and p.xmin > p.xmax then
-        e[#e+1] = S("@1 Min must be <= @2 Max.", "X", "X")
+        e[#e+1] = S("x Min must be <= x Max.")
     end
 
     p.ymin = tonumber(p.ymin)
     p.ymax = tonumber(p.ymax)
     if p.ymin == nil then
-        e[#e+1] = S("@1 must be a number.", S("Y Min"))
+        e[#e+1] = S("y Min must be a number.")
     end
     if p.ymax == nil then
-        e[#e+1] = S("@1 must be a number.", S("Y Max"))
+        e[#e+1] = S("y Max must be a number.")
     end
     if p.ymin ~= nil and p.ymax ~= nil and p.ymin > p.ymax then
-        e[#e+1] = S("@1 Min must be <= @2 Max.", "Y", "Y")
+        e[#e+1] = S("y Min must be <= y Max.")
     end
 
     p.zmin = tonumber(p.zmin)
     p.zmax = tonumber(p.zmax)
     if p.zmin == nil then
-        e[#e+1] = S("@1 must be a number.", S("Z Min"))
+        e[#e+1] = S("z Min must be a number.")
     end
     if p.zmax == nil then
-        e[#e+1] = S("@1 must be a number.", S("Z Max"))
+        e[#e+1] = S("z Max must be a number.")
     end
     if p.zmin ~= nil and p.zmax ~= nil and p.zmin > p.zmax then
-        e[#e+1] = S("@1 Min must be <= @2 Max.", "Z", "Z")
+        e[#e+1] = S("z Min must be <= z Max.")
     end
 
     if not mathplot.util.is_drawable_node(p.xaxisbrush) then
-        e[#e+1] = S("@1 Axis brush '@2' is not a drawable node.", "X", p.xaxisbrush or "")
+        e[#e+1] = S("x-axis brush '@1' is not a drawable node.", p.xaxisbrush or "")
     end
     if not mathplot.util.is_drawable_node(p.yaxisbrush) then
-        e[#e+1] = S("@1 Axis brush '@2' is not a drawable node.", "Y", p.yaxisbrush or "")
+        e[#e+1] = S("y-axis brush '@1' is not a drawable node.", p.yaxisbrush or "")
     end
     if not mathplot.util.is_drawable_node(p.zaxisbrush) then
-        e[#e+1] = S("@1 Axis brush '@2' is not a drawable node.", "Z", p.zaxisbrush or "")
+        e[#e+1] = S("z-axis brush '@1' is not a drawable node.", p.zaxisbrush or "")
     end
 
     if #e == 0 then
@@ -98,17 +98,17 @@ local function draw_axes_get_formspec(playername, identifier, context)
     .. string.format("label[0,0;%s]", S("Draw Axes"))
     --Axis window ranges and direction vectors
     .. "container[0,1]"
-    .. string.format("label[0,0;%s] field[1.4,0;1.25,1;xmin;;%s]", S("@1:", S("X Min")), p.xmin)
-    .. string.format("label[2.4,0;%s] field[3.8,0;1.25,1;xmax;;%s]", S("@1:", S("X Max")), p.xmax)
-    .. string.format("label[4.9,0;%s] field[6.9,0;1.35,1;e1;;%s]", S("+@1 Direction:", "X"), p.e1)
+    .. string.format("label[0,0;%s] field[1.4,0;1.25,1;xmin;;%s]", S("x Min:"), p.xmin)
+    .. string.format("label[2.4,0;%s] field[3.8,0;1.25,1;xmax;;%s]", S("x Max:"), p.xmax)
+    .. string.format("label[4.9,0;%s] field[6.9,0;1.35,1;e1;;%s]", S("+x Direction:"), p.e1)
     .. "list[detached:mathplot:inv_brush_" .. playername .. ";xaxisbrush;8,-0.35;1,1;]"
-    .. string.format("label[0,1;%s] field[1.4,1;1.25,1;ymin;;%s]", S("@1:", S("Y Min")), p.ymin)
-    .. string.format("label[2.4,1;%s] field[3.8,1;1.25,1;ymax;;%s]", S("@1:", S("Y Max")), p.ymax)
-    .. string.format("label[4.9,1;%s] field[6.9,1;1.35,1;e2;;%s]", S("+@1 Direction:", "Y"), p.e2)
+    .. string.format("label[0,1;%s] field[1.4,1;1.25,1;ymin;;%s]", S("y Min:"), p.ymin)
+    .. string.format("label[2.4,1;%s] field[3.8,1;1.25,1;ymax;;%s]", S("y Max:"), p.ymax)
+    .. string.format("label[4.9,1;%s] field[6.9,1;1.35,1;e2;;%s]", S("+y Direction:"), p.e2)
     .. "list[detached:mathplot:inv_brush_" .. playername .. ";yaxisbrush;8,0.65;1,1;]"
-    .. string.format("label[0,2;%s] field[1.4,2;1.25,1;zmin;;%s]", S("@1:", S("Z Min")), p.zmin)
-    .. string.format("label[2.4,2;%s] field[3.8,2;1.25,1;zmax;;%s]", S("@1:", S("Z Max")), p.zmax)
-    .. string.format("label[4.9,2;%s] field[6.9,2;1.35,1;e3;;%s]", S("+@1 Direction:", "Z"), p.e3)
+    .. string.format("label[0,2;%s] field[1.4,2;1.25,1;zmin;;%s]", S("z Min:"), p.zmin)
+    .. string.format("label[2.4,2;%s] field[3.8,2;1.25,1;zmax;;%s]", S("z Max:"), p.zmax)
+    .. string.format("label[4.9,2;%s] field[6.9,2;1.35,1;e3;;%s]", S("+z Direction:"), p.e3)
     .. "list[detached:mathplot:inv_brush_" .. playername .. ";zaxisbrush;8,1.65;1,1;]"
     .. "container_end[]"
     --Player inventory and trash

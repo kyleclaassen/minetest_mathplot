@@ -507,7 +507,7 @@ mathplot.plot_implicit = function(params, playername)
 
     local F, loaderror = make_safe_function(params.ftn, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("plot_implicit: syntax error in condition: @1", loaderror)
+        local errormsg = S("plot_implicit: syntax error in relation: @1", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end

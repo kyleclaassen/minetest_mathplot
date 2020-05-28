@@ -18,8 +18,6 @@ https://github.com/kyleclaassen/minetest_mathplot/
 ]]
 
 local versionStr = S("MathPlot version @1", mathplot.VERSION)
-local authorCaption = S("@1:", S("Author"))
-local contributorsCaption = S("@1:", S("Contributors"))
 local contributorsStr = ""
 for _, contributor in ipairs(contributors) do
     local allContributions = ""
@@ -31,8 +29,8 @@ end
 
 aboutStr = string.format(aboutStr,
     versionStr,
-    authorCaption,
-    contributorsCaption,
+    S("Author:"),
+    S("Contributors:"),
     contributorsStr)
 
 mathplot.gui.screens["about"] = {
