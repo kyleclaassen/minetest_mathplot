@@ -3,7 +3,7 @@ mathplot.gui.screens = mathplot.gui.screens or {}
 local S = mathplot.get_translator
 
 contributors = {
-    { name = "Powi", email = "powi@powi.fr", contributions = { "Implemented internationalization support and provided French translation" } },
+    { name = "Powi", email = "powi@powi.fr", contributions = { S("Implemented internationalization support and provided French translation") } },
 }
 
 local aboutStr = [[
@@ -24,7 +24,7 @@ local contributorsStr = ""
 for _, contributor in ipairs(contributors) do
     local allContributions = ""
     for _, contribution in ipairs(contributor.contributions) do
-        allContributions = allContributions .. string.format("   - %s\n", S(contribution))
+        allContributions = allContributions .. string.format("   - %s\n", contribution)
     end
     contributorsStr = contributorsStr .. string.format("%s <%s>\n%s\n", contributor.name, contributor.email, allContributions)
 end

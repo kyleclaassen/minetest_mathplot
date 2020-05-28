@@ -141,9 +141,9 @@ mathplot.gui.screens["implicit_plot"] = {
         .. string.format("label[4,2;%s]field[6,2;2,1;ymax;;%s]", S("@1:", S("Y Max")), p.ymax)
         .. string.format("label[8,2;%s]field[10,2;2,1;ystep;;%s]", S("@1:", S("Y Step")), p.ystep)
         .. string.format("label[0,3;%s]field[2,3;2,1;zmin;;%s]", S("@1:", S("Z Min")), p.zmin)
-        .. string.format("label[4,3;%s]field[6,3;2,1--1;zmax;;%s]", S("@1:",S("Z Max")), p.zmax)
-        .. string.format("label[8,3;%s]field[10,3;2,1;zstep;;%s]", S("@1:",S("Z Step")), p.zstep)
-        .. string.format("label[0,4;%s]field[2,4;10,1;ftn;;%s]", S("@1",S("Relation")), p.ftn)
+        .. string.format("label[4,3;%s]field[6,3;2,1--1;zmax;;%s]", S("@1:", S("Z Max")), p.zmax)
+        .. string.format("label[8,3;%s]field[10,3;2,1;zstep;;%s]", S("@1:", S("Z Step")), p.zstep)
+        .. string.format("label[0,4;%s]field[2,4;10,1;ftn;;%s]", S("@1:", S("Relation")), p.ftn)
         .. string.format("tooltip[ftn;%s]", minetest.formspec_escape(relationTooltipText))
         .. "container_end[]"
         .. "container[0,6]"
