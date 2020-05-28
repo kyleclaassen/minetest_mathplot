@@ -1,54 +1,23 @@
 # textdomain: mathplot
-MathPlot Origin Node=
-Untitled Node=
-Use the "MathPlot Origin Destroyer" tool to dig this node.=
-MathPlot Origin Node Destroyer=
-MathPlot @1 translucent glow block=
-MathPlot Glowing @1=
-MathPlot Glowing @1 Glass=
-black=
-blue=
-brown=
-cyan=
-dark_green=
-dark_grey=
-green=
-grey=
-magenta=
-orange=
-pink=
-red=
-violet=
-white=
-yellow=
-mathplot: removing stale origin node at @1=
-Binary code prohibited.=
-Checking syntax: '@1'=
-expression cannot be blank.=
-Error evaluating at (@1): @2=
-At least one coordinate does not evaluate to a number.=
-'@1' is not a drawable node.=
-Syntax error in @1(@2): @3=
-Syntax error in @1: @2=
-plot_parametric: syntax error in @1: @2=
-plot_parametric: failed to determine @1.=
-plot_parametric: syntax error: @1=
-plot_parametric: timeout exceeded.=
-plot_parametric total elapsed time: @1 seconds=
-plot_implicit: error in condition: @1=
-'@1' is not a drawable node.=
-plot_implicit: syntax error in relation: @1=
-plot_implicit: timeout exceeded.=
-plot_implicit: total elapsed time: @1 seconds=
-Done.=
-mathplot: player @1 teleporting to @2=
-@1 at @2=
-Available mathplot origin nodes:=
-Open=
+
+################################################################################
+# Very common strings that could appear on many screens
+################################################################################
+
+OK=
 Cancel=
-Teleport=
-Mathematical Object Plotter @@ @1=
+Exit=
+
+# Account for differences in quotation mark symbols
 "@1"=
+
+Must have the 'mathplot' privilege in order to use this node.=
+
+################################################################################
+# Main Screen (gui/screen_originmainmenu.lua)
+################################################################################
+
+Mathematical Object Plotter @@ @1=
 Set Name=
 Draw Axes=
 Implicit Plot=
@@ -59,29 +28,50 @@ Other Nodes=
 Serialize/Deserialize=
 Examples=
 About=
-Exit=
-OK=
+
+################################################################################
+# Screen: Other Nodes (gui/screen_mainmenu.lua)
+# (Access with "/mathplot" chat command.)
+################################################################################
+
+mathplot: player @1 teleporting to @2=
+@1 at @2=
+Available mathplot origin nodes:=
+Open=
+Teleport=
+
+################################################################################
+# Screen: Set Name (gui/screen_setname.lua)
+################################################################################
+
 Set Node Nickname=
+
+################################################################################
+# Plotting screens:
+#           gui/screen_draw_axes.lua,
+#           gui/screen_parametric.lua,
+#           gui/screen_implicit_plot.lua
+################################################################################
+
+########################################
+# Form Validations
+########################################
+
 Invalid +x Direction.=
 Invalid +y Direction.=
 Invalid +z Direction.=
+Syntax error in u Min: @1=
+Syntax error in u Max: @1=
+Syntax error in u Step: @1=
+Syntax error in v Min: @1=
+Syntax error in v Max: @1=
+Syntax error in v Step: @1=
+Syntax error in w Min: @1=
+Syntax error in w Max: @1=
+Syntax error in w Step: @1=
 x Min must be <@= x Max.=
 y Min must be <@= y Max.=
 z Min must be <@= z Max.=
-x Min:=
-x Max:=
-y Min:=
-y Max:=
-z Min:=
-z Max:=
-x-axis brush '@1' is not a drawable node.=
-y-axis brush '@1' is not a drawable node.=
-z-axis brush '@1' is not a drawable node.=
-+x Direction:=
-+y Direction:=
-+z Direction:=
-Draw=
-Axes drawn.=
 x Min must be a number.=
 x Max must be a number.=
 x Step must be a number.=
@@ -96,22 +86,79 @@ z Step must be a number.=
 z Step must be positive.=
 Syntax error in relation: @1=
 '@1' is not a drawable node.=
-A function f(x,y,z), e.g. 'x^2 + y^2 + z^2 - 100'. A node will be set at (x,y,z) if f(x,y,z)@=0. Can also use inequalities, e.g. 'x^2 + y^2 <@= 100'.=
+x-axis brush '@1' is not a drawable node.=
+y-axis brush '@1' is not a drawable node.=
+z-axis brush '@1' is not a drawable node.=
+
+
+########################################
+# Field Captions
+########################################
+
+Plot node:=
++x Direction:=
++y Direction:=
++z Direction:=
+u Min:=
+u Max:=
+u Step:=
+v Min:=
+v Max:=
+v Step:=
+w Min:=
+w Max:=
+w Step:=
+x Min:=
+x Max:=
 x Step:=
+y Min:=
+y Max:=
 y Step:=
+z Min:=
+z Max:=
 z Step:=
 Relation:=
+
+########################################
+# Buttons, checkboxes, tooltips, etc.
+########################################
+
+####TODO: get rid of "Draw" and just use "Plot" instead?
+Draw=
+Plot=
+Erase Previous=
 Connected=
+Connect the curve points with line segments.=
 To Surface=
 To Solid=
 To Curve=
-Plot node:=
-Plot=
-Cancel=
-Erase Previous=
+A function f(x,y,z), e.g. 'x^2 + y^2 + z^2 - 100'. A node will be set at (x,y,z) if f(x,y,z)@=0. Can also use inequalities, e.g. 'x^2 + y^2 <@= 100'.=
+
+# TODO: Chat message... how to best handle these?
+Axes drawn.=
+
+# TODO: minetest.log() message
+Error: mathplot: invalid parametric identifier=
+
+
+
+
+################################################################################
+# Screen: Serialize/Deserialize (gui/screen_serialize.lua)
+################################################################################
+
 Load=
+Serialized Node:=
+Deserialize from JSON:=
+Invalid JSON.=
 mathplot: successfully deserialized json to node.=
 mathplot: failed to deserialize json to node: @1=
+Non-mathplot origin node at position @1=
+
+################################################################################
+# Screen: Examples (gui/screen_examples.lua)
+################################################################################
+
 Examples=
 Hemisphere=
 Solid Hemisphere=
@@ -129,7 +176,58 @@ Klein Bottle=
 The graph of a two-variable function, extruded in the z-direction=
 Solid of Revolution=
 The solid generated by revolving the region between the graphs of x @= 3z/10 and x @= 5+(z/10)^2 about the z-axis=
-Exit=
+
+
+
+################################################################################
+# Screen: About (gui/screen_about.lua)
+################################################################################
+
+MathPlot version @1=
+Author:=
+Contributors:=
+
+########################################
+# Contribution strings
+########################################
+
+# Contributor: Powi <powi@powi.fr>
+Implemented internationalization support and provided French translation=
+
+
+################################################################################
+# Node setup (nodes.lua)
+################################################################################
+
+MathPlot Origin Node=
+Untitled Node=
+Use the "MathPlot Origin Destroyer" tool to dig this node.=
+MathPlot Origin Node Destroyer=
+MathPlot @1 translucent glow block=
+MathPlot Glowing @1=
+MathPlot Glowing @1 Glass=
+########TODO: need to rethink colors in nodes.lua...
+black=
+blue=
+brown=
+cyan=
+dark_green=
+dark_grey=
+green=
+grey=
+magenta=
+orange=
+pink=
+red=
+violet=
+white=
+yellow=
+
+
+################################################################################
+# Chat commands / privileges (commands.lua)
+################################################################################
+
 Can use mathplot functions=
 Origin locations list cleared.=
 Plot timeout is currently disabled.=
@@ -148,36 +246,28 @@ Unknown action: @1=
 Unknown origin node '@1'.=
 Invalid mathplot subcommand: @1=
 Perform mathplot functions=
-Author:=
-Contributors:=
-Implemented internationalization support and provided French translation=
-Must have the 'mathplot' privilege in order to use this node.=
-Serialized Node:=
-Deserialize from JSON:=
-Invalid JSON.=
-Non-mathplot origin node at position @1=
-Connect the curve points with line segments.=
 
-u Min:=
-u Max:=
-u Step:=
-v Min:=
-v Max:=
-v Step:=
-w Min:=
-w Max:=
-w Step:=
 
-Syntax error in u Min: @1=
-Syntax error in u Max: @1=
-Syntax error in u Step: @1=
-Syntax error in v Min: @1=
-Syntax error in v Max: @1=
-Syntax error in v Step: @1=
-Syntax error in w Min: @1=
-Syntax error in w Max: @1=
-Syntax error in w Step: @1=
+################################################################################
+# TODO: Miscellaneous messages to organize (mostly in functions.lua)
+################################################################################
 
-Error: mathplot: invalid parametric identifier=
-MathPlot version @1=
+mathplot: removing stale origin node at @1=
+Binary code prohibited.=
+Checking syntax: '@1'=
+expression cannot be blank.=
+Error evaluating at (@1): @2=
+At least one coordinate does not evaluate to a number.=
+Syntax error in @1(@2): @3=
+Syntax error in @1: @2=
+plot_parametric: syntax error in @1: @2=
+plot_parametric: failed to determine @1.=
 plot_parametric: Unable to determine @1.=
+plot_parametric: syntax error: @1=
+plot_parametric: timeout exceeded.=
+plot_parametric total elapsed time: @1 seconds=
+plot_implicit: error in condition: @1=
+plot_implicit: syntax error in relation: @1=
+plot_implicit: timeout exceeded.=
+plot_implicit: total elapsed time: @1 seconds=
+Done.=

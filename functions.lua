@@ -262,19 +262,19 @@ mathplot.plot_parametric = function(params, playername)
     local varnamesStr = mathplot.parametric_argstr_display(params.varnames)
     local X, loaderror = make_safe_function(params.ftn_x, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","X", varnamesStr, loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3", "x", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local Y, loaderror  = make_safe_function(params.ftn_y, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","Y", varnamesStr, loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3", "y", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local Z, loaderror = make_safe_function(params.ftn_z, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","Z", varnamesStr, loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3", "z", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
