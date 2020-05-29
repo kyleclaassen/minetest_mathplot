@@ -10,12 +10,6 @@ OK=
 # Button text
 Cancel=
 
-# Default chat message displayed when a screen is successfully completed.
-Done.=
-
-# Allow for different languages' quotation marks
-"@1"=
-
 # Error message displayed if attempting to use MathPlot functionality
 # without the appropriate privilege.
 Must have the 'mathplot' privilege in order to use this node.=
@@ -26,24 +20,28 @@ Must have the 'mathplot' privilege in order to use this node.=
 
 # Main screen title label for origin node
 # @1 is replaced with the origin node's coordinates in the Minetest world
-Mathematical Object Plotter @@ @1=
+Mathematical Object Plotter at @1=
 
-# Button text on main screen
+# Node name caption.
+# @1 is replaced with the node's name as set using the Set Name screen.
+Node Name: "@1"=
+
+# Button text on main screen and title of Set Node screen
 Set Name=
 
-# Button text on main screen
+# Button text on main screen and title of Draw Axes screen
 Draw Axes=
 
-# Button text on main screen
+# Button text on main screen and title of Implicit Plot screen
 Implicit Plot=
 
-# Button text on main screen
+# Button text on main screen and title of Parametric Curve screen
 Parametric Curve=
 
-# Button text on main screen
+# Button text on main screen and title of Parametric Surface screen
 Parametric Surface=
 
-# Button text on main screen
+# Button text on main screen and title of Parametric Solid screen
 Parametric Solid=
 
 # Button text on main screen
@@ -89,8 +87,7 @@ Teleport=
 # Screen: Set Name (gui/screen_setname.lua)
 ################################################################################
 
-# Title label of "Set Name" screen.
-Set Node Nickname=
+# Note: title string same as "Set Name" button text.
 
 ################################################################################
 # Plotting screens:
@@ -188,6 +185,9 @@ Syntax error in relation: @1=
 x-axis brush '@1' is not a drawable node.=
 y-axis brush '@1' is not a drawable node.=
 z-axis brush '@1' is not a drawable node.=
+
+# Button text on Draw Axes screen
+Draw=
 
 # Chat message displayed when axes are finished drawing.
 Axes drawn.=
@@ -307,7 +307,7 @@ MathPlot Origin Node=
 MathPlot Origin Node Destroyer=
 
 # Chat message displayed when attempting to dig an Origin node
-Use the "MathPlot Origin Destroyer" tool to dig this node.=
+Use the 'MathPlot Origin Destroyer' tool to dig this node.=
 
 # Inventory description for MathPlot Translucent Glow Blocks
 # @1 is replaced with a color name (see list below).

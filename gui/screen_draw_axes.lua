@@ -117,7 +117,7 @@ local function draw_axes_get_formspec(playername, identifier, context)
     .. "image[8.06,0.1;0.8,0.8;creative_trash_icon.png]"
     .. "list[detached:mathplot:inv_trash;main;8,0;1,1;]"
     .. "container_end[]"
-    .. string.format("button_exit[0,8;2,1;btn_draw;%s]", S("Plot"))
+    .. string.format("button_exit[0,8;2,1;btn_draw;%s]", S("Draw"))
     .. string.format("button_exit[2,8;2,1;btn_cancel;%s]", S("Cancel"))
     return formspec
 end
