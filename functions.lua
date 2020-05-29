@@ -252,7 +252,7 @@ mathplot.plot_parametric = function(params, playername)
     --Note: e1, e2, e3 can be vectors in string form, e.g. "(1,2,3)"
 
     if not mathplot.util.has_mathplot_priv(playername) then
-        return false, S("Must have the 'mathplot' privilege to use this node.")
+        return false, S("The 'mathplot' privilege is required.")
     end
 
     if not mathplot.util.is_drawable_node(params.nodename) then
@@ -498,7 +498,7 @@ mathplot.plot_implicit = function(params, playername)
     --params: origin_pos, ftn, xmin, xmax, xstep, ymin, ymax, ystep, zmin, zmax, zstep, nodename, e1, e2, e3
 
     if not mathplot.util.has_mathplot_priv(playername) then
-        return false, S("Must have the 'mathplot' privilege to use this node.")
+        return false, S("The 'mathplot' privilege is required.")
     end
 
     if not mathplot.util.is_drawable_node(params.nodename) then

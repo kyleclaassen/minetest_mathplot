@@ -10,9 +10,14 @@ OK=
 # Button text
 Cancel=
 
-# Error message displayed if attempting to use MathPlot functionality
-# without the appropriate privilege.
-Must have the 'mathplot' privilege to use this node.=
+# Chat message displayed if attempting to use MathPlot functionality
+# without the mathplot privilege.
+The 'mathplot' privilege is required.=
+
+# Chat message displayed if attempting to use MathPlot chat commands
+# that require the server privilege.
+The 'server' privilege is required.=
+
 
 ################################################################################
 # Main Screen (gui/screen_originmainmenu.lua)

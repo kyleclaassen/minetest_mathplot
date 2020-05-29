@@ -42,7 +42,7 @@ minetest.register_node(mathplot.ORIGIN_NODE_NAME, {
                     }
                     mathplot.gui.invoke_screen("originmainmenu", playername, context)
                 else
-                    minetest.chat_send_player(playername, S("Must have the 'mathplot' privilege to use this node."))
+                    minetest.chat_send_player(playername, S("The 'mathplot' privilege is required."))
                 end
             end
         end,

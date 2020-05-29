@@ -1,7 +1,7 @@
 # textdomain: mathplot
 OK=
 Cancel=
-Must have the 'mathplot' privilege to use this node.=
+The 'mathplot' privilege is required to use this node.=
 Mathematical Object Plotter at @1=
 Node Name: "@1"=
 Set Name=

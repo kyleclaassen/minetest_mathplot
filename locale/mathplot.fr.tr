@@ -1,7 +1,8 @@
 # textdomain: mathplot
 OK=Ok
 Cancel=Annuler
-Must have the 'mathplot' privilege to use this node.=  ***PLEASE REVIEW
+The 'mathplot' privilege is required.=***PLEASE REVIEW
+The 'server' privilege is required.=***PLEASE REVIEW
 Mathematical Object Plotter at @1=Traceur d’Object Mathématique à @1 ***PLEASE REVIEW
 Node Name: "@1"=***PLEASE REVIEW
 Set Name=Nommer

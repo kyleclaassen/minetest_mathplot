@@ -16,6 +16,9 @@ end
 
 
 local function do_mathplot_clearlist(playername, param)
+    if not mathplot.util.has_server_priv(playername) then
+        return false, S("The 'server' privilege is required.")
+    end
     mathplot.clear_origin_locations()
     return true, S("Origin locations list cleared.")
 end
@@ -31,6 +34,10 @@ local function do_mathplot_timeout(playername, param)
             return true, S("Plot timeout is currently set to @1 seconds.", mathplot.settings.plot_timeout / 1e6)
         end
     else
+        if not mathplot.util.has_server_priv(playername) then
+            return false, S("The 'server' privilege is required.")
+        end
+
         --Change setting if valid parameter provided.
         local seconds = tonumber(param)
         if not seconds then
@@ -55,6 +62,10 @@ local function do_mathplot_max_coord(playername, param)
         --Echo the current setting.
         return true, S("Maximum coordinate magnitude is currently set to @1.", mathplot.settings.max_coord)
     else
+        if not mathplot.util.has_server_priv(playername) then
+            return false, S("The 'server' privilege is required.")
+        end
+
         --Change setting if valid parameter provided.
         local max_coord = tonumber(param)
         if not max_coord then

@@ -7,7 +7,7 @@ local function validate_parametric(playername, identifier, fields, context)
     local p = table.copy(fields)
 
     if not mathplot.util.has_mathplot_priv(playername) then
-        e[#e+1] = S("Must have the 'mathplot' privilege to use this node.")
+        e[#e+1] = S("The 'mathplot' privilege is required.")
     end
 
     if minetest.string_to_pos(p.e1) == nil then
