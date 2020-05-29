@@ -43,7 +43,7 @@ local function deserialize_origin_node(pos, json)
             return false, S("Invalid JSON.")
         end
     else
-        return false, S("Non-mathplot origin node at position @1", minetest.pos_to_string(pos))
+        return false, S("Non-MathPlot origin node at position @1", minetest.pos_to_string(pos))
     end
 end
 
@@ -70,9 +70,9 @@ mathplot.gui.screens["serialize"] = {
             if fields.txt_from_json and string.len(string.trim(fields.txt_from_json)) > 0 then
                 local ok, msg = deserialize_origin_node(context.node_pos, fields.txt_from_json)
                 if ok then
-                    minetest.log(S("mathplot: successfully deserialized json to node."))
+                    minetest.log(S("mathplot: successfully deserialized JSON to node."))
                 elseif msg then
-                    minetest.log(S("mathplot: failed to deserialize json to node: @1", msg))
+                    minetest.log(S("mathplot: failed to deserialize JSON to node: @1", msg))
                 end
             end
         end
