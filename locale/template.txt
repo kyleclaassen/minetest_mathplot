@@ -1,7 +1,7 @@
 # textdomain: mathplot
 OK=
 Cancel=
-Must have the 'mathplot' privilege in order to use this node.=
+Must have the 'mathplot' privilege to use this node.=
 Mathematical Object Plotter at @1=
 Node Name: "@1"=
 Set Name=
@@ -64,14 +64,14 @@ z Min must be <@= z Max.=
 x Min must be a number.=
 x Max must be a number.=
 x Step must be a number.=
-x Step must be positive.=
 y Min must be a number.=
 y Max must be a number.=
 y Step must be a number.=
-y Step must be positive.=
 z Min must be a number.=
 z Max must be a number.=
 z Step must be a number.=
+x Step must be positive.=
+y Step must be positive.=
 z Step must be positive.=
 Syntax error in relation: @1=
 '@1' is not a drawable node.=
