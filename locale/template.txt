@@ -1,110 +1,24 @@
 # textdomain: mathplot
-
-################################################################################
-# Common strings that could appear on many screens
-################################################################################
-
-# Button text
 OK=
-
-# Button text
 Cancel=
-
-# Error message displayed if attempting to use MathPlot functionality
-# without the appropriate privilege.
 Must have the 'mathplot' privilege in order to use this node.=
-
-################################################################################
-# Main Screen (gui/screen_originmainmenu.lua)
-################################################################################
-
-# Main screen title label for origin node
-# @1 is replaced with the origin node's coordinates in the Minetest world
 Mathematical Object Plotter at @1=
-
-# Node name caption.
-# @1 is replaced with the node's name as set using the Set Name screen.
 Node Name: "@1"=
-
-# Button text on main screen and title of Set Node screen
 Set Name=
-
-# Button text on main screen and title of Draw Axes screen
 Draw Axes=
-
-# Button text on main screen and title of Implicit Plot screen
 Implicit Plot=
-
-# Button text on main screen and title of Parametric Curve screen
 Parametric Curve=
-
-# Button text on main screen and title of Parametric Surface screen
 Parametric Surface=
-
-# Button text on main screen and title of Parametric Solid screen
 Parametric Solid=
-
-# Button text on main screen
 Other Nodes=
-
-# Button text on main screen
 Serialize/Deserialize=
-
-# Button text on main screen and title label of Examples screen
 Examples=
-
-# Button text on main screen
 About=
-
-# Button text on main screen
 Exit=
-
-################################################################################
-# Screen: Other Nodes (gui/screen_mainmenu.lua)
-# (Access with "/mathplot" chat command.)
-################################################################################
-
-# Title label for "Other Nodes" screen
-Available MathPlot origin nodes:=
-
-# minetest.log() message when a player teleports to an origin node.
-# @1 is replaced with player name
-# @2 is replaced with coordinates of origin node.
-mathplot: player @1 teleporting to @2=
-
-# Format of each line of textlist[] on Other Nodes screen.
-# @1 is replaced with the origin node's nickname
-# @2 is replaced with the coordinates of the origin node.
-@1 at @2=
-
-# Button text on "Other Nodes" screen
-Open=
-
-# Button text on "Other Nodes" screen
-Teleport=
-
-################################################################################
-# Screen: Set Name (gui/screen_setname.lua)
-################################################################################
-
-# Note: title string same as "Set Name" button text.
-
-################################################################################
-# Plotting screens:
-#           gui/screen_draw_axes.lua
-#           gui/screen_parametric.lua
-#           gui/screen_implicit_plot.lua
-################################################################################
-
-# Caption for type of node that will be plotted with
 Plot node:=
-
-# Captions for positive x,y,z-direction vectors
 +x Direction:=
 +y Direction:=
 +z Direction:=
-
-#Captions for parameter min/max/step values
 u Min:=
 u Max:=
 u Step:=
@@ -123,36 +37,15 @@ y Step:=
 z Min:=
 z Max:=
 z Step:=
-
-#Caption for Implicit Plot relation field
 Relation:=
-
-# Tooltip for Implicit Plot relation field
 A function f(x,y,z), e.g. 'x^2 + y^2 + z^2 - 100'. A node will be set at (x,y,z) if f(x,y,z)@=0. Can also use inequalities, e.g. 'x^2 + y^2 <@= 100'.=
-
-# Plot screen button text
 Plot=
-
-# Plot screen button text
 Erase Previous=
-
-# Plot screen button text
 To Curve=
-
-# Plot screen button text
 To Surface=
-
-# Plot screen button text
 To Solid=
-
-# Checkbox on Parametric Curve screen indicating whether discrete
-# points on curve are to be connected by line segments.
 Connected=
-
-# Tooltip for "Connected" checkbox on Parametric Curve screen.
 Connect the curve points with line segments.=
-
-# Plot screen form validations
 Invalid +x Direction.=
 Invalid +y Direction.=
 Invalid +z Direction.=
@@ -185,143 +78,48 @@ Syntax error in relation: @1=
 x-axis brush '@1' is not a drawable node.=
 y-axis brush '@1' is not a drawable node.=
 z-axis brush '@1' is not a drawable node.=
-
-# Button text on Draw Axes screen
 Draw=
-
-# Chat message displayed when axes are finished drawing.
 Axes drawn.=
-
-# minetest.log() message for invalid parametric screen type
 Error: mathplot: invalid parametric identifier=
-
-################################################################################
-# Screen: Serialize/Deserialize (gui/screen_serialize.lua)
-################################################################################
-
-# Load button text on Serialize/Deserialize screen
+Available MathPlot origin nodes:=
+mathplot: player @1 teleporting to @2=
+@1 at @2=
+Open=
+Teleport=
 Load=
-
-# Caption on Serialize/Deserialize screen
 Serialized Node:=
-
-# Caption on Serialize/Deserialize screen
 Deserialize from JSON:=
-
-# Chat message displayed if deserialization is given invalid JSON string
 Invalid JSON.=
-
-# Error message if attempting to serialize a non-origin node
 Non-MathPlot origin node at position @1=
-
-# minetest.log() message upon successful deserialization
 mathplot: successfully deserialized JSON to node.=
-
-# minetest.log() message upon failure to deserialize
 mathplot: failed to deserialize JSON to node: @1=
-
-
-################################################################################
-# Screen: Examples (gui/screen_examples.lua)
-################################################################################
-
-# Button text on Examples screen
 Hemisphere=
-
-# Button text on Examples screen
 Solid Hemisphere=
-
-# Button text on Examples screen
 Cylinder w/ Tunnel=
-
-# Button text on Examples screen
 Cone=
-
-# Button text on Examples screen
 Graph of Function=
-
-# Button text on Examples screen
 Helix=
-
-# Button text on Examples screen
 Coil=
-
-# Button text on Examples screen
 Trefoil Knot=
-
-# Button text on Examples screen
 Torus=
-
-# Button text on Examples screen
 Surface of Revolution=
-
-# Tooltip for Surface of Revolution button on Examples screen
 The surface generated by revolving the graph of y @= 5x/6 - x^3/200 about the x-axis, then translated vertically in the z-direction=
-
-# Button text on Examples screen
 Klein Bottle=
-
-# Button text on Examples screen
 'Thick' Graph=
-
-# Tooltip for 'Thick Graph' button on Examples screen
 The graph of a two-variable function, extruded in the z-direction=
-
-# Button text on Examples screen
 Solid of Revolution=
-
-# Tooltip for Solid of Revolution button on Examples screen
 The solid generated by revolving the region between the graphs of x @= 3z/10 and x @= 5+(z/10)^2 about the z-axis=
-
-
-################################################################################
-# Screen: About (gui/screen_about.lua)
-################################################################################
-
-# Version string displayed at top of "About" screen
-# @1 is replaced with mathplot.VERSION string.
 MathPlot version @1=
-
-# Author caption on About screen
 Author:=
-
-# Contributors caption on About screen
 Contributors:=
-
-# About screen: contribution by Powi <powi@powi.fr>
 Implemented internationalization support and provided French translation=
-
-
-################################################################################
-# Node setup (nodes.lua)
-################################################################################
-
-# Default name of an origin node.
-# Appears in list of origin nodes via "/mathplot".
 Untitled Node=
-
-# Inventory description for the MathPlot origin node.
 MathPlot Origin Node=
-
-# Inventory description for the Origin Destroyer tool.
 MathPlot Origin Node Destroyer=
-
-# Chat message displayed when attempting to dig an Origin node
 Use the 'MathPlot Origin Destroyer' tool to dig this node.=
-
-# Inventory description for MathPlot Translucent Glow Blocks
-# @1 is replaced with a color name (see list below).
 MathPlot @1 Translucent Glow Block=
-
-# Inventory description for MathPlot glowing wool blocks.
-# @1 is replaced with a description of a default:wool node, e.g. "Red Wool".
 MathPlot Glowing @1=
-
-# Inventory description for MathPlot colored glowing glass.
-# @1 is replaced with a color name (see list below).
 MathPlot Glowing @1 Glass=
-
-# Color names for various MathPlot colored nodes.
 Black=
 Blue=
 Brown=
@@ -337,76 +135,22 @@ Red=
 Violet=
 White=
 Yellow=
-
-
-################################################################################
-# Chat commands / privileges (commands.lua)
-################################################################################
-
-# Description for "/mathplot" command.
 Perform MathPlot functions=
-
-# "mathplot" privilege description
 Can use MathPlot functionality=
-
-# Chat message displayed if command "/mathplot xxxxx" is not recognized.
-# @1 is replaced with the subcommand string "xxxxx".
 Invalid mathplot subcommand: @1=
-
-# Chat message displayed when attempting to use "/mathplot teleport" without
-# having the teleport privilege.
 Requires the 'teleport' privilege.=
-
-# Chat message displayed upon executing "/mathplot timeout n"
-# @1 is replaced with the number of seconds (n > 0) passed
-# to "/mathplot timeout".
 Plot timeout set to @1 seconds.=
-
-# Chat message displayed upon executing "/mathplot timeout 0"
 Plot timeout disabled.=
-
-# Chat message displayed if a negative number of seconds (n) is passed to
-# "/mathplot timeout n".
 Timeout must be zero or greater.=
-
-# Chat message displayed if non-numeric number of seconds is passed to
-# "/mathplot timeout". @1 is replaced with the string provided.
 Invalid timeout specified: @1=
-
-# Chat messages displayed upon executing "/mathplot timeout"
 Plot timeout is currently disabled.=
 Plot timeout is currently set to @1 seconds.=
-
-# Chat message displayed upon executing "/mathplot max_coord".
-# @1 is set to the current value of mathplot.settings.max_coord.
 Maximum coordinate magnitude is currently set to @1.=
-
-# Chat message displayed upon executing "/mathplot max_coord n",
-# with a valid numeric value n >= 0.
 Maximum coordinate magnitude set to @1.=
-
-# Chat message displayed if a non-numeric value n is passed
-# to "/mathplot max_coord n". @1 is set to the given string n.
 Invalid maximum coordinate magnitude specified: @1=
-
-# Chat message displayed if a negative value n is passed
-# to "/mathplot max_coord n".
 Maximum coordinate magnitude must be zero or greater.=
-
-# Chat message displayed if attempting to use a /mathplot chat command
-# to act on an origin node that can't be identified by location coordinates
-# nor by name. (E.g. "/mathplot open mynode")
-# @1 is replaced by the origin location/name string provided.
 Unknown origin node '@1'.=
-
-# Chat message displayed when executing "/mathplot clearlist"
 Origin locations list cleared.=
-
-
-################################################################################
-# TODO: Miscellaneous messages to organize (mostly in functions.lua)
-################################################################################
-
 mathplot: removing stale origin node at @1=
 Binary code prohibited.=
 Checking syntax: '@1'=
@@ -425,4 +169,3 @@ plot_implicit: error in condition: @1=
 plot_implicit: syntax error in relation: @1=
 plot_implicit: timeout exceeded.=
 plot_implicit: total elapsed time: @1 seconds=
-
