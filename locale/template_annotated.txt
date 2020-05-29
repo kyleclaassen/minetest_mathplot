@@ -128,25 +128,25 @@ Invalid +x Direction.=
 Invalid +y Direction.=
 Invalid +z Direction.=
 Syntax error in u Min: @1=
-Syntax error in u Max: @1=
-Syntax error in u Step: @1=
 Syntax error in v Min: @1=
-Syntax error in v Max: @1=
-Syntax error in v Step: @1=
 Syntax error in w Min: @1=
+Syntax error in u Max: @1=
+Syntax error in v Max: @1=
 Syntax error in w Max: @1=
+Syntax error in u Step: @1=
+Syntax error in v Step: @1=
 Syntax error in w Step: @1=
 x Min must be <@= x Max.=
 y Min must be <@= y Max.=
 z Min must be <@= z Max.=
 x Min must be a number.=
-x Max must be a number.=
-x Step must be a number.=
 y Min must be a number.=
-y Max must be a number.=
-y Step must be a number.=
 z Min must be a number.=
+x Max must be a number.=
+y Max must be a number.=
 z Max must be a number.=
+x Step must be a number.=
+y Step must be a number.=
 z Step must be a number.=
 x Step must be positive.=
 y Step must be positive.=

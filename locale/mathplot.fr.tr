@@ -16,9 +16,9 @@ Examples=Exemples
 About=À Propos
 Exit=Quitter
 Plot node:=Block de tracé :
-+x Direction:=Direction +x :
-+y Direction:=Direction +y :
-+z Direction:=Direction +z :
++x Direction:=Direction +x :
++y Direction:=Direction +y :
++z Direction:=Direction +z :
 u Min:=u Min :
 u Max:=u Max :
 u Step:=Pas u :
@@ -38,7 +38,7 @@ z Min:=z Min :
 z Max:=z Max :
 z Step:=Pas z :
 Relation:=Relation :
-A function f(x,y,z), e.g. 'x^2 + y^2 + z^2 - 100'. A node will be set at (x,y,z) if f(x,y,z)@=0. Can also use inequalities, e.g. 'x^2 + y^2 <@= 100'.=Une fonction f(x,y,z), par exemple : « x² + y² + z² - 100 ». Un block sera positionné à (x,y,z) si f(x,y,z) @= 0. Peut aussi être une inéquation, par exemple : « x² + y² <@= 100 ».
+A function f(x,y,z), e.g. 'x^2 + y^2 + z^2 - 100'. A node will be set at (x,y,z) if f(x,y,z)@=0. Can also use inequalities, e.g. 'x^2 + y^2 <@= 100'.=Une fonction f(x,y,z), par exemple : « x² + y² + z² - 100 ». Un block sera positionné à (x,y,z) si f(x,y,z) @= 0. Peut aussi être une inéquation, par exemple : « x² + y² <@= 100 ».
 Plot=Tracer
 Erase Previous=Supprimer le précédent
 To Curve=Courbe
@@ -49,15 +49,15 @@ Connect the curve points with line segments.=***PLEASE REVIEW
 Invalid +x Direction.=Direction +x invalide.
 Invalid +y Direction.=Direction +y invalide.
 Invalid +z Direction.=Direction +z invalide.
-Syntax error in u Min: @1=Erreur de syntaxe dans u Min : @1
-Syntax error in u Max: @1=Erreur de syntaxe dans u Max : @1
-Syntax error in u Step: @1=Erreur de syntaxe dans Pas u : @1
-Syntax error in v Min: @1=Erreur de syntaxe dans v Min : @1
-Syntax error in v Max: @1=Erreur de syntaxe dans v Max : @1
-Syntax error in v Step: @1=Erreur de syntaxe dans Pas v : @1
-Syntax error in w Min: @1=Erreur de syntaxe dans w Min : @1
-Syntax error in w Max: @1=Erreur de syntaxe dans w Max : @1
-Syntax error in w Step: @1=Erreur de syntaxe dans Pas w : @1
+Syntax error in u Min: @1=Erreur de syntaxe dans u Min : @1
+Syntax error in u Max: @1=Erreur de syntaxe dans u Max : @1
+Syntax error in u Step: @1=Erreur de syntaxe dans Pas u : @1
+Syntax error in v Min: @1=Erreur de syntaxe dans v Min : @1
+Syntax error in v Max: @1=Erreur de syntaxe dans v Max : @1
+Syntax error in v Step: @1=Erreur de syntaxe dans Pas v : @1
+Syntax error in w Min: @1=Erreur de syntaxe dans w Min : @1
+Syntax error in w Max: @1=Erreur de syntaxe dans w Max : @1
+Syntax error in w Step: @1=Erreur de syntaxe dans Pas w : @1
 x Min must be <@= x Max.=x Min doit être <@= x Max.
 y Min must be <@= y Max.=y Min doit être <@= y Max.
 z Min must be <@= z Max.=z Min doit être <@= z Max.
@@ -82,7 +82,7 @@ Draw=Tracer
 Axes drawn.=Axes tracés.
 Error: mathplot: invalid parametric identifier=***PLEASE REVIEW
 Available MathPlot origin nodes:=Blocks d'origine MathPlot disponibles :
-mathplot: player @1 teleporting to @2=mathplot : Joueur @1 se téléporte à @2
+mathplot: player @1 teleporting to @2=mathplot : Joueur @1 se téléporte à @2
 @1 at @2=@1 à @2
 Open=Ouvrir
 Teleport=Téléporter
@@ -91,8 +91,8 @@ Serialized Node:=***PLEASE REVIEW
 Deserialize from JSON:=***PLEASE REVIEW
 Invalid JSON.=***PLEASE REVIEW
 Non-MathPlot origin node at position @1=***PLEASE REVIEW
-mathplot: successfully deserialized JSON to node.=mathplot : JSON du block désérialisé avec succès
-mathplot: failed to deserialize JSON to node: @1=mathplot : échec à la désérialisation du JSON du block
+mathplot: successfully deserialized JSON to node.=mathplot : JSON du block désérialisé avec succès
+mathplot: failed to deserialize JSON to node: @1=mathplot : échec à la désérialisation du JSON du block
 Hemisphere=Hémisphère
 Solid Hemisphere=Hémisphère Solide
 Cylinder w/ Tunnel=Cylindre avec tunnel
@@ -137,18 +137,18 @@ White=Blanc
 Yellow=Jaune
 Perform MathPlot functions=Effectuer les fonctions MathPlot.
 Can use MathPlot functionality=Peut utiliser une fonction MathPlot  ***PLEASE REVIEW
-Requires the 'teleport' privilege.=Requiert le privilège « teleport ».
+Requires the 'teleport' privilege.=Requiert le privilège « teleport ».
 Plot timeout set to @1 seconds.=Limitation de temps de tracer réglée à @1 secondes.
 Plot timeout disabled.=Limitation de temps de tracer désactivée.
 Timeout must be zero or greater.=La limitation de temps doit être >@= 0.
-Invalid timeout specified: @1=Limitation de temps invalide : @1
+Invalid timeout specified: @1=Limitation de temps invalide : @1
 Plot timeout is currently disabled.=La limitation de temps de tracer est actuellement désactivée.
 Plot timeout is currently set to @1 seconds.=La limitation de temps de tracer est actuellement réglée à @1 secondes.
 Maximum coordinate magnitude is currently set to @1.=L’amplitude maximale des coordonnées est actuellement réglée à @1. ***PLEASE REVIEW
 Maximum coordinate magnitude set to @1.=Amplitude maximale des coordonnées réglée à @1.
-Invalid maximum coordinate magnitude specified: @1=Amplitude maximale des coordonnées invalide : @1
+Invalid maximum coordinate magnitude specified: @1=Amplitude maximale des coordonnées invalide : @1
 Maximum coordinate magnitude must be zero or greater.=L’amplitude maximale des coordonnées doit être >@= 0.
-Unknown origin node '@1'.=Block d’origine inconnue « @1 ».
+Unknown origin node '@1'.=Block d’origine inconnue « @1 ».
 Origin locations list cleared.=List des localisations d’origines nettoyée.
 
 
@@ -169,7 +169,6 @@ plot_parametric: syntax error: @1=plot_parametric: Erreur de syntaxe : @1
 plot_parametric: timeout exceeded.=plot_parametric : Limite de temps dépassée.
 plot_parametric total elapsed time: @1 seconds=plot_parametric : Temps total écoulé : @1 secondes.
 plot_implicit: error in condition: @1=plot_implicit : Erreur dans la condition : @1
-'@1' is not a drawable node.=« @1 » n’est pas dans un mode de dessin.
 plot_implicit: syntax error in relation: @1=plot_implicit : Erreur de syntaxe dans la relation: @1
 plot_implicit: timeout exceeded.=plot_implicit : Limite de temps dépassée.
 plot_implicit: total elapsed time: @1 seconds=plot_implicit : Temps total écoulé : @1 secondes
