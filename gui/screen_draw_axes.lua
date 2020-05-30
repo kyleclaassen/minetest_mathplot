@@ -166,7 +166,6 @@ local function draw_axes_on_receive_fields(playername, identifier, fields, conte
                     plotParams.umin = validated_params.ymin
                     plotParams.umax = validated_params.ymax
                     plotParams.nodename = validated_params.yaxisbrush
-                    mathplot.plot_parametric(plotParams, playername)
                     local ok, err = mathplot.plot_parametric(plotParams, playername)
                     if not ok then
                         errorMsg = err
@@ -177,7 +176,6 @@ local function draw_axes_on_receive_fields(playername, identifier, fields, conte
                     plotParams.umin = validated_params.zmin
                     plotParams.umax = validated_params.zmax
                     plotParams.nodename = validated_params.zaxisbrush
-                    mathplot.plot_parametric(plotParams, playername)
                     local ok, err = mathplot.plot_parametric(plotParams, playername)
                     if not ok then
                         errorMsg = err
