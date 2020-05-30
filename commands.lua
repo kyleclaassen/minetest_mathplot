@@ -109,7 +109,7 @@ local function do_mathplot_open(playername, param, action)
                 end
                 return true, nil
             end
-            return false, S("Requires the 'teleport' privilege.")
+            return false, S("The 'teleport' privilege is required.")
         end
     else
         return false, S("Unknown origin node '@1'.", param)

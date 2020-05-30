@@ -18,6 +18,9 @@ The 'mathplot' privilege is required.=
 # that require the server privilege.
 The 'server' privilege is required.=
 
+# Chat message displayed when attempting to use "/mathplot teleport" without
+# having the teleport privilege.
+The 'teleport' privilege is required.=
 
 ################################################################################
 # Main Screen (gui/screen_originmainmenu.lua)
@@ -404,10 +407,6 @@ Can use MathPlot functionality=
 # Chat message displayed if command "/mathplot xxxxx" is not recognized.
 # @1 is replaced with the subcommand string "xxxxx".
 Invalid mathplot subcommand: @1=
-
-# Chat message displayed when attempting to use "/mathplot teleport" without
-# having the teleport privilege.
-Requires the 'teleport' privilege.=
 
 # Chat message displayed upon executing "/mathplot timeout n"
 # @1 is replaced with the number of seconds (n > 0) passed
