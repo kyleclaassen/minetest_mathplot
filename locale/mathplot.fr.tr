@@ -86,30 +86,30 @@ Plot node:=Block de tracé :
 #Captions for parameter min/max/step values
 u Min=u Min
 u Min:=u Min :
-u Max=u Max
-u Max:=u Max :
-u Step=Pas u
-u Step:=Pas u :
 v Min=v Min
 v Min:=v Min :
-v Max=v Max
-v Max:=v Max :
-v Step=Pas v
-v Step:=Pas v :
 w Min=w Min
 w Min:=w Min :
+x Min:=x Min :
+y Min:=y Min :
+z Min:=z Min :
+u Max=u Max
+u Max:=u Max :
+v Max=v Max
+v Max:=v Max :
 w Max=w Max
 w Max:=w Max :
+x Max:=x Max :
+y Max:=y Max :
+z Max:=z Max :
+u Step=Pas u
+u Step:=Pas u :
+v Step=Pas v
+v Step:=Pas v :
 w Step=Pas w
 w Step:=Pas w :
-x Min:=x Min :
-x Max:=x Max :
 x Step:=Pas x :
-y Min:=y Min :
-y Max:=y Max :
 y Step:=Pas y :
-z Min:=z Min :
-z Max:=z Max :
 z Step:=Pas z :
 
 #Caption for Implicit Plot relation field
@@ -463,5 +463,5 @@ Removing stale origin node at @1=Suppression des blocs d’origine obsolètes à
 # Miscellaneous
 ################################################################################
 
-# Error message that occurs if passing binary code to the the save function env.
+# Error message that occurs if passing binary code to the the safe function env.
 Binary code prohibited.=Code binaire interdit.

@@ -86,30 +86,30 @@ Plot node:=
 #Captions for parameter min/max/step values
 u Min=
 u Min:=
-u Max=
-u Max:=
-u Step=
-u Step:=
 v Min=
 v Min:=
-v Max=
-v Max:=
-v Step=
-v Step:=
 w Min=
 w Min:=
+x Min:=
+y Min:=
+z Min:=
+u Max=
+u Max:=
+v Max=
+v Max:=
 w Max=
 w Max:=
+x Max:=
+y Max:=
+z Max:=
+u Step=
+u Step:=
+v Step=
+v Step:=
 w Step=
 w Step:=
-x Min:=
-x Max:=
 x Step:=
-y Min:=
-y Max:=
 y Step:=
-z Min:=
-z Max:=
 z Step:=
 
 #Caption for Implicit Plot relation field
@@ -463,5 +463,5 @@ Removing stale origin node at @1=
 # Miscellaneous
 ################################################################################
 
-# Error message that occurs if passing binary code to the the save function env.
+# Error message that occurs if passing binary code to the the safe function env.
 Binary code prohibited.=
