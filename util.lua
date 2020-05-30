@@ -66,7 +66,17 @@ mathplot.util.max_abs_coord = function(p)
 end
 
 
-mathplot.is_drawable_node = function(nodename)
+mathplot.util.is_drawable_node = function(nodename)
     return minetest.registered_nodes[nodename] and nodename ~= mathplot.ORIGIN_NODE_NAME
+end
+
+mathplot.util.has_mathplot_priv = function(playername)
+    local hasPriv = minetest.check_player_privs(playername, {mathplot=true})
+    return hasPriv
+end
+
+mathplot.util.has_server_priv = function(playername)
+    local hasPriv = minetest.check_player_privs(playername, {server=true})
+    return hasPriv
 end
 

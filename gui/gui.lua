@@ -2,6 +2,7 @@ mathplot = mathplot or {}
 mathplot.gui = {}
 
 local S = mathplot.get_translator
+
 local _formcontext = {}
 
 -- Create the trash field
@@ -92,7 +93,7 @@ mathplot.gui.validate_screen_form = function(playername, identifier, fields, con
 
     if #errormsgs == 0 then
         local ok = true
-        local msg = S("Done.")
+        local msg = nil
         if functions.success_callback then
             ok, msg = functions.success_callback(playername, identifier, fields, context)
         end

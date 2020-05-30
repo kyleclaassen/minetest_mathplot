@@ -1,4 +1,5 @@
 mathplot = mathplot or {}
+
 local S = mathplot.get_translator
 
 local function create_sandbox(code)
@@ -49,7 +50,11 @@ local function create_sandbox(code)
         --additions by KMC
         Pi = math.pi,  --for Maple copy/paste to work
         PI = math.pi,
-        ln = math.log,  --alias for convenience
+        ln = math.log,  --alias for convenience and for Maple copy/paste to work
+        arccos = math.acos, --for Maple copy/paste to work
+        arcsin = math.asin, --for Maple copy/paste to work
+        arctan = math.atan, --for Maple copy/paste to work
+        Heaviside = function(x) return x >= 0 and 1 or 0 end, --for Maple copy/paste to work
         e = 2.7182818284590452354,
         E = 2.7182818284590452354,
         iif = function(condition, trueval, falseval)
@@ -89,7 +94,6 @@ end
 
 mathplot.check_function_syntax = function(expression, varnames, testinputs)
     expression = tostring(expression)
-    minetest.log(S("Checking syntax: '@1'",expression))
 
     expression = string.trim(tostring(expression))
     if #expression == 0 then
@@ -144,7 +148,6 @@ mathplot.line_3d = function(p1, p2)
                     if t > 0 then i_stop = math.min(i_stop, t) end
                 end
             end
-            minetest.log(S("Recalibrated i_stop from @1 to @2",N,i_stop))
         end
     end
 
@@ -190,10 +193,12 @@ local function to_world_coords(x, y, z, e1, e2, e3)
     return p
 end
 
-local set_node = function(p, origin_pos, node)
-    local p = mathplot.util.round_vector(p)
+local function set_node(p, origin_pos, node, playername)
+    p = mathplot.util.round_vector(p)
     if (p.x ~= 0 or p.y ~= 0 or p.z ~= 0)
-    and mathplot.util.max_abs_coord(p) <= mathplot.settings.max_coord then
+    and mathplot.util.max_abs_coord(p) <= mathplot.settings.max_coord
+    and not minetest.is_protected(p, playername)
+    then
         local q = vector.add(origin_pos, p)
         minetest.set_node(q, node)
     end
@@ -210,24 +215,24 @@ local function evaluate_parametric(e1, e2, e3, ftn_X, ftn_Y, ftn_Z, ...)
     local err = ""
     if not okx then
         ok = false
-        err = err .. " (X) " .. x
+        err = err .. " (x) " .. x
     end
     if not oky then
         ok = false
-        err = err .. " (Y) " .. y
+        err = err .. " (y) " .. y
     end
     if not okz then
         ok = false
-        err = err .. " (Z) " .. z
+        err = err .. " (z) " .. z
     end
 
-    --Syntax error
     if not ok then
         local coordsStr = table.concat({...}, ",")
-        return nil, S("Error evaluating at (@1): @2", coordsStr, err)
+        return nil, S("Error evaluating parametric equations at (@1): @2", coordsStr, err)
     end
 
-    if x ~= nil and y ~= nil and z ~= nil
+    --Note: also protecting against x,y,z being strings. tonumber("foo") returns nil, for example.
+    if tonumber(x) ~= nil and tonumber(y) ~= nil and tonumber(z) ~= nil
     and x == x and y == y and z == z  --all not NaN
     and math.abs(x) < math.huge and math.abs(y) < math.huge and math.abs(z) < math.huge  --all finite
     then
@@ -236,35 +241,39 @@ local function evaluate_parametric(e1, e2, e3, ftn_X, ftn_Y, ftn_Z, ...)
     else
         err = S("At least one coordinate does not evaluate to a number.")
         local coordsStr = table.concat({...}, ",")
-        return false, S("Error evaluating at (@1): @2", coordsStr, err)
+        return false, S("Error evaluating parametric equations at (@1): @2", coordsStr, err)
     end
 end
 
 
-mathplot.plot_parametric = function(params)
+mathplot.plot_parametric = function(params, playername)
     --params: origin_pos, ftn_x, ftn_y, ftn_z, umin, umax, ustep, vmin, vmax, vstep, nodename, e1, e2, e3, connect, varnames
     --Note: e1, e2, e3 can be vectors in string form, e.g. "(1,2,3)"
 
-    if not mathplot.is_drawable_node(params.nodename) then
+    if not mathplot.util.has_mathplot_priv(playername) then
+        return false, S("The 'mathplot' privilege is required.")
+    end
+
+    if not mathplot.util.is_drawable_node(params.nodename) then
         return false, S("'@1' is not a drawable node.", params.nodename or "")
     end
 
     local varnamesStr = mathplot.parametric_argstr_display(params.varnames)
     local X, loaderror = make_safe_function(params.ftn_x, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","X",varnamesStr,loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3", "x", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local Y, loaderror  = make_safe_function(params.ftn_y, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","Y",varnamesStr,loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3", "y", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local Z, loaderror = make_safe_function(params.ftn_z, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1(@2): @3","Z",varnamesStr,loaderror)
+        local errormsg = S("Syntax error in @1(@2): @3", "z", varnamesStr, loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
@@ -284,154 +293,141 @@ mathplot.plot_parametric = function(params)
     --##################
     local UMIN, loaderror = make_safe_function(params.umin, {})
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","umin",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("u Min"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local UMAX, loaderror = make_safe_function(params.umax, {})
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","umax",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("u Max"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local USTEP, loaderror = make_safe_function(params.ustep, {})
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","ustep",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("u Step"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local VMIN, loaderror = make_safe_function(params.vmin, {params.varnames[1]})  --depends on u
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","vmin",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("v Min"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local VMAX, loaderror = make_safe_function(params.vmax, {params.varnames[1]})  --depends on u
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","vmax",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("v Max"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local VSTEP, loaderror = make_safe_function(params.vstep, {params.varnames[1]})  --depends on u
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","vstep",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("v Step"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local WMIN, loaderror = make_safe_function(params.wmin, {params.varnames[1], params.varnames[2]})  --depends on u,v
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","wmin",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("w Min"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local WMAX, loaderror = make_safe_function(params.wmax, {params.varnames[1], params.varnames[2]})  --depends on u,v
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","wmax",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("w Max"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     local WSTEP, loaderror = make_safe_function(params.wstep, {params.varnames[1], params.varnames[2]})  --depends on u,v
     if loaderror ~= nil then
-        local errormsg = S("Syntax error in @1: @2","wstep",loaderror)
+        local errormsg = S("Syntax error in @1: @2", S("w Step"), loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
     --##################
 
     local ok, umin = UMIN()
-    if ok == nil then
-        return false, S("plot_parametric: syntax error in @1: @2","umin",umin)
-    end
-    if umin == nil then
-        return false, S("plot_parametric: failed to determine @1.","umin")
+    if not ok or tonumber(umin) == nil then
+        return false, S("Unable to determine @1: @2", S("u Min"), umin)
     end
     local ok, umax = UMAX()
-    if ok == nil then
-        return false, S("plot_parametric: syntax error in @1: @2","umax",umax)
-    end
-    if umax == nil then
-        return false, S("plot_parametric: Unable to determine @1.","umax")
+    if not ok or tonumber(umax) == nil then
+        return false, S("Unable to determine @1: @2", S("u Max"), umax)
     end
     local ok, ustep = USTEP()
-    if ok == nil then
-        return false, S("plot_parametric: syntax error in @1: @2","ustep",upstep)
-    end
-    if ustep == nil then
-        return false, S("plot_parametric: Unable to determine @1.","ustep")
+    if not ok or tonumber(ustep) == nil then
+        return false, S("Unable to determine @1: @2", S("u Step"), ustep)
     end
     for u = umin, umax, ustep do
         local ok, vmin = VMIN(u)
-        if ok == nil then
-            return false, S("plot_parametric: syntax error in @1: @2","vmin",vmin)
+        if not ok or tonumber(vmin) == nil then
+            return false, S("Unable to determine @1: @2", S("v Min"), vmin)
         end
         local ok, vmax = VMAX(u)
-        if ok == nil then
-            return false, S("plot_parametric: syntax error in @1: @2","vmax",vmax)
+        if not ok or tonumber(vmax) == nil then
+            return false, S("Unable to determine @1: @2", S("v Max"), vmax)
         end
         local ok, vstep = VSTEP(u)
-        if ok == nil then
-            return false, S("plot_parametric: syntax error in @1: @2","vstep",vstep)
+        if not ok or tonumber(vstep) == nil then
+            return false, S("Unable to determine @1: @2", S("v Step"), vstep)
         end
-        if vmin and vmax and vstep then
-            for v = vmin, vmax, vstep do
-                local ok, wmin = WMIN(u, v)
+        for v = vmin, vmax, vstep do
+            local ok, wmin = WMIN(u, v)
+            if not ok or tonumber(wmin) == nil then
+                return false, S("Unable to determine @1: @2", S("w Min"), wmin)
+            end
+            local ok, wmax = WMAX(u, v)
+            if not ok or tonumber(wmax) == nil then
+                return false, S("Unable to determine @1: @2", S("w Max"), wmax)
+            end
+            local ok, wstep = WSTEP(u, v)
+            if not ok or tonumber(wstep) == nil then
+                return false, S("Unable to determine @1: @2", S("w Step"), wstep)
+            end
+            for w = wmin, wmax, wstep do
+                local ok, p2 = evaluate_parametric(e1, e2, e3, X, Y, Z, u, v, w)
                 if ok == nil then
-                    return false, S("plot_parametric: syntax error in @1: @2","wmin",wmin)
+                    --Error evaluating. Punt!
+                    return false, p2  --p2 is error message
                 end
-                local ok, wmax = WMAX(u, v)
-                if ok == nil then
-                    return false, S("plot_parametric: syntax error in @1: @2","wmax",wmax)
-                end
-                local ok, wstep = WSTEP(u, v)
-                if ok == nil then
-                    return false, S("plot_parametric: syntax error in @1: @2","wstep", wstep)
-                end
-                if wmin and wmax and wstep then
-                    for w = wmin, wmax, wstep do
-                        local ok, p2 = evaluate_parametric(e1, e2, e3, X, Y, Z, u, v, w)
-                        if ok == nil then
-                            --Syntax error! Punt!
-                            return false, S("plot_parametric: syntax error: @1",p2)
-                        end
 
-                        if ok then
-                            if params.connect and p1 ~= nil then
-                                set_node(p1, params.origin_pos, node)
-                                --connect the nodes with a line
-                                local clip, linepoints = mathplot.line_3d(p1, p2)
-                                for _, p in ipairs(linepoints) do
-                                    set_node(p, params.origin_pos, node)
-                                end
-                                if clip then
-                                    p2 = nil
-                                end
-                            else
-                                --set node, but don't draw line since there's
-                                --no previous node to draw line to.
-                                set_node(p2, params.origin_pos, node)
-                            end
-                            p1 = p2
-                        else
-                            --Perhaps evaluated to NaN or inf. Just do nothing.
-                            --Right now p1 is an error string. Set to nil instead.
-                            p1 = nil
+                if ok then
+                    if params.connect and p1 ~= nil then
+                        set_node(p1, params.origin_pos, node, playername)
+                        --connect the nodes with a line
+                        local clip, linepoints = mathplot.line_3d(p1, p2)
+                        for _, p in ipairs(linepoints) do
+                            set_node(p, params.origin_pos, node, playername)
                         end
+                        if clip then
+                            p2 = nil
+                        end
+                    else
+                        --set node, but don't draw line since there's
+                        --no previous node to draw line to.
+                        set_node(p2, params.origin_pos, node, playername)
+                    end
+                    p1 = p2
+                else
+                    --Perhaps evaluated to NaN or inf. Just do nothing.
+                    --Right now p1 is an error string. Set to nil instead.
+                    p1 = nil
+                end
 
-                        if useTimeout then
-                            timedOut = minetest.get_us_time() - startTime > mathplot.settings.plot_timeout
-                            if timedOut then
-                                local errormsg = S("plot_parametric: timeout exceeded.")
-                                minetest.log(errormsg)
-                                return false, errormsg
-                            end
-                        end
+                if useTimeout then
+                    timedOut = minetest.get_us_time() - startTime > mathplot.settings.plot_timeout
+                    if timedOut then
+                        local errormsg = S("Timeout exceeded.")
+                        minetest.log(errormsg)
+                        return false, errormsg
                     end
                 end
             end
         end
     end
 
-    local msg = S("plot_parametric total elapsed time: @1 seconds",(minetest.get_us_time()-startTime) / 1e6)
+    local msg = S("Total elapsed time: @1 seconds", (minetest.get_us_time()-startTime) / 1e6)
     minetest.log(msg)
     return true, msg
 end
@@ -446,7 +442,7 @@ local function satisfies_implicit_relation(F, x, y, z, xstep, ystep, zstep)
         local ok, f = F(x, y, z)
         local errormsg = nil
         if not ok then
-            errormsg = S("plot_implicit: error in condition: @1",f)
+            errormsg = S("Error evaluating implicit relation: @1", f)
         end
         return ok, f, errormsg
     end
@@ -461,11 +457,7 @@ local function satisfies_implicit_relation(F, x, y, z, xstep, ystep, zstep)
                     return false, errormsg
                 end
 
-                if type(f) == "boolean" then
-                    if f == true then
-                        return true, nil
-                    end
-                else
+                if type(f) == "number" then
                     local sgn2 = mathplot.util.sgn(f)
                     if sgn2 == 0 then
                         --Jackpot!
@@ -476,6 +468,10 @@ local function satisfies_implicit_relation(F, x, y, z, xstep, ystep, zstep)
                         return true, nil
                     end
                     sgn = sgn2
+                elseif type(f) == "boolean" then
+                    if f == true then
+                        return true, nil
+                    end
                 end
             end
         end
@@ -484,16 +480,20 @@ local function satisfies_implicit_relation(F, x, y, z, xstep, ystep, zstep)
     return false, nil
 end
 
-mathplot.plot_implicit = function(params)
+mathplot.plot_implicit = function(params, playername)
     --params: origin_pos, ftn, xmin, xmax, xstep, ymin, ymax, ystep, zmin, zmax, zstep, nodename, e1, e2, e3
 
-    if not mathplot.is_drawable_node(params.nodename) then
+    if not mathplot.util.has_mathplot_priv(playername) then
+        return false, S("The 'mathplot' privilege is required.")
+    end
+
+    if not mathplot.util.is_drawable_node(params.nodename) then
         return false, S("'@1' is not a drawable node.", params.nodename or "")
     end
 
     local F, loaderror = make_safe_function(params.ftn, params.varnames)
     if loaderror ~= nil then
-        local errormsg = S("plot_implicit: syntax error in condition: @1",loaderror)
+        local errormsg = S("Syntax error in relation: @1", loaderror)
         minetest.log(errormsg)
         return false, errormsg
     end
@@ -514,7 +514,7 @@ mathplot.plot_implicit = function(params)
                 local yes, errormsg = satisfies_implicit_relation(F, x, y, z, params.xstep, params.ystep, params.zstep)
                 if yes then
                     local p = to_world_coords(x, y, z, e1, e2, e3)
-                    set_node(p, params.origin_pos, node)
+                    set_node(p, params.origin_pos, node, playername)
                 elseif errormsg ~= nil then
                     minetest.log(errormsg)
                     return false, errormsg
@@ -524,7 +524,7 @@ mathplot.plot_implicit = function(params)
             if useTimeout then
                 timedOut = minetest.get_us_time() - startTime > mathplot.settings.plot_timeout
                 if timedOut then
-                    local errormsg = S("plot_implicit: timeout exceeded.")
+                    local errormsg = S("Timeout exceeded.")
                     minetest.log(errormsg)
                     return false, errormsg
                 end
@@ -532,7 +532,7 @@ mathplot.plot_implicit = function(params)
         end
     end
 
-    local msg = S("plot_implicit: total elapsed time: @1 seconds",(minetest.get_us_time()-startTime) / 1e6)
+    local msg = S("Total elapsed time: @1 seconds", (minetest.get_us_time()-startTime) / 1e6)
     minetest.log(msg)
     return true, msg
 end

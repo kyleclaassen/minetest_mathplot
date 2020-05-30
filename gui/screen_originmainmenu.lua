@@ -7,27 +7,29 @@ mathplot.gui.screens["originmainmenu"] = {
     end,
     get_formspec = function(playername, identifier, context)
         local loc = mathplot.get_origin_location_by_pos(context.node_pos)
-        local nickname = nil
+        local nodeName = nil
         if loc and #loc.name > 0 then
-            nickname = loc.name
+            nodeName = loc.name
         end
-        local title = S("Mathematical Object Plotter @@ @1",minetest.pos_to_string(context.node_pos))
-        if nickname then
-            title = title .. S(" \"@1\"",nickname)
+        local title = S("Mathematical Object Plotter at @1", minetest.pos_to_string(context.node_pos))
+        local nodeNameText = ""
+        if nodeName then
+            nodeNameText = minetest.formspec_escape(S("Node Name: \"@1\"", nodeName))
         end
-        local formspec = "size[9,4.5]"
-        .. string.format("label[0,0.25;%s]", title)
-        .. string.format("button_exit[0,1;3,1;btn_set_nickname;%s]",S("Set Name"))
-        .. string.format("button_exit[3,1;3,1;btn_draw_axes;%s]",S("Draw Axes"))
-        .. string.format("button_exit[6,1;3,1;btn_implicit_plot;%s]",S("Implicit Plot"))
-        .. string.format("button_exit[0,2;3,1;btn_parametric_curve;%s]",S("Parametric Curve"))
-        .. string.format("button_exit[3,2;3,1;btn_parametric_surface;%s]",S("Parametric Surface"))
-        .. string.format("button_exit[6,2;3,1;btn_parametric_solid;%s]",S("Parametric Solid"))
-        .. string.format("button_exit[0,3;3,1;btn_mainmenu;%s]",S("Other Nodes"))
-        .. string.format("button_exit[3,3;3,1;btn_serialize;%s]",S("Serialize/Deserialize"))
-        .. string.format("button_exit[6,3;3,1;btn_examples;%s]",S("Examples"))
-        .. string.format("button_exit[0,4;3,1;btn_about;%s]",S("About"))
-        .. string.format("button_exit[6,4;3,1;btn_exit;%s]",S("Exit"))
+        local formspec = "size[9,4.75]"
+        .. string.format("label[0,0;%s]", title)
+        .. string.format("label[0,0.5;%s]", nodeNameText)
+        .. string.format("button_exit[0,1.25;3,1;btn_set_name;%s]", S("Set Name"))
+        .. string.format("button_exit[3,1.25;3,1;btn_draw_axes;%s]", S("Draw Axes"))
+        .. string.format("button_exit[6,1.25;3,1;btn_implicit_plot;%s]", S("Implicit Plot"))
+        .. string.format("button_exit[0,2.25;3,1;btn_parametric_curve;%s]", S("Parametric Curve"))
+        .. string.format("button_exit[3,2.25;3,1;btn_parametric_surface;%s]", S("Parametric Surface"))
+        .. string.format("button_exit[6,2.25;3,1;btn_parametric_solid;%s]", S("Parametric Solid"))
+        .. string.format("button_exit[0,3.25;3,1;btn_mainmenu;%s]", S("Other Nodes"))
+        .. string.format("button_exit[3,3.25;3,1;btn_serialize;%s]", S("Serialize/Deserialize"))
+        .. string.format("button_exit[6,3.25;3,1;btn_examples;%s]", S("Examples"))
+        .. string.format("button_exit[0,4.25;3,1;btn_about;%s]", S("About"))
+        .. string.format("button_exit[6,4.25;3,1;btn_exit;%s]", S("Exit"))
         return formspec
     end,
     on_receive_fields = function(playername, identifier, fields, context)
