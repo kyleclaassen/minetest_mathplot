@@ -74,3 +74,9 @@ mathplot.util.has_mathplot_priv = function(playername)
     local hasPriv = minetest.check_player_privs(playername, {mathplot=true})
     return hasPriv
 end
+
+mathplot.util.has_server_priv = function(playername)
+    local hasPriv = minetest.check_player_privs(playername, {server=true})
+    return hasPriv
+end
+

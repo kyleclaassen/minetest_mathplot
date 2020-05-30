@@ -42,7 +42,7 @@ mathplot.gui.screens["mainmenu"] = {
         end
         local namesStr = mathplot.util.escape_textlist(names)
         local formspec = "size[6,6.5]"
-        .. string.format("label[0,0;%s]", S("Available mathplot origin nodes:"))
+        .. string.format("label[0,0;%s]", S("Available MathPlot origin nodes:"))
         .. string.format("textlist[0,0.5;5.75,5.5;originname_idx;%s;;]", namesStr)
         .. string.format("button_exit[0,6;2,1;btn_open;%s]", S("Open"))
         .. string.format("button_exit[4,6;2,1;btn_cancel;%s]", S("Cancel"))
