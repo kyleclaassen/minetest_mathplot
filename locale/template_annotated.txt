@@ -10,18 +10,6 @@ OK=
 # Button text
 Cancel=
 
-# Chat message displayed if attempting to use MathPlot functionality
-# without the mathplot privilege.
-The 'mathplot' privilege is required.=
-
-# Chat message displayed if attempting to use MathPlot chat commands
-# that require the server privilege.
-The 'server' privilege is required.=
-
-# Chat message displayed when attempting to use "/mathplot teleport" without
-# having the teleport privilege.
-The 'teleport' privilege is required.=
-
 ################################################################################
 # Main Screen (gui/screen_originmainmenu.lua)
 ################################################################################
@@ -219,6 +207,54 @@ Timeout exceeded.=
 # Chat message displayed when a parametric or implicit plot completes.
 Total elapsed time: @1 seconds=
 
+
+################################################################################
+# Node / Inventory Setup (nodes.lua)
+################################################################################
+
+# Default name of an origin node, which appears in the list of
+# origin nodes shown by the "/mathplot" chat command.
+Untitled Node=
+
+# Inventory description for the MathPlot origin node.
+MathPlot Origin Node=
+
+# Inventory description for the Origin Destroyer tool.
+MathPlot Origin Node Destroyer=
+
+# Chat message displayed when attempting to dig an Origin node
+Use the 'MathPlot Origin Destroyer' tool to dig this node.=
+
+# Inventory description for MathPlot Translucent Glow Blocks
+# @1 is replaced with a color name (see list below).
+MathPlot @1 Translucent Glow Block=
+
+# Inventory description for MathPlot glowing wool blocks.
+# @1 is replaced with a description of a default:wool node, e.g. "Red Wool".
+MathPlot Glowing @1=
+
+# Inventory description for MathPlot colored glowing glass.
+# @1 is replaced with a color name (see list below).
+MathPlot Glowing @1 Glass=
+
+# Color names for various MathPlot colored nodes.
+Black=
+Blue=
+Brown=
+Cyan=
+Dark Green=
+Dark Grey=
+Green=
+Grey=
+Magenta=
+Orange=
+Pink=
+Red=
+Violet=
+White=
+Yellow=
+
+
 ################################################################################
 # Screen: Other Nodes (gui/screen_mainmenu.lua)
 # (Access with "/mathplot" chat command.)
@@ -249,31 +285,6 @@ Teleport=
 ################################################################################
 
 # Note: title string same as "Set Name" button text.
-
-################################################################################
-# Screen: Serialize/Deserialize (gui/screen_serialize.lua)
-################################################################################
-
-# Load button text on Serialize/Deserialize screen
-Load=
-
-# Caption on Serialize/Deserialize screen
-Serialized Node:=
-
-# Caption on Serialize/Deserialize screen
-Deserialize from JSON:=
-
-# Chat message displayed if deserialization is given invalid JSON string
-Invalid JSON.=
-
-# Error message if attempting to serialize a non-origin node
-Non-MathPlot origin node at position @1=
-
-# minetest.log() message upon successful deserialization
-mathplot: successfully deserialized JSON to node.=
-
-# minetest.log() message upon failure to deserialize
-mathplot: failed to deserialize JSON to node: @1=
 
 
 ################################################################################
@@ -348,50 +359,29 @@ Implemented internationalization support and provided French translation=
 
 
 ################################################################################
-# Node Setup (nodes.lua)
+# Screen: Serialize/Deserialize (gui/screen_serialize.lua)
 ################################################################################
 
-# Default name of an origin node, which appears in the list of
-# origin nodes shown by the "/mathplot" chat command.
-Untitled Node=
+# Load button text on Serialize/Deserialize screen
+Load=
 
-# Inventory description for the MathPlot origin node.
-MathPlot Origin Node=
+# Caption on Serialize/Deserialize screen
+Serialized Node:=
 
-# Inventory description for the Origin Destroyer tool.
-MathPlot Origin Node Destroyer=
+# Caption on Serialize/Deserialize screen
+Deserialize from JSON:=
 
-# Chat message displayed when attempting to dig an Origin node
-Use the 'MathPlot Origin Destroyer' tool to dig this node.=
+# Chat message displayed if deserialization is given invalid JSON string
+Invalid JSON.=
 
-# Inventory description for MathPlot Translucent Glow Blocks
-# @1 is replaced with a color name (see list below).
-MathPlot @1 Translucent Glow Block=
+# Error message if attempting to serialize a non-origin node
+Non-MathPlot origin node at position @1=
 
-# Inventory description for MathPlot glowing wool blocks.
-# @1 is replaced with a description of a default:wool node, e.g. "Red Wool".
-MathPlot Glowing @1=
+# minetest.log() message upon successful deserialization
+mathplot: successfully deserialized JSON to node.=
 
-# Inventory description for MathPlot colored glowing glass.
-# @1 is replaced with a color name (see list below).
-MathPlot Glowing @1 Glass=
-
-# Color names for various MathPlot colored nodes.
-Black=
-Blue=
-Brown=
-Cyan=
-Dark Green=
-Dark Grey=
-Green=
-Grey=
-Magenta=
-Orange=
-Pink=
-Red=
-Violet=
-White=
-Yellow=
+# minetest.log() message upon failure to deserialize
+mathplot: failed to deserialize JSON to node: @1=
 
 
 ################################################################################
@@ -403,6 +393,18 @@ Perform MathPlot functions=
 
 # "mathplot" privilege description
 Can use MathPlot functionality=
+
+# Chat message displayed if attempting to use MathPlot functionality
+# without the mathplot privilege.
+The 'mathplot' privilege is required.=
+
+# Chat message displayed if attempting to use MathPlot chat commands
+# that require the server privilege.
+The 'server' privilege is required.=
+
+# Chat message displayed when attempting to use "/mathplot teleport" without
+# having the teleport privilege.
+The 'teleport' privilege is required.=
 
 # Chat message displayed if command "/mathplot xxxxx" is not recognized.
 # @1 is replaced with the subcommand string "xxxxx".
