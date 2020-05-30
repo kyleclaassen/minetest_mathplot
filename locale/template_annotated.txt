@@ -81,14 +81,23 @@ Plot node:=
 +z Direction:=
 
 #Captions for parameter min/max/step values
+u Min=
 u Min:=
+u Max=
 u Max:=
+u Step=
 u Step:=
+v Min=
 v Min:=
+v Max=
 v Max:=
+v Step=
 v Step:=
+w Min=
 w Min:=
+w Max=
 w Max:=
+w Step=
 w Step:=
 x Min:=
 x Max:=
@@ -168,9 +177,44 @@ Draw=
 # Chat message displayed when axes are finished drawing.
 Axes drawn.=
 
-# minetest.log() message for invalid parametric screen type
-Error: mathplot: invalid parametric identifier=
+# Error message thrown if an error is encountered when evaluating
+# an implicit relation.
+# @1 is replaced with the error message.
+Error evaluating implicit relation: @1=
 
+# Error message returned if parametric function or implicit relation
+# is blank.
+expression cannot be blank.=
+
+# Syntax error in parametric coordinate function.
+# @1 is replaced with the function name ("x", "y", or "z")
+# @2 is replaced with the comma-separated parameter list
+# @3 is replaced with the error message
+Syntax error in @1(@2): @3=
+
+# Syntax error in parametric ranges.
+# @1 is replaced with the field name, e.g. "u Min", "u Max", etc.
+# @2 is replaced with the error message
+Syntax error in @1: @2=
+
+# Runtime error evaluating parametric ranges.
+# @1 is replaced with the field name, e.g. "u Min", "u Max", etc.
+# @2 is replaced with the error message.
+Unable to determine @1: @2=
+
+# Runtime error when evaluating parametric coordinate functions.
+# @1 is replaced with the comma-separated parameter values
+# @2 is replaced with the error message.
+Error evaluating parametric equations at (@1): @2=
+
+# Potential runtime error message when plotting parametric curve/surface/solid.
+At least one coordinate does not evaluate to a number.=
+
+# Chat message displayed when a long-running plot exceeds the timeout threshold.
+Timeout exceeded.=
+
+# Chat message displayed when a parametric or implicit plot completes.
+Total elapsed time: @1 seconds=
 
 ################################################################################
 # Screen: Other Nodes (gui/screen_mainmenu.lua)
@@ -410,27 +454,15 @@ Unknown origin node '@1'.=
 # Chat message displayed when executing "/mathplot clearlist"
 Origin locations list cleared.=
 
+# minetest.log() message: when the "/mathplot" list of nodes is displayed,
+# this message is logged if an origin node is found in mod storage but no longer
+# exists in the world.
+# @1 is replaced with the old coordinates of the node that no longer exists.
+Removing stale origin node at @1=
 
 ################################################################################
-# TODO: Miscellaneous messages to organize (mostly in functions.lua)
+# Miscellaneous
 ################################################################################
 
-mathplot: removing stale origin node at @1=
+# Error message that occurs if passing binary code to the the save function env.
 Binary code prohibited.=
-Checking syntax: '@1'=
-expression cannot be blank.=
-Error evaluating at (@1): @2=
-At least one coordinate does not evaluate to a number.=
-Syntax error in @1(@2): @3=
-Syntax error in @1: @2=
-plot_parametric: syntax error in @1: @2=
-plot_parametric: failed to determine @1.=
-plot_parametric: Unable to determine @1.=
-plot_parametric: syntax error: @1=
-plot_parametric: timeout exceeded.=
-plot_parametric total elapsed time: @1 seconds=
-plot_implicit: error in condition: @1=
-plot_implicit: syntax error in relation: @1=
-plot_implicit: timeout exceeded.=
-plot_implicit: total elapsed time: @1 seconds=
-

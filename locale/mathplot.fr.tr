@@ -20,14 +20,23 @@ Plot node:=Block de tracé :
 +x Direction:=Direction +x :
 +y Direction:=Direction +y :
 +z Direction:=Direction +z :
+u Min=u Min
 u Min:=u Min :
+u Max=u Max
 u Max:=u Max :
+u Step=Pas u
 u Step:=Pas u :
+v Min=v Min
 v Min:=v Min :
+v Max=v Max
 v Max:=v Max :
+v Step=Pas v
 v Step:=Pas v :
+w Min=w Min
 w Min:=w Min :
+w Max=w Max
 w Max:=w Max :
+w Step=Pas w
 w Step:=Pas w :
 x Min:=x Min :
 x Max:=x Max :
@@ -81,9 +90,22 @@ y-axis brush '@1' is not a drawable node.=La broche « @1 » de l’axe y n�
 z-axis brush '@1' is not a drawable node.=La broche « @1 » de l’axe z n’est pas un mode dessin.***PLEASE REVIEW
 Draw=Tracer
 Axes drawn.=Axes tracés.
-Error: mathplot: invalid parametric identifier=***PLEASE REVIEW
+
+
+Timeout exceeded.=Limite de temps dépassée.
+Total elapsed time: @1 seconds=Temps total écoulé : @1 secondes.
+expression cannot be blank.=La formule ne peut pas être vide
+Error evaluating implicit relation: @1=Erreur dans la relation: @1 ***PLEASE REVIEW
+At least one coordinate does not evaluate to a number.=Au moins une des coordonées n'est pas un nombre.
+Syntax error in @1(@2): @3=Erreur de syntaxe dans @1(@2) : @3
+Syntax error in @1: @2=Erreur de syntaxe dans @1 : @2
+Error evaluating parametric equations at (@1): @2=Erreur d'évaluation de (@1) : @2   ***PLEASE REVIEW
+
+
 Available MathPlot origin nodes:=Blocks d'origine MathPlot disponibles :
+
 mathplot: player @1 teleporting to @2=mathplot : Joueur @1 se téléporte à @2
+
 @1 at @2=@1 à @2
 Open=Ouvrir
 Teleport=Téléporter
@@ -151,27 +173,15 @@ Invalid maximum coordinate magnitude specified: @1=Amplitude maximale des coordo
 Maximum coordinate magnitude must be zero or greater.=L’amplitude maximale des coordonnées doit être >@= 0.
 Unknown origin node '@1'.=Block d’origine inconnue « @1 ».
 Origin locations list cleared.=List des localisations d’origines nettoyée.
-
-
-
-
-
-
-mathplot: removing stale origin node at @1=mathplot : Suppression des blocs d’origine obsolètes à @1
+Removing stale origin node at @1=Suppression des blocs d’origine obsolètes à @1
 Binary code prohibited.=Code binaire interdit.
-Checking syntax: '@1'=Vérification de la syntaxe : « @1 »
-expression cannot be blank.=La formule ne peut pas être vide
-Error evaluating at (@1): @2=Erreur d'évaluation de (@1) : @2
-At least one coordinate does not evaluate to a number.=Au moins une des coordonées n'est pas un nombre.
-Syntax error in @1(@2): @3=Erreur de syntaxe dans @1(@2) : @3
-plot_parametric: syntax error in @1: @2=plot_parametric : Erreur de syntaxe dans @1 : @2
-plot_parametric: failed to determine @1.=plot_parametric : Impossible de déterminer @1.
-plot_parametric: syntax error: @1=plot_parametric: Erreur de syntaxe : @1
-plot_parametric: timeout exceeded.=plot_parametric : Limite de temps dépassée.
-plot_parametric total elapsed time: @1 seconds=plot_parametric : Temps total écoulé : @1 secondes.
-plot_implicit: error in condition: @1=plot_implicit : Erreur dans la condition : @1
-plot_implicit: syntax error in relation: @1=plot_implicit : Erreur de syntaxe dans la relation: @1
-plot_implicit: timeout exceeded.=plot_implicit : Limite de temps dépassée.
-plot_implicit: total elapsed time: @1 seconds=plot_implicit : Temps total écoulé : @1 secondes
-mathplot: player @1 teleporting to @2=mathplot: Joueur/se @1 se téléporte à @2
+
+
+
+
+
+
+
+
 Invalid mathplot subcommand: @1=Souscommande mathplot invalide.
+Unable to determine @1: @2=Impossible de déterminer @1 : @2  ***PLEASE REVIEW

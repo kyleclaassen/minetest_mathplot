@@ -195,7 +195,6 @@ local function default_params(identifier)
     elseif identifier == "parametric_solid" then
         return mathplot.plotdefaults.plot_parametric_solid_params()
     end
-    minetest.log(S("Error: mathplot: invalid parametric identifier"))
     return nil
 end
 
