@@ -30,7 +30,7 @@ local function teleport(name_idx, playername)
     end
 end
 
-mathplot.gui.screens["mainmenu"] = {
+mathplot.gui.screens["originlist"] = {
     initialize = function(playername, identifier, context)
         mathplot.remove_stale_locations()
     end,

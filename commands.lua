@@ -10,7 +10,7 @@ minetest.register_privilege("mathplot", {
 
 local function do_mathplot_menu(playername, param)
     local context = {}
-    mathplot.gui.invoke_screen("mainmenu", playername, context)
+    mathplot.gui.invoke_screen("originlist", playername, context)
     return true, nil
 end
 

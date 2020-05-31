@@ -25,7 +25,7 @@ mathplot.gui.screens["originmainmenu"] = {
         .. string.format("button_exit[0,2.25;3,1;btn_parametric_curve;%s]", S("Parametric Curve"))
         .. string.format("button_exit[3,2.25;3,1;btn_parametric_surface;%s]", S("Parametric Surface"))
         .. string.format("button_exit[6,2.25;3,1;btn_parametric_solid;%s]", S("Parametric Solid"))
-        .. string.format("button_exit[0,3.25;3,1;btn_mainmenu;%s]", S("Other Nodes"))
+        .. string.format("button_exit[0,3.25;3,1;btn_originlist;%s]", S("Other Nodes"))
         .. string.format("button_exit[3,3.25;3,1;btn_serialize;%s]", S("Serialize/Deserialize"))
         .. string.format("button_exit[6,3.25;3,1;btn_examples;%s]", S("Examples"))
         .. string.format("button_exit[0,4.25;3,1;btn_about;%s]", S("About"))

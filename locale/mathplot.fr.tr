@@ -256,8 +256,8 @@ Yellow=Jaune
 
 
 ################################################################################
-# Screen: Other Nodes (gui/screen_mainmenu.lua)
-# (Access with "/mathplot" chat command.)
+# Screen: Other Nodes (gui/screen_originlist.lua)
+# Or can access with the "/mathplot" chat command.
 ################################################################################
 
 # Title label for "Other Nodes" screen
