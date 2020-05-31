@@ -446,6 +446,18 @@ Invalid maximum coordinate magnitude specified: @1=Amplitude maximale des coordo
 # to "/mathplot max_coord n".
 Maximum coordinate magnitude must be zero or greater.=L’amplitude maximale des coordonnées doit être >@= 0.
 
+# Chat message displayed upon executing "/mathplot respect_protected_areas".
+# @1 is set to the current value of mathplot.settings.respect_protected_areas.
+Respect protected areas is currently set to @1.=
+
+# Chat message displayed upon executing "/mathplot respect_protected_areas b",
+# with a valid boolean value b (true|false).
+Respect protected areas set to @1.=
+
+# Chat message displayed if a non-boolean value b is passed
+# to "/mathplot respect_protected_areas b". @1 is set to the given string b.
+Invalid boolean specified: @1=
+
 # Chat message displayed if attempting to use a /mathplot chat command
 # to act on an origin node that can't be identified by location coordinates
 # nor by name. (E.g. "/mathplot open mynode")

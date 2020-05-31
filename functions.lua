@@ -193,11 +193,11 @@ local function to_world_coords(x, y, z, e1, e2, e3)
     return p
 end
 
-local function set_node(p, origin_pos, node, playername)
+local function set_node(p, origin_pos, node, playername, protection_bypass)
     p = mathplot.util.round_vector(p)
     if (p.x ~= 0 or p.y ~= 0 or p.z ~= 0)
     and mathplot.util.max_abs_coord(p) <= mathplot.settings.max_coord
-    and not minetest.is_protected(p, playername)
+    and (protection_bypass or not mathplot.settings.respect_protected_areas or not minetest.is_protected(p, playername))
     then
         local q = vector.add(origin_pos, p)
         minetest.set_node(q, node)
@@ -257,6 +257,8 @@ mathplot.plot_parametric = function(params, playername)
     if not mathplot.util.is_drawable_node(params.nodename) then
         return false, S("'@1' is not a drawable node.", params.nodename or "")
     end
+
+    local protection_bypass = mathplot.util.has_protection_bypass_priv(playername)
 
     local varnamesStr = mathplot.parametric_argstr_display(params.varnames)
     local X, loaderror = make_safe_function(params.ftn_x, params.varnames)
@@ -394,11 +396,11 @@ mathplot.plot_parametric = function(params, playername)
 
                 if ok then
                     if params.connect and p1 ~= nil then
-                        set_node(p1, params.origin_pos, node, playername)
+                        set_node(p1, params.origin_pos, node, playername, protection_bypass)
                         --connect the nodes with a line
                         local clip, linepoints = mathplot.line_3d(p1, p2)
                         for _, p in ipairs(linepoints) do
-                            set_node(p, params.origin_pos, node, playername)
+                            set_node(p, params.origin_pos, node, playername, protection_bypass)
                         end
                         if clip then
                             p2 = nil
@@ -406,7 +408,7 @@ mathplot.plot_parametric = function(params, playername)
                     else
                         --set node, but don't draw line since there's
                         --no previous node to draw line to.
-                        set_node(p2, params.origin_pos, node, playername)
+                        set_node(p2, params.origin_pos, node, playername, protection_bypass)
                     end
                     p1 = p2
                 else
@@ -491,6 +493,8 @@ mathplot.plot_implicit = function(params, playername)
         return false, S("'@1' is not a drawable node.", params.nodename or "")
     end
 
+    local protection_bypass = mathplot.util.has_protection_bypass_priv(playername)
+
     local F, loaderror = make_safe_function(params.ftn, params.varnames)
     if loaderror ~= nil then
         local errormsg = S("Syntax error in relation: @1", loaderror)
@@ -514,7 +518,7 @@ mathplot.plot_implicit = function(params, playername)
                 local yes, errormsg = satisfies_implicit_relation(F, x, y, z, params.xstep, params.ystep, params.zstep)
                 if yes then
                     local p = to_world_coords(x, y, z, e1, e2, e3)
-                    set_node(p, params.origin_pos, node, playername)
+                    set_node(p, params.origin_pos, node, playername, protection_bypass)
                 elseif errormsg ~= nil then
                     minetest.log(errormsg)
                     return false, errormsg
