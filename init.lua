@@ -28,7 +28,7 @@ dofile(mathplot.MODPATH .. "/examples.lua")
 
 dofile(mathplot.MODPATH .. "/gui/gui.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_validation_errors.lua")
-dofile(mathplot.MODPATH .. "/gui/screen_mainmenu.lua")
+dofile(mathplot.MODPATH .. "/gui/screen_originlist.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_originmainmenu.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_draw_axes.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_implicit_plot.lua")
