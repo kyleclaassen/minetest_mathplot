@@ -469,7 +469,7 @@ Cannot set origin: area is protected.=Impossible de définir l'origine : La zon
 Unknown origin node '@1'.=Block d’origine inconnue « @1 ».
 
 # Chat message displayed when executing "/mathplot clearlist"
-Origin locations list cleared.=List des localisations d’origines nettoyée.
+Origin locations list cleared.=Liste des localisations d’origines nettoyées.
 
 # minetest.log() message: when the "/mathplot" list of nodes is displayed,
 # this message is logged if an origin node is found in mod storage but no longer
