@@ -458,6 +458,10 @@ Respect protected areas set to @1.=
 # to "/mathplot respect_protected_areas b". @1 is set to the given string b.
 Invalid boolean specified: @1=
 
+# Chat message displayed upon executing "/mathplot setorigin" if position
+# is protected.
+Cannot set origin: area is protected.=
+
 # Chat message displayed if attempting to use a /mathplot chat command
 # to act on an origin node that can't be identified by location coordinates
 # nor by name. (E.g. "/mathplot open mynode")

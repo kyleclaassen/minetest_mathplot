@@ -137,6 +137,19 @@ local function do_mathplot_open(playername, param, action)
     end
 end
 
+local function do_mathplot_setorigin(playername, param)
+    local player = minetest.get_player_by_name(playername)
+    local pos = player:get_pos()
+    local protection_bypass = mathplot.util.has_protection_bypass_priv(playername)
+    --Note: ignore the minetest.respect_protected_areas setting here, as this is "equivalent"
+    --to the user creating a node through the usual right-click mechanism.
+    if protection_bypass or not minetest.is_protected(pos, playername) then
+        minetest.set_node(pos, {name=mathplot.ORIGIN_NODE_NAME})
+    else
+        return false, S("Cannot set origin: area is protected.")
+    end
+end
+
 
 local subcommand_map = {
     menu = do_mathplot_menu,
@@ -150,10 +163,7 @@ local subcommand_map = {
     teleport = function(playername, param)
         return do_mathplot_open(playername, param, "teleport")
     end,
-    setorigin = function(playername, param)
-        local player = minetest.get_player_by_name(playername)
-        minetest.set_node(player:get_pos(), {name=mathplot.ORIGIN_NODE_NAME})
-    end
+    setorigin = do_mathplot_setorigin
 }
 
 local function do_mathplot(playername, param)
