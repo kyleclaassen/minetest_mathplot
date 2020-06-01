@@ -448,19 +448,19 @@ Maximum coordinate magnitude must be zero or greater.=L’amplitude maximale des
 
 # Chat message displayed upon executing "/mathplot respect_protected_areas".
 # @1 is set to the current value of mathplot.settings.respect_protected_areas.
-Respect protected areas is currently set to @1.=
+Respect protected areas is currently set to @1.=Respect des zones protégées à la construction actif : @1.
 
 # Chat message displayed upon executing "/mathplot respect_protected_areas b",
 # with a valid boolean value b (true|false).
-Respect protected areas set to @1.=
+Respect protected areas set to @1.=L’activation du respect des zones protégées à la construction est désormais : @1.
 
 # Chat message displayed if a non-boolean value b is passed
 # to "/mathplot respect_protected_areas b". @1 is set to the given string b.
-Invalid boolean specified: @1=
+Invalid boolean specified: @1=Booléen (true|false) spécifié invalide : @1
 
 # Chat message displayed upon executing "/mathplot setorigin" if position
 # is protected.
-Cannot set origin: area is protected.=
+Cannot set origin: area is protected.=Impossible de définir l'origine : La zone est protégée à la construction.
 
 # Chat message displayed if attempting to use a /mathplot chat command
 # to act on an origin node that can't be identified by location coordinates
