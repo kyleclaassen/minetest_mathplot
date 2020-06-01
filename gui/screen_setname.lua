@@ -8,7 +8,7 @@ mathplot.gui.screens["set_name"] = {
     get_formspec = function(playername, identifier, context)
         local loc = mathplot.get_origin_location_by_pos(context.node_pos)
         local nickname = loc ~= nil and loc.name or ""
-        local formspec = "size[5.25,2.5]"
+        local formspec = "size[4,2.5]"
         .. string.format("label[0,0;%s]", S("Set Name"))
         .. string.format("field[0.25,1;4,1;txt_name;;%s]", minetest.formspec_escape(nickname))
         formspec = formspec
