@@ -84,7 +84,7 @@ local function parse_and_validate(playername, identifier, fields, context)
     end
 
     if not mathplot.util.is_drawable_node(fields.nodename) then
-        e[#e+1] = S("'@1' is not a drawable node.", fields.nodename or "")
+        e[#e+1] = S("'@1' is not a drawable node.", tostring(fields.nodename))
     end
 
     if #e == 0 then

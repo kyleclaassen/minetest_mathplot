@@ -84,7 +84,7 @@ local function do_mathplot_respect_protected_areas(playername, param, action)
     param = string.trim(param)
     if #param == 0 then
         --Echo the current setting.
-        return true, S("Respect protected areas is currently set to @1.", tostring(mathplot.settings.respect_protected_areas) or "")
+        return true, S("Respect protected areas is currently set to @1.", tostring(mathplot.settings.respect_protected_areas))
     else
         if not mathplot.util.has_server_priv(playername) then
             return false, S("The 'server' privilege is required.")
@@ -96,7 +96,7 @@ local function do_mathplot_respect_protected_areas(playername, param, action)
             return false, S("Invalid boolean specified: @1", param)
         else
             mathplot.settings.respect_protected_areas = respect
-            return true, S("Respect protected areas set to @1.", tostring(mathplot.settings.respect_protected_areas) or "")
+            return true, S("Respect protected areas set to @1.", tostring(mathplot.settings.respect_protected_areas))
         end
     end
 end

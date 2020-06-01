@@ -255,7 +255,7 @@ mathplot.plot_parametric = function(params, playername)
     end
 
     if not mathplot.util.is_drawable_node(params.nodename) then
-        return false, S("'@1' is not a drawable node.", params.nodename or "")
+        return false, S("'@1' is not a drawable node.", tostring(params.nodename))
     end
 
     local protection_bypass = mathplot.util.has_protection_bypass_priv(playername)
@@ -351,41 +351,41 @@ mathplot.plot_parametric = function(params, playername)
 
     local ok, umin = UMIN()
     if not ok or tonumber(umin) == nil then
-        return false, S("Unable to determine @1: @2", S("u Min"), umin)
+        return false, S("Unable to determine @1: @2", S("u Min"), tostring(umin))
     end
     local ok, umax = UMAX()
     if not ok or tonumber(umax) == nil then
-        return false, S("Unable to determine @1: @2", S("u Max"), umax)
+        return false, S("Unable to determine @1: @2", S("u Max"), tostring(umax))
     end
     local ok, ustep = USTEP()
     if not ok or tonumber(ustep) == nil then
-        return false, S("Unable to determine @1: @2", S("u Step"), ustep)
+        return false, S("Unable to determine @1: @2", S("u Step"), tostring(ustep))
     end
     for u = umin, umax, ustep do
         local ok, vmin = VMIN(u)
         if not ok or tonumber(vmin) == nil then
-            return false, S("Unable to determine @1: @2", S("v Min"), vmin)
+            return false, S("Unable to determine @1: @2", S("v Min"), tostring(vmin))
         end
         local ok, vmax = VMAX(u)
         if not ok or tonumber(vmax) == nil then
-            return false, S("Unable to determine @1: @2", S("v Max"), vmax)
+            return false, S("Unable to determine @1: @2", S("v Max"), tostring(vmax))
         end
         local ok, vstep = VSTEP(u)
         if not ok or tonumber(vstep) == nil then
-            return false, S("Unable to determine @1: @2", S("v Step"), vstep)
+            return false, S("Unable to determine @1: @2", S("v Step"), tostring(vstep))
         end
         for v = vmin, vmax, vstep do
             local ok, wmin = WMIN(u, v)
             if not ok or tonumber(wmin) == nil then
-                return false, S("Unable to determine @1: @2", S("w Min"), wmin)
+                return false, S("Unable to determine @1: @2", S("w Min"), tostring(wmin))
             end
             local ok, wmax = WMAX(u, v)
             if not ok or tonumber(wmax) == nil then
-                return false, S("Unable to determine @1: @2", S("w Max"), wmax)
+                return false, S("Unable to determine @1: @2", S("w Max"), tostring(wmax))
             end
             local ok, wstep = WSTEP(u, v)
             if not ok or tonumber(wstep) == nil then
-                return false, S("Unable to determine @1: @2", S("w Step"), wstep)
+                return false, S("Unable to determine @1: @2", S("w Step"), tostring(wstep))
             end
             for w = wmin, wmax, wstep do
                 local ok, p2 = evaluate_parametric(e1, e2, e3, X, Y, Z, u, v, w)
@@ -444,7 +444,7 @@ local function satisfies_implicit_relation(F, x, y, z, xstep, ystep, zstep)
         local ok, f = F(x, y, z)
         local errormsg = nil
         if not ok then
-            errormsg = S("Error evaluating implicit relation: @1", f)
+            errormsg = S("Error evaluating implicit relation: @1", tostring(f))
         end
         return ok, f, errormsg
     end
