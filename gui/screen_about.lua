@@ -2,7 +2,7 @@ mathplot.gui.screens = mathplot.gui.screens or {}
 
 local S = mathplot.get_translator
 
-contributors = {
+local contributors = {
     { name = "Powi", email = "powi@powi.fr", contributions = { S("Implemented internationalization support and provided French translation") } },
 }
 
