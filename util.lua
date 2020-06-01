@@ -80,3 +80,20 @@ mathplot.util.has_server_priv = function(playername)
     return hasPriv
 end
 
+mathplot.util.has_protection_bypass_priv = function(playername)
+    local hasPriv = minetest.check_player_privs(playername, {protection_bypass=true})
+    return hasPriv
+end
+
+mathplot.util.toboolean = function(s)
+    s = string.lower(string.trim(s))
+    if s == "true" then
+        return true
+    elseif s == "false" then
+        return false
+    else
+        return nil
+    end
+end
+
+

@@ -57,13 +57,13 @@ local function parse_and_validate(playername, identifier, fields, context)
     end
 
     if not mathplot.util.is_drawable_node(p.xaxisbrush) then
-        e[#e+1] = S("x-axis brush '@1' is not a drawable node.", p.xaxisbrush or "")
+        e[#e+1] = S("x-axis brush '@1' is not a drawable node.", tostring(p.xaxisbrush))
     end
     if not mathplot.util.is_drawable_node(p.yaxisbrush) then
-        e[#e+1] = S("y-axis brush '@1' is not a drawable node.", p.yaxisbrush or "")
+        e[#e+1] = S("y-axis brush '@1' is not a drawable node.", tostring(p.yaxisbrush))
     end
     if not mathplot.util.is_drawable_node(p.zaxisbrush) then
-        e[#e+1] = S("z-axis brush '@1' is not a drawable node.", p.zaxisbrush or "")
+        e[#e+1] = S("z-axis brush '@1' is not a drawable node.", tostring(p.zaxisbrush))
     end
 
     if #e == 0 then

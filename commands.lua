@@ -10,7 +10,7 @@ minetest.register_privilege("mathplot", {
 
 local function do_mathplot_menu(playername, param)
     local context = {}
-    mathplot.gui.invoke_screen("mainmenu", playername, context)
+    mathplot.gui.invoke_screen("originlist", playername, context)
     return true, nil
 end
 
@@ -80,6 +80,27 @@ local function do_mathplot_max_coord(playername, param)
 end
 
 
+local function do_mathplot_respect_protected_areas(playername, param, action)
+    param = string.trim(param)
+    if #param == 0 then
+        --Echo the current setting.
+        return true, S("Respect protected areas is currently set to @1.", tostring(mathplot.settings.respect_protected_areas))
+    else
+        if not mathplot.util.has_server_priv(playername) then
+            return false, S("The 'server' privilege is required.")
+        end
+
+        --Change setting if valid parameter provided.
+        local respect = mathplot.util.toboolean(param)
+        if respect == nil then
+            return false, S("Invalid boolean specified: @1", param)
+        else
+            mathplot.settings.respect_protected_areas = respect
+            return true, S("Respect protected areas set to @1.", tostring(mathplot.settings.respect_protected_areas))
+        end
+    end
+end
+
 local function do_mathplot_open(playername, param, action)
     param = string.trim(param)
 
@@ -116,22 +137,33 @@ local function do_mathplot_open(playername, param, action)
     end
 end
 
+local function do_mathplot_setorigin(playername, param)
+    local player = minetest.get_player_by_name(playername)
+    local pos = player:get_pos()
+    local protection_bypass = mathplot.util.has_protection_bypass_priv(playername)
+    --Note: ignore the minetest.respect_protected_areas setting here, as this is "equivalent"
+    --to the user creating a node through the usual right-click mechanism.
+    if protection_bypass or not minetest.is_protected(pos, playername) then
+        minetest.set_node(pos, {name=mathplot.ORIGIN_NODE_NAME})
+    else
+        return false, S("Cannot set origin: area is protected.")
+    end
+end
+
 
 local subcommand_map = {
     menu = do_mathplot_menu,
     clearlist = do_mathplot_clearlist,
     timeout = do_mathplot_timeout,
     max_coord = do_mathplot_max_coord,
+    respect_protected_areas = do_mathplot_respect_protected_areas,
     open = function(playername, param)
         return do_mathplot_open(playername, param, "open")
     end,
     teleport = function(playername, param)
         return do_mathplot_open(playername, param, "teleport")
     end,
-    setorigin = function(playername, param)
-        local player = minetest.get_player_by_name(playername)
-        minetest.set_node(player:get_pos(), {name=mathplot.ORIGIN_NODE_NAME})
-    end
+    setorigin = do_mathplot_setorigin
 }
 
 local function do_mathplot(playername, param)

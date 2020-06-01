@@ -17,6 +17,9 @@ mathplot.settings.plot_timeout = mathplot.settings.plot_timeout * 1e6  --convert
 --Maximum coordinate (relative to origin) to protect against "runaway growth"
 mathplot.settings.max_coord = tonumber(minetest.settings:get("mathplot.max_coord")) or 600
 
+--Respect protected areas. Disabled by default for performance reasons.
+mathplot.settings.respect_protected_areas = minetest.settings:get_bool("mathplot.respect_protected_areas", false)
+
 ----------------------------------------------
 
 dofile(mathplot.MODPATH .. "/util.lua")
@@ -28,7 +31,7 @@ dofile(mathplot.MODPATH .. "/examples.lua")
 
 dofile(mathplot.MODPATH .. "/gui/gui.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_validation_errors.lua")
-dofile(mathplot.MODPATH .. "/gui/screen_mainmenu.lua")
+dofile(mathplot.MODPATH .. "/gui/screen_originlist.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_originmainmenu.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_draw_axes.lua")
 dofile(mathplot.MODPATH .. "/gui/screen_implicit_plot.lua")

@@ -193,11 +193,11 @@ local function to_world_coords(x, y, z, e1, e2, e3)
     return p
 end
 
-local function set_node(p, origin_pos, node, playername)
+local function set_node(p, origin_pos, node, playername, protection_bypass)
     p = mathplot.util.round_vector(p)
     if (p.x ~= 0 or p.y ~= 0 or p.z ~= 0)
     and mathplot.util.max_abs_coord(p) <= mathplot.settings.max_coord
-    and not minetest.is_protected(p, playername)
+    and (protection_bypass or not mathplot.settings.respect_protected_areas or not minetest.is_protected(p, playername))
     then
         local q = vector.add(origin_pos, p)
         minetest.set_node(q, node)
@@ -255,8 +255,10 @@ mathplot.plot_parametric = function(params, playername)
     end
 
     if not mathplot.util.is_drawable_node(params.nodename) then
-        return false, S("'@1' is not a drawable node.", params.nodename or "")
+        return false, S("'@1' is not a drawable node.", tostring(params.nodename))
     end
+
+    local protection_bypass = mathplot.util.has_protection_bypass_priv(playername)
 
     local varnamesStr = mathplot.parametric_argstr_display(params.varnames)
     local X, loaderror = make_safe_function(params.ftn_x, params.varnames)
@@ -349,41 +351,41 @@ mathplot.plot_parametric = function(params, playername)
 
     local ok, umin = UMIN()
     if not ok or tonumber(umin) == nil then
-        return false, S("Unable to determine @1: @2", S("u Min"), umin)
+        return false, S("Unable to determine @1: @2", S("u Min"), tostring(umin))
     end
     local ok, umax = UMAX()
     if not ok or tonumber(umax) == nil then
-        return false, S("Unable to determine @1: @2", S("u Max"), umax)
+        return false, S("Unable to determine @1: @2", S("u Max"), tostring(umax))
     end
     local ok, ustep = USTEP()
     if not ok or tonumber(ustep) == nil then
-        return false, S("Unable to determine @1: @2", S("u Step"), ustep)
+        return false, S("Unable to determine @1: @2", S("u Step"), tostring(ustep))
     end
     for u = umin, umax, ustep do
         local ok, vmin = VMIN(u)
         if not ok or tonumber(vmin) == nil then
-            return false, S("Unable to determine @1: @2", S("v Min"), vmin)
+            return false, S("Unable to determine @1: @2", S("v Min"), tostring(vmin))
         end
         local ok, vmax = VMAX(u)
         if not ok or tonumber(vmax) == nil then
-            return false, S("Unable to determine @1: @2", S("v Max"), vmax)
+            return false, S("Unable to determine @1: @2", S("v Max"), tostring(vmax))
         end
         local ok, vstep = VSTEP(u)
         if not ok or tonumber(vstep) == nil then
-            return false, S("Unable to determine @1: @2", S("v Step"), vstep)
+            return false, S("Unable to determine @1: @2", S("v Step"), tostring(vstep))
         end
         for v = vmin, vmax, vstep do
             local ok, wmin = WMIN(u, v)
             if not ok or tonumber(wmin) == nil then
-                return false, S("Unable to determine @1: @2", S("w Min"), wmin)
+                return false, S("Unable to determine @1: @2", S("w Min"), tostring(wmin))
             end
             local ok, wmax = WMAX(u, v)
             if not ok or tonumber(wmax) == nil then
-                return false, S("Unable to determine @1: @2", S("w Max"), wmax)
+                return false, S("Unable to determine @1: @2", S("w Max"), tostring(wmax))
             end
             local ok, wstep = WSTEP(u, v)
             if not ok or tonumber(wstep) == nil then
-                return false, S("Unable to determine @1: @2", S("w Step"), wstep)
+                return false, S("Unable to determine @1: @2", S("w Step"), tostring(wstep))
             end
             for w = wmin, wmax, wstep do
                 local ok, p2 = evaluate_parametric(e1, e2, e3, X, Y, Z, u, v, w)
@@ -394,11 +396,11 @@ mathplot.plot_parametric = function(params, playername)
 
                 if ok then
                     if params.connect and p1 ~= nil then
-                        set_node(p1, params.origin_pos, node, playername)
+                        set_node(p1, params.origin_pos, node, playername, protection_bypass)
                         --connect the nodes with a line
                         local clip, linepoints = mathplot.line_3d(p1, p2)
                         for _, p in ipairs(linepoints) do
-                            set_node(p, params.origin_pos, node, playername)
+                            set_node(p, params.origin_pos, node, playername, protection_bypass)
                         end
                         if clip then
                             p2 = nil
@@ -406,7 +408,7 @@ mathplot.plot_parametric = function(params, playername)
                     else
                         --set node, but don't draw line since there's
                         --no previous node to draw line to.
-                        set_node(p2, params.origin_pos, node, playername)
+                        set_node(p2, params.origin_pos, node, playername, protection_bypass)
                     end
                     p1 = p2
                 else
@@ -442,7 +444,7 @@ local function satisfies_implicit_relation(F, x, y, z, xstep, ystep, zstep)
         local ok, f = F(x, y, z)
         local errormsg = nil
         if not ok then
-            errormsg = S("Error evaluating implicit relation: @1", f)
+            errormsg = S("Error evaluating implicit relation: @1", tostring(f))
         end
         return ok, f, errormsg
     end
@@ -491,6 +493,8 @@ mathplot.plot_implicit = function(params, playername)
         return false, S("'@1' is not a drawable node.", params.nodename or "")
     end
 
+    local protection_bypass = mathplot.util.has_protection_bypass_priv(playername)
+
     local F, loaderror = make_safe_function(params.ftn, params.varnames)
     if loaderror ~= nil then
         local errormsg = S("Syntax error in relation: @1", loaderror)
@@ -514,7 +518,7 @@ mathplot.plot_implicit = function(params, playername)
                 local yes, errormsg = satisfies_implicit_relation(F, x, y, z, params.xstep, params.ystep, params.zstep)
                 if yes then
                     local p = to_world_coords(x, y, z, e1, e2, e3)
-                    set_node(p, params.origin_pos, node, playername)
+                    set_node(p, params.origin_pos, node, playername, protection_bypass)
                 elseif errormsg ~= nil then
                     minetest.log(errormsg)
                     return false, errormsg

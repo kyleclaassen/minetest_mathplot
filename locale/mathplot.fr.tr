@@ -10,18 +10,6 @@ OK=Ok
 # Button text
 Cancel=Annuler
 
-# Chat message displayed if attempting to use MathPlot functionality
-# without the mathplot privilege.
-The 'mathplot' privilege is required.=Requiert le privilège « mathplot ».
-
-# Chat message displayed if attempting to use MathPlot chat commands
-# that require the server privilege.
-The 'server' privilege is required.=Requiert le privilège « server ».
-
-# Chat message displayed when attempting to use "/mathplot teleport" without
-# having the teleport privilege.
-The 'teleport' privilege is required.=Requiert le privilège « teleport ».
-
 ################################################################################
 # Main Screen (gui/screen_originmainmenu.lua)
 ################################################################################
@@ -86,30 +74,30 @@ Plot node:=Block de tracé :
 #Captions for parameter min/max/step values
 u Min=u Min
 u Min:=u Min :
-u Max=u Max
-u Max:=u Max :
-u Step=Pas u
-u Step:=Pas u :
 v Min=v Min
 v Min:=v Min :
-v Max=v Max
-v Max:=v Max :
-v Step=Pas v
-v Step:=Pas v :
 w Min=w Min
 w Min:=w Min :
+x Min:=x Min :
+y Min:=y Min :
+z Min:=z Min :
+u Max=u Max
+u Max:=u Max :
+v Max=v Max
+v Max:=v Max :
 w Max=w Max
 w Max:=w Max :
+x Max:=x Max :
+y Max:=y Max :
+z Max:=z Max :
+u Step=Pas u
+u Step:=Pas u :
+v Step=Pas v
+v Step:=Pas v :
 w Step=Pas w
 w Step:=Pas w :
-x Min:=x Min :
-x Max:=x Max :
 x Step:=Pas x :
-y Min:=y Min :
-y Max:=y Max :
 y Step:=Pas y :
-z Min:=z Min :
-z Max:=z Max :
 z Step:=Pas z :
 
 #Caption for Implicit Plot relation field
@@ -219,9 +207,57 @@ Timeout exceeded.=Limite de temps dépassée.
 # Chat message displayed when a parametric or implicit plot completes.
 Total elapsed time: @1 seconds=Temps total écoulé : @1 secondes.
 
+
 ################################################################################
-# Screen: Other Nodes (gui/screen_mainmenu.lua)
-# (Access with "/mathplot" chat command.)
+# Node / Inventory Setup (nodes.lua)
+################################################################################
+
+# Default name of an origin node, which appears in the list of
+# origin nodes shown by the "/mathplot" chat command.
+Untitled Node=Block Sans Nom
+
+# Inventory description for the MathPlot origin node.
+MathPlot Origin Node=Block d’Origine MathPlot
+
+# Inventory description for the Origin Destroyer tool.
+MathPlot Origin Node Destroyer=Detruiseur de Block d’Origine MathPlot
+
+# Chat message displayed when attempting to dig an Origin node
+Use the 'MathPlot Origin Destroyer' tool to dig this node.=Utiliser l’outil « Détruiseur d’Origine MathPlot » pour creuser ce block.
+
+# Inventory description for MathPlot Translucent Glow Blocks
+# @1 is replaced with a color name (see list below).
+MathPlot @1 Translucent Glow Block=Block Luminescant Translucide @1 MathPlot
+
+# Inventory description for MathPlot glowing wool blocks.
+# @1 is replaced with a description of a default:wool node, e.g. "Red Wool".
+MathPlot Glowing @1=@1 Luminescant MathPlot
+
+# Inventory description for MathPlot colored glowing glass.
+# @1 is replaced with a color name (see list below).
+MathPlot Glowing @1 Glass=Verre @1 Luminescant MathPlot
+
+# Color names for various MathPlot colored nodes.
+Black=Noir
+Blue=Bleu
+Brown=Marron
+Cyan=Cyan
+Dark Green=Vert Foncé
+Dark Grey=Gris Foncé
+Green=Vert
+Grey=Gris
+Magenta=Magenta
+Orange=Orange
+Pink=Rose
+Red=Rouge
+Violet=Violet
+White=Blanc
+Yellow=Jaune
+
+
+################################################################################
+# Screen: Other Nodes (gui/screen_originlist.lua)
+# Or can access with the "/mathplot" chat command.
 ################################################################################
 
 # Title label for "Other Nodes" screen
@@ -249,31 +285,6 @@ Teleport=Téléporter
 ################################################################################
 
 # Note: title string same as "Set Name" button text.
-
-################################################################################
-# Screen: Serialize/Deserialize (gui/screen_serialize.lua)
-################################################################################
-
-# Load button text on Serialize/Deserialize screen
-Load=Charger
-
-# Caption on Serialize/Deserialize screen
-Serialized Node:=Block sérialisé :
-
-# Caption on Serialize/Deserialize screen
-Deserialize from JSON:=Désérialisé depuis le JSON :
-
-# Chat message displayed if deserialization is given invalid JSON string
-Invalid JSON.=JSON invalide.
-
-# Error message if attempting to serialize a non-origin node
-Non-MathPlot origin node at position @1=Le block à la position @1 n'est pas un block d'origine Mathplot
-
-# minetest.log() message upon successful deserialization
-mathplot: successfully deserialized JSON to node.=mathplot : JSON du block désérialisé avec succès
-
-# minetest.log() message upon failure to deserialize
-mathplot: failed to deserialize JSON to node: @1=mathplot : échec à la désérialisation du JSON du block
 
 
 ################################################################################
@@ -348,50 +359,29 @@ Implemented internationalization support and provided French translation=A impl�
 
 
 ################################################################################
-# Node Setup (nodes.lua)
+# Screen: Serialize/Deserialize (gui/screen_serialize.lua)
 ################################################################################
 
-# Default name of an origin node, which appears in the list of
-# origin nodes shown by the "/mathplot" chat command.
-Untitled Node=Block Sans Nom
+# Load button text on Serialize/Deserialize screen
+Load=Charger
 
-# Inventory description for the MathPlot origin node.
-MathPlot Origin Node=Block d’Origine MathPlot
+# Caption on Serialize/Deserialize screen
+Serialized Node:=Block sérialisé :
 
-# Inventory description for the Origin Destroyer tool.
-MathPlot Origin Node Destroyer=Detruiseur de Block d’Origine MathPlot
+# Caption on Serialize/Deserialize screen
+Deserialize from JSON:=Désérialisé depuis le JSON :
 
-# Chat message displayed when attempting to dig an Origin node
-Use the 'MathPlot Origin Destroyer' tool to dig this node.=Utiliser l’outil « Détruiseur d’Origine MathPlot » pour creuser ce block.
+# Chat message displayed if deserialization is given invalid JSON string
+Invalid JSON.=JSON invalide.
 
-# Inventory description for MathPlot Translucent Glow Blocks
-# @1 is replaced with a color name (see list below).
-MathPlot @1 Translucent Glow Block=Block Luminescant Translucide @1 MathPlot
+# Error message if attempting to serialize a non-origin node
+Non-MathPlot origin node at position @1=Le block à la position @1 n'est pas un block d'origine Mathplot
 
-# Inventory description for MathPlot glowing wool blocks.
-# @1 is replaced with a description of a default:wool node, e.g. "Red Wool".
-MathPlot Glowing @1=@1 Luminescant MathPlot
+# minetest.log() message upon successful deserialization
+mathplot: successfully deserialized JSON to node.=mathplot : JSON du block désérialisé avec succès
 
-# Inventory description for MathPlot colored glowing glass.
-# @1 is replaced with a color name (see list below).
-MathPlot Glowing @1 Glass=Verre @1 Luminescant MathPlot
-
-# Color names for various MathPlot colored nodes.
-Black=Noir
-Blue=Bleu
-Brown=Marron
-Cyan=Cyan
-Dark Green=VertVert Foncé
-Dark Grey=GrisGris Foncé
-Green=Vert
-Grey=Gris
-Magenta=Magenta
-Orange=Orange
-Pink=Rose
-Red=Rouge
-Violet=Violet
-White=Blanc
-Yellow=Jaune
+# minetest.log() message upon failure to deserialize
+mathplot: failed to deserialize JSON to node: @1=mathplot : échec à la désérialisation du JSON du block
 
 
 ################################################################################
@@ -403,6 +393,18 @@ Perform MathPlot functions=Effectuer les fonctions MathPlot.
 
 # "mathplot" privilege description
 Can use MathPlot functionality=Peut utiliser la fonctionnalité MathPlot
+
+# Chat message displayed if attempting to use MathPlot functionality
+# without the mathplot privilege.
+The 'mathplot' privilege is required.=Requiert le privilège « mathplot ».
+
+# Chat message displayed if attempting to use MathPlot chat commands
+# that require the server privilege.
+The 'server' privilege is required.=Requiert le privilège « server ».
+
+# Chat message displayed when attempting to use "/mathplot teleport" without
+# having the teleport privilege.
+The 'teleport' privilege is required.=Requiert le privilège « teleport ».
 
 # Chat message displayed if command "/mathplot xxxxx" is not recognized.
 # @1 is replaced with the subcommand string "xxxxx".
@@ -444,6 +446,22 @@ Invalid maximum coordinate magnitude specified: @1=Amplitude maximale des coordo
 # to "/mathplot max_coord n".
 Maximum coordinate magnitude must be zero or greater.=L’amplitude maximale des coordonnées doit être >@= 0.
 
+# Chat message displayed upon executing "/mathplot respect_protected_areas".
+# @1 is set to the current value of mathplot.settings.respect_protected_areas.
+Respect protected areas is currently set to @1.=
+
+# Chat message displayed upon executing "/mathplot respect_protected_areas b",
+# with a valid boolean value b (true|false).
+Respect protected areas set to @1.=
+
+# Chat message displayed if a non-boolean value b is passed
+# to "/mathplot respect_protected_areas b". @1 is set to the given string b.
+Invalid boolean specified: @1=
+
+# Chat message displayed upon executing "/mathplot setorigin" if position
+# is protected.
+Cannot set origin: area is protected.=
+
 # Chat message displayed if attempting to use a /mathplot chat command
 # to act on an origin node that can't be identified by location coordinates
 # nor by name. (E.g. "/mathplot open mynode")
@@ -463,5 +481,5 @@ Removing stale origin node at @1=Suppression des blocs d’origine obsolètes à
 # Miscellaneous
 ################################################################################
 
-# Error message that occurs if passing binary code to the the save function env.
+# Error message that occurs if passing binary code to the the safe function env.
 Binary code prohibited.=Code binaire interdit.

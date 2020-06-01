@@ -4,10 +4,12 @@ A creative-mode minetest mod that provides tools for constructing mathematical c
 
 ## Usage
 
-(More information coming Real Soon Now.)
-
 After enabling the mathplot mod in the world configuration menu, search "mathplot" in the inventory screen to find the "MathPlot Origin Node" (white background with picture of xyz-coordinate axes). After placing an Origin node and attempting to dig it, a menu with various options displays; see the "Examples" screen for some pre-defined curves/surfaces/solids!
 
 To destroy an Origin node, dig it using the "MathPlot Origin Node Destroyer" tool.  It looks like a a set of coordinate axes with a circle and line through it.
 
 More information and examples can be found [here](https://www.rose-hulman.edu/~claassen/coolstuff/minetest_mathplot/).
+
+## Contributors
+* [Powi](https://github.com/FirePowi) (powi@powi.fr)
+  + Implemented internationalization support and provided French translation.
